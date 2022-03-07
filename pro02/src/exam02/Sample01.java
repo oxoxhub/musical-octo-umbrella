@@ -3,6 +3,22 @@ package exam02;
 public class Sample01 {
 
 	public static void main(String[] args) {
+		
+		/* 메모리RAM 구조:
+		*
+		*	Static 영역 : static 예약어로 선정된 필드. 메소드가 저장되는 공간. 클래스 변수 등
+		*	HEAP 영역 : new연산자에 의해 동적으로 할당하고 저장되는 공간. 객체,배열 등
+		*	STACK 영역 : 메소드를 호출하면 자동생성 메소드 끝나면 자동 소멸. 지역변수, 매개변수, 메소드 호출 스택 등
+		*
+		*	참조값은 STACK에 저장
+		*	참조값의 값은 HEAP에 저장
+		*
+		*	GC (garbage collector) : 사용하지 않는 메모리 공간을 수집하여 소멸
+		*
+		*	System.out.print()
+		*	System.out.println() : 줄바꿈을 해주는 메소드
+		*/
+		
 		System.out.print("안녕하세요.");
 		System.out.print("반갑습니다.");
 		System.out.print("제 이름은 홍길동 입니다.");

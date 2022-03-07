@@ -25,7 +25,7 @@ public class Sample02 {
 		System.out.printf("%d - %d = %d\n", num1, num2, num1 - num2);
 		System.out.printf("%d * %d = %d\n", num1, num2, num1 * num2);
 		System.out.printf("%d / %d = %d\n", num1, num2, num1 / num2);
-		System.out.printf("%d / %d = %f\n", num1, num2, (double)num1 / num2);
+		System.out.printf("%d / %d = %f\n", num1, num2, (double)num1 / num2); //강제 형변환
 		System.out.printf("%d %% %d = %d\n", num1, num2, num1 % num2);
 		//나머지 연산자는 %%를 두번 써줘야한다.
 		

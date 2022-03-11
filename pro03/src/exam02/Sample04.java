@@ -16,12 +16,18 @@ public class Sample04 {
 			num = sc.nextInt();
 			
 			if(num >= 1 && num <= 5) {
+				if (num == 3) {
+					System.out.println("특정값 입니다.");
+				} else {
+					System.out.println("보통값입니다.");
+				}
 				break;
 			}
 			
 			if(i == 2) {
 				System.out.println("입력 횟수를 초과하였습니다.");
 			}
+			
 		}
 
 	}

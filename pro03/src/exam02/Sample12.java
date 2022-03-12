@@ -7,7 +7,7 @@ public class Sample12 {
 	public static void main(String[] args) {
 		/* 
 		 * 3. 사용자 입력한 영단어에서 대문자/소문자의 수를 구해서 출력한다.
-		 * "java programming" -> 대문자 2개, 소문자 13개
+		 * "Java Programming" -> 대문자 2개, 소문자 13개
 		 */
 		
 		Scanner sc = new Scanner(System.in);
@@ -25,5 +25,4 @@ public class Sample12 {
 		}
 		System.out.printf("대문자 %d개, 소문자 %d개 있습니다.", cnt1, cnt2);
 	}
-
 }

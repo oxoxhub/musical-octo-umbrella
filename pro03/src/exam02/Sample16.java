@@ -6,84 +6,77 @@ import java.util.Scanner;
 public class Sample16 {
 
 	public static void main(String[] args) {
-		
 		Scanner sc = new Scanner(System.in);
-		Random random = new Random();
+		Random rd = new Random();
+		String name = "", player = "", sCom = "";
+		int computer = 0;
+		int result = 0;
+		int wCnt = 0, dCnt = 0, lCnt = 0;
 		
-		System.out.print("당신의 이름을 입력해주세요 : ");
-		String name = sc.nextLine();
+		System.out.print("당신의 이름을 입력하세요. : ");
+		name = sc.nextLine();
 		
-		
-		int win=0, draw=0, lose=0;
-		
-		for(int i = 0; ; i++) {
+		for(;;) {
+			System.out.print("가위 바위 보 입력 : ");
+			player = sc.nextLine();
+			computer = rd.nextInt(3);	// 0(가위), 1(바위), 2(보)
 			
-			int com = random.nextInt(3)+1;
-			
-			System.out.print("가위바위보 : ");
-			String user = sc.nextLine();
-			
-
-			if(user.equals("가위")) {
-				if(com == 1) {
-					System.out.println("컴퓨터 : 가위");
-					System.out.printf("%s : %s\n", name, "가위");
-					System.out.println("비겼습니다.");
-					draw++;
-				} else if(com == 2) {
-					System.out.println("컴퓨터 : 바위");
-					System.out.printf("%s : %s\n", name, "가위");
-					System.out.println("졌습니다.");
-					lose++;
-				} else if(com == 3) {
-					System.out.println("컴퓨터 : 보");
-					System.out.printf("%s : %s\n", name, "가위");
-					System.out.println("이겼습니다.");
-					win++;
-				} 
-			} else if(user.equals("바위")) {
-				if(com == 1) {
-					System.out.println("컴퓨터 : 가위");
-					System.out.printf("%s : %s\n", name, "바위");
-					System.out.println("이겼습니다.");
-					win++;
-				} else if(com == 2) {
-					System.out.println("컴퓨터 : 바위");
-					System.out.printf("%s : %s\n", name, "바위");
-					System.out.println("비겼습니다.");
-					draw++;
-				} else if(com == 3) {
-					System.out.println("컴퓨터 : 보");
-					System.out.printf("%s : %s\n", name, "바위");
-					System.out.println("졌습니다.");
-					lose++;
-				}
-			} else if(user.equals("보")) {
-				if(com == 1) {
-					System.out.println("컴퓨터 : 가위");
-					System.out.printf("%s : %s\n", name, "보");
-					System.out.println("졌습니다.");
-					lose++;
-				} else if(com == 2) {
-					System.out.println("컴퓨터 : 바위");
-					System.out.printf("%s : %s\n", name, "보");
-					System.out.println("이겼습니다.");
-					win++;
-				} else if(com == 3) {
-					System.out.println("컴퓨터 : 보");
-					System.out.printf("%s : %s\n", name, "보");
-					System.out.println("비겼습니다.");
-					draw++;
-				}
-			} else if(user.equals("exit")) {
-				System.out.printf("%d전 %d승 %d무 %d패", i, win, draw, lose);
-				break;
-			} else {
-				i--;
-				System.out.println("잘못 입력하셨습니다.");
+			if(computer == 0) {
+				sCom = "가위";
+			} else if(computer == 1) {
+				sCom = "바위";
+			} else if(computer == 2) {
+				sCom = "보";
 			}
 			
-			System.out.println();
+			if(player.equals("exit")) {
+				System.out.printf("%d전 %d승 %d무 %d패", wCnt + dCnt + lCnt, wCnt, dCnt, lCnt);
+				break;
+			} else if(player.equals("가위") || player.equals("바위") || player.equals("보")) {
+				System.out.println("컴퓨터 : " + sCom);
+				System.out.println(name + " : " + player);
+				if(player.equals("가위")) {
+					if(computer == 0) {
+						result = 0;
+					} else if(computer == 1) {
+						result = -1;
+					} else if(computer == 2) {
+						result = 1;
+					}
+				} else if(player.equals("바위")) {
+					if(computer == 0) {
+						result = 1;
+					} else if(computer == 1) {
+						result = 0;
+					} else if(computer == 2) {
+						result = -1;
+					}
+				} else if(player.equals("보")) {
+					if(computer == 0) {
+						result = -1;
+					} else if(computer == 1) {
+						result = 1;
+					} else if(computer == 2) {
+						result = 0;
+					}
+				}
+				
+				switch(result) {
+					case -1:
+						System.out.println("졌습니다.");	
+						lCnt++; break;
+					case 0:
+						System.out.println("비겼습니다.");
+						dCnt++; break;
+					case 1:
+						System.out.println("이겼습니다.");
+						wCnt++;
+				}
+			} else {
+				System.out.println("잘못 입력했습니다. 다시 입력하세요.");
+			}
+			
+			
 		}
 	}
 

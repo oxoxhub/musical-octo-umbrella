@@ -60,7 +60,7 @@ public class Sample16 {
 				switch(result) {
 					case -1:
 						System.out.println("졌습니다.");
-						lCnt++;	break;
+						lCnt++;	break; //switch문은 break를 하지 않으면 case가 모두 출력되기때문에 입력해줬다.
 					case 0:
 						System.out.println("비겼습니다.");
 						dCnt++;	break;

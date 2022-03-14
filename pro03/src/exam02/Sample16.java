@@ -30,15 +30,15 @@ public class Sample16 {
 			}
 			
 			if(player.equals("exit")) {
-				System.out.printf("%d전 %d승 %d무 %d패", wCnt + dCnt + lCnt, wCnt, dCnt, lCnt);
+				System.out.printf("%d전 %d승 %d무 %d패\n", wCnt + dCnt + lCnt, wCnt, dCnt, lCnt);
 				break;
 			} else if(player.equals("가위") || player.equals("바위") || player.equals("보")) {
 				System.out.println("컴퓨터 : " + sCom);
 				System.out.println(name + " : " + player);
+				
+				result = 0;
 				if(player.equals("가위")) {
-					if(computer == 0) {
-						result = 0;
-					} else if(computer == 1) {
+					if(computer == 1) {
 						result = -1;
 					} else if(computer == 2) {
 						result = 1;
@@ -46,8 +46,6 @@ public class Sample16 {
 				} else if(player.equals("바위")) {
 					if(computer == 0) {
 						result = 1;
-					} else if(computer == 1) {
-						result = 0;
 					} else if(computer == 2) {
 						result = -1;
 					}
@@ -56,18 +54,16 @@ public class Sample16 {
 						result = -1;
 					} else if(computer == 1) {
 						result = 1;
-					} else if(computer == 2) {
-						result = 0;
 					}
 				}
 				
 				switch(result) {
 					case -1:
-						System.out.println("졌습니다.");	
-						lCnt++; break;
+						System.out.println("졌습니다.");
+						lCnt++;	break;
 					case 0:
 						System.out.println("비겼습니다.");
-						dCnt++; break;
+						dCnt++;	break;
 					case 1:
 						System.out.println("이겼습니다.");
 						wCnt++;

@@ -25,7 +25,7 @@ public class Sample03 {
 			
 			//문자열 배열의 값을 초기화 하지 않으면 문자열 관련 메서드를 사용할 때 에러 발생.
 			//java.lang.NullPointerException
-			System.out.println(arr3[i].length());
+//			System.out.println(arr3[i].length());
 		}
 		System.out.print("\n");
 		

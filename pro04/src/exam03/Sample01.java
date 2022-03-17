@@ -142,16 +142,16 @@ public class Sample01 {
 		*/
 		
 		// 세번째 방법
-		int[] arr4 = new int[0];
+		int[] arr4 = new int[0]; //짝수가 몇개 들어올지 모르니 동적배열로 처리하려고 0으로 선언해준다.
 		int[] arr5 = new int[0];
 		
 		for(int i = 0; i < arr1.length; i++) {
 			int[] temp;
 			
 			if(arr1[i] % 2 == 0) {
-				temp = new int[arr4.length + 1];
-				System.arraycopy(arr4, 0, temp, 0, arr4.length);
-				arr4 = temp;
+				temp = new int[arr4.length + 1]; //arr4는 인덱스가 하나도 없는 상태라서 +1해준다.
+				System.arraycopy(arr4, 0, temp, 0, arr4.length); //깊은 복사. 처음에는 복사할 값이 없다.
+				arr4 = temp; //얕은 복사. arr4에 인덱스 0이 생긴다. 값은 복사되지 않는다. 오로지 인덱스만 복사.
 				
 				arr4[arr4.length - 1] = arr1[i];
 			} else {

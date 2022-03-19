@@ -26,9 +26,12 @@ public class Sample06 {
 		System.out.println(Arrays.toString(arr2)); // [1, 2, 3, 4, 5]
 		System.out.println("-----------");
 		
-		//자바의 기본 기능을 사용한 깊은 복사
+		
+		
+		//자바의 기본 기능 arraycopy를 이용한 깊은 복사. 
+		//배열의 길이를 늘릴수도 줄일수도 있다.
 		int[] arr3 = new int[arr1.length]; //인덱스 길이 복사.
-		//arraycopy를 이용한 깊은 복사. 
+		
 		//arr1[0]부터 arr1 배열의 길이 만큼(5) arr3[0]에 저장된 값을 복사하겠다는 뜻이다.
 		System.arraycopy(arr1, 0, arr3, 0, arr1.length); 
 		
@@ -41,6 +44,9 @@ public class Sample06 {
 		}
 		
 		System.out.println("-----------");
+		
+		
+		
 		
 		//Arrays 객체를 사용한 깊은 복사
 		int[] arr4 = Arrays.copyOf(arr1, arr1.length + 3); //배열의 길이를 늘릴수도 줄일수도 있다. 줄일 때 for문 주의! 작은 값을 기준으로 출력해야한다.
@@ -58,6 +64,9 @@ public class Sample06 {
 		System.out.println("arr4[6] -> " + arr4[6]);
 		System.out.println("arr4[7] -> " + arr4[7]);
 		System.out.println("-----------");
+		
+		
+		
 		
 		//.clone() 메서드를 사용한 깊은 복사 
 		//값을 그대로 복사한다. 배열의 길이를 늘리거나 줄일수는 없다.

@@ -31,7 +31,7 @@ public class Sample01 {
 		 * 2. 1번 문제에서 생성한 첫번째 배열과 두번째 배열의 합을 구하여 새로운 세번째 배열을 만들고
 		 *    출력한다.
 		 */
-		int[] arr3 = arr1.clone();
+		int[] arr3 = arr1.clone(); //arr1의 값을 그대로 복사. 배열의 길이를 늘리거나 줄일수 없다.
 		
 		for(int i = 0; i < arr3.length; i++) {
 			arr3[i] += arr2[i];
@@ -81,15 +81,16 @@ public class Sample01 {
 			}
 		}
 		
-		arr4 = Arrays.copyOf(arr4, idx1);
-		arr5 = Arrays.copyOf(arr5, idx2);
+		//Arrays 객체를 사용한 깊은 복사
+		arr4 = Arrays.copyOf(arr4, idx1); // idx1는 짝수 값이 저장된 인덱스 수를 세어 그만큼 배열의 길이를 만들어준것.
+		arr5 = Arrays.copyOf(arr5, idx2); //홀수 값이 저장된 인덱스 수를 세어 그만큼 배열의 길이를 만들어준것.
 		*/
 		
 		// 두번째 방법
 		/*
 		int[] arr4;
 		int[] arr5;
-		int cnt1 = 0, cnt2 = 0;
+		int cnt1 = 0, cnt2 = 0; // 짝수, 홀수의 개수를 먼저 알아낸다.
 		for(int i = 0; i < arr1.length; i++) {
 			if(arr1[i] % 2 == 0) {
 				cnt1++;
@@ -110,23 +111,25 @@ public class Sample01 {
 			}
 		}
 		
-		arr4 = new int[cnt1];
+		arr4 = new int[cnt1]; //알아낸 짝수, 홀수의 개수만큼 배열의 길이를 만든다.
 		arr5 = new int[cnt2];
-		int idx1 = 0, idx2 = 0;
+		int idx1 = 0, idx2 = 0; //짝수, 홀수 배열의 인덱스를 카운트해야 차례대로 값이 저장된다.
 		
 		for(int i = 0; i < arr1.length; i++) {
 			if(arr1[i] % 2 == 0) {
 				arr4[idx1] = arr1[i];
-				idx1++;
+				idx1++;	//짝수값이 참이라면 arr4[0]에 값이 할당되고 다음에 올 짝수 값을 다음 arr4[인덱스]에 할당해야하기때문에 1씩 증가시켜준다.
 			} else {
 				arr5[idx2] = arr1[i];
 				idx2++;
 			}
 			
 			if(arr2[i] % 2 == 0) {
+				//만약 위에서 짝수값이 참이었다면 idx1는 1이 증가되어 0->1로 초기화된다.
+				//즉, arr4[1]로 할당된다.
 				arr4[idx1] = arr2[i];
-				idx1++;
-			} else {
+				idx1++;	
+			} else {	
 				arr5[idx2] = arr2[i];
 				idx2++;
 			}
@@ -195,13 +198,17 @@ public class Sample01 {
 		System.out.println("\t" + Arrays.toString(arr4));
 		System.out.println("\t" + Arrays.toString(arr5));
 		
+		
 		/*
 		 * 4. 짝수/홀수 배열에 있는 값들중 중복된 값이 있는 경우 하나의 값만 남겨 새로운 배열로 만들고 출력한다.
 		 */
+		
 		int[] arr6 = new int[0];
 		int[] arr7 = new int[1];
 		
-		for(int i = 0; i < arr4.length - 1; i++) {
+		//만약 arr4의 길이가 4라면 arr4[3]은 마지막 인덱스라 뒤에 비교할 인덱스가 없기때문에 에러가 난다.
+		//그래서 i < arr4.length - 1 은 마지막에 자기자신을 빼주는 것.
+		for(int i = 0; i < arr4.length - 1; i++) {	
 			if(arr4[i] != -1) {
 				for(int j = i + 1; j < arr4.length; j++) {
 					if(arr4[i] == arr4[j]) {

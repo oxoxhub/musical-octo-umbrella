@@ -29,10 +29,9 @@ public class Sample06 {
 		
 		
 		//자바의 기본 기능 arraycopy를 이용한 깊은 복사. 
-		//배열의 길이를 늘릴수도 줄일수도 있다.
 		int[] arr3 = new int[arr1.length]; //인덱스 길이 복사.
 		
-		//arr1[0]부터 arr1 배열의 길이 만큼(5) arr3[0]에 저장된 값을 복사하겠다는 뜻이다.
+		//arr1[0]부터 arr1 배열의 길이 만큼(5) 저장된 값을 arr3[0]에 복사하겠다는 뜻이다.
 		System.arraycopy(arr1, 0, arr3, 0, arr1.length); 
 		
 		System.out.println(Arrays.toString(arr3)); // [1, 2, 3, 4, 5]

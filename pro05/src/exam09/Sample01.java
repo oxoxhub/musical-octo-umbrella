@@ -20,6 +20,8 @@ public class Sample01 {
 		System.out.println("반지름 : " + c1.getRadius());
 		System.out.println("지름 : " + c1.getDiamiter());
 		
+		System.out.println();
+		
 		c1.setRadius(5);
 		
 		System.out.println("원의 넓이 : " + c1.getArea());

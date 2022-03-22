@@ -40,7 +40,7 @@ public class Circle {
 	}
 	
 	//_언더바를 붙인 이유는 구분하기 위해서이고 필수는 아니다.
-	private void _area() {
+	private void _area() { //
 		area = _PI * radius * radius;
 	}
 	

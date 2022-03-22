@@ -7,6 +7,7 @@ public class Constructor {
 	//생성자가 없으면 자동으로 추가해주지만 다른 생성자가 하나라도 있으면 자동으로 추가되지 않는다.
 	public Constructor() {}
 	
+	
 	//매개변수가 있는 생성자
 	public Constructor(int num1) {
 		

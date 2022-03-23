@@ -34,17 +34,17 @@ public class Page {
 		}
 	}
 	
-	//책 페이지 이동하기
+	//원하는 책 페이지로 이동하기
 	
 	public void nextPage() {
-		if(!existsNextPage()) {
+		if(!existsNextPage()) { //existsNextPage() 리턴 값이 false 라면
 			System.out.println("더 이상 책의 페이지를 넘길 수 없습니다.");
 		} else {
-			this.pageNumber++;
+			this.pageNumber++; //existsNextPage() 리턴 값이 true 라면
 		}
 	}
 	
-	public void nextPage(int count) {
+	public void nextPage(int count) { //n장 넘길 수 있는 메서드
 		if(!existsNextPage(count)) {
 			System.out.println("더 이상 책의 페이지를 넘길 수 없습니다.");
 		} else {
@@ -52,7 +52,7 @@ public class Page {
 		}
 	}
 	
-	//다음 페이지
+	//다음 페이지로 넘기는 메서드
 	
 	public void prevPage() {
 		if(!existsPrevPage()) {
@@ -70,8 +70,10 @@ public class Page {
 		}
 	}
 	
+	//이전 페이지로 넘기는 메서드
+	
 	public boolean existsNextPage() {
-		if(pageNumber + 1 <= limitPageNumber) {
+		if(pageNumber + 1 <= limitPageNumber) { //+1은 넘길수있다면을 가정해야하기때문이다.
 			return true;
 		} else {
 			return false;
@@ -86,6 +88,9 @@ public class Page {
 		}
 	}
 	
+	//다음 페이지로 넘길 수 있는 아닌지 확인하는 메서드
+	
+	
 	public boolean existsPrevPage() {
 		if(pageNumber - 1 >= 1) {
 			return true;
@@ -95,10 +100,12 @@ public class Page {
 	}
 	
 	public boolean existsPrevPage(int count) {
-		if(pageNumber - count >= 1) {
+		if(pageNumber - count >= 1) { //-n장 뒤로 넘기는 메서드
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	//이전 페이지로 넘길 수 있는 아닌지 확인하는 메서드
 }

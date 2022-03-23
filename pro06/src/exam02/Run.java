@@ -33,7 +33,7 @@ public class Run {
 		System.out.println(report.getGrade("사회"));
 		
 		System.out.println(Arrays.toString(report.getSubjects()));
-		report.remove(2);
+		report.remove(2); //subject[2]의 과목정보와 grades[2]의 점수정보를 삭제하겠다는 뜻
 		System.out.println(Arrays.toString(report.getSubjects()));
 		report.remove("과학");
 		System.out.println(Arrays.toString(report.getSubjects()));

@@ -66,15 +66,18 @@ public class ReportGrade {
 	
 	public void remove(String subject) {
 		//기본 배열에 저장되어있는 과목 정보와 점수 정보를 삭제.
+		//배열에 없는 과목명의 경우. "해당 과목이 존재하지 않습니다." 출력
+		
+		//매개변수 subject을 넣으면 그 과목의 인덱스를 다른 메소드를 통해 리턴 받은 뒤 index에 저장하고
 		int index = this._findIndex(subject);
 		
 		if(index == -1) {
 			System.out.println("해당 과목이 존재하지 않습니다.");
 		}
 		
+		//매개변수 subject가 index가 사용자가 삭제를 원하는 인덱스로 변하여
+		//remove 메소드를 통해 특정 인덱스를 삭제한다.
 		this.remove(index);
-		
-		//배열에 없는 과목명의 경우. "해당 과목이 존재하지 않습니다." 출력
 	}
 	
 	public void remove(int index) {
@@ -90,6 +93,12 @@ public class ReportGrade {
 		double[] temp2 = new double[this.grades.length - 1];
 		int idx = 0;
 		
+		// 변수 i는 배열 subjects에 담긴 과목을 가져오는 것이고
+		// 변수 idx는 임시배열의 인덱스이고
+		// index는 사용자가 삭제를 원하는 인덱스이고
+		// subjects에 있는 i와 사용자가 원하는 index 값이 같으면 
+		// subjects 값을 임시배열에 담지않고 if문이 끝나고 
+		// i의 값만 증가되어서(다음 subjects의 값을 담아야하니까) for문이 다시 반복된다(임시배열에 담아야해서)
 		for(int i = 0; i < this.subjects.length; i++) {
 			if(i != index) {
 				temp1[idx] = this.subjects[i];
@@ -97,6 +106,8 @@ public class ReportGrade {
 				idx++;
 			}
 		}
+		
+		//그 후 임시배열에 담긴 배열을 얕은 복사 해준다.
 		this.subjects = temp1;
 		this.grades = temp2;
 	}

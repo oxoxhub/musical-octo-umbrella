@@ -1,6 +1,7 @@
 package exam05;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
@@ -15,11 +16,66 @@ public class Main {
 		 *        만든다. 
 		 */
 		GradeList datas = new GradeList();
-		datas.add(new Grade("국어", 67.8));
-		System.out.println("국어 : " + datas.getScore("국어"));
+		datas.add("영어", 56);
+		datas.add("국어", 37);
+		datas.add("수학", 67);
+		datas.add("과학", 39);
 		
-		Grade g = datas.getGrade(0);
-		g.setName("영어");	g.setScore(78.7);
-		System.out.println("영어 : " + g.getScore());
+		System.out.println(Arrays.toString(datas.getUnder()));
+		System.out.println(Arrays.toString(datas.getUnder(60)));
+		System.out.println(datas.getTop());
+		System.out.println(Arrays.toString(datas.getTop(2)));
+		System.out.println(datas.getBottom());
+		System.out.println(Arrays.toString(datas.getBottom(2)));
+		datas.sort(false);
+		
+		for(int i = 0; i < datas.length(); i++) {
+			System.out.println(datas.getName(i) + ":" + datas.getScore(i));
+		}
+		
+		Scanner sc = new Scanner(System.in);
+		GradeList gList = new GradeList();
+		
+		while(true) {
+			do {
+				System.out.println("1. 조회");
+				System.out.println("2. 추가");
+				System.out.println("3. 수정");
+				System.out.println("4. 삭제");
+				System.out.println("9. 종료");
+				System.out.print(": ");
+			} while(!sc.hasNextInt());
+			
+			int menu = sc.nextInt();	sc.nextLine();
+			
+			switch(menu) {
+				case 1:
+					System.out.println("조회 기능 수행");
+					break;
+				case 2:
+					System.out.println("추가 기능 수행");
+					break;
+				case 3:
+					System.out.println("수정 기능 수행");
+					break;
+				case 4:
+					System.out.println("삭제 기능 수행");
+					break;
+				case 9:
+					System.out.println("프로그램 종료");
+					System.exit(0);
+			}
+			System.out.println("\n\n\n\n\n");
+		}
+		
+		
+//		datas.add(new Grade("국어", 67.8));
+//		System.out.println("국어 : " + datas.getScore("국어"));
+//		
+//		Grade g = datas.getGrade(0);
+//		g.setName("영어");	g.setScore(78.7);
+//		System.out.println("영어 : " + g.getScore());
+		
+		
 	}
 }

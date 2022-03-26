@@ -6,14 +6,12 @@ public class Student {
 	 * 	이름 나이, 학년, 반 정보를 관리하는 클래스이다.
 	 */
 	
-	public Student() {}
-	
 	private String name; //이름
 	private int age;	//나이
 	private int grade;	//학년
 	private int group;	//반
 	
-	
+	public Student() {}
 	
 	public Student(int grade, int group) {
 		this.grade = grade;

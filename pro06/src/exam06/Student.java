@@ -19,10 +19,9 @@ public class Student {
 	}
 
 	public Student(String name, int age, int grade, int group) {
+		this(grade,group);
 		this.name = name;
 		this.age = age;
-		this.grade = grade;
-		this.group = group;
 	}
 	
 	

@@ -83,11 +83,9 @@ public class StudentList {
 		String[] result = new String[0];
 		
 		for(int i = 0; i < length(); i++) {
-			if(this.sList[i].getGrade() == grade) {
-				if(this.sList[i].getGroup() == group) {
+			if(this.sList[i].getGrade() == grade && this.sList[i].getGroup() == group) {
 					result = Arrays.copyOf(result, result.length +1 );
 					result[result.length - 1] = this.sList[i].getName();
-				}
 			}
 		}
 		return result;

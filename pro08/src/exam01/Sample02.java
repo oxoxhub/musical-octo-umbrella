@@ -51,7 +51,7 @@ public class Sample02 {
 			if(sArr.length != 3) {
 				//continue문은 반복문인 for, while, do-while문 에서만 사용된다.
 				//for문에서는 증감식
-				//while, do-while문에서는 조선식으로 이동한다.
+				//while, do-while문에서는 조건식으로 이동한다.
 				continue;
 			}
 			
@@ -115,10 +115,10 @@ public class Sample02 {
 
 	public static void main(String[] args) {
 		Sample02 s2 = new Sample02();
-		s2.ex01();
+		//s2.ex01();
 		// s2.ex02();
 		// s2.ex03();
-		// s2.ex04();
+		 s2.ex04();
 	}
 
 }

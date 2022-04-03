@@ -14,6 +14,7 @@ public class Sample04 {
 		
 		System.out.println("토큰 수 : " + token.countTokens());
 		
+		//배열에 담는 것을 생략한다.
 		while(token.hasMoreTokens()) {
 			System.out.println(token.nextToken());
 		}

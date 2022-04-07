@@ -14,7 +14,7 @@ public class Sample06 {
 		 *     - 시스템으로 부터 현재 날짜, 시간 정보를 가져와서 사용할 수 있게 만들어진 클래스
 		 */
 		Date date = new Date();
-		System.out.println(date);
+		System.out.println("1." + date);
 		
 		System.out.println(date.getTime());
 		

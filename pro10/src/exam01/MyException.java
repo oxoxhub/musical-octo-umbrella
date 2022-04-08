@@ -1,6 +1,7 @@
 package exam01;
 
 public class MyException {
+	
 		public void exceptionThrows() throws UserDefineException{
 			exceptionRun();
 		}
@@ -11,6 +12,7 @@ public class MyException {
 			} catch(UserDefineException e) {
 				System.out.println("에러 처리함.");
 				e.printStackTrace();
+				System.out.println("에러나는중");
 			}
 		}
 		

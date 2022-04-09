@@ -83,7 +83,7 @@ public class Sample06 {
 		
 		
 		/*
-		 * GregorianCalendar 클래스
+		 * GregorianCalendar 클래스 
 		 *     - Calendar 클래스를 상속하여 사용하는 클래스
 		 */
 		GregorianCalendar g = new GregorianCalendar();

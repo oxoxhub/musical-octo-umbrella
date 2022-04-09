@@ -22,6 +22,8 @@ public class DatabaseManager implements ImplDatabaseManager {
 					new Grade("국어"), new Grade("영어"), new Grade("수학"), new Grade("과학")
 			});
 		}
+		
+		datas[0].getGrades()[0].setLevel('A');
 	}
 			
 	@Override

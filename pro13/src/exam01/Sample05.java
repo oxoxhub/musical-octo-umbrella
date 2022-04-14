@@ -18,6 +18,7 @@ public class Sample05 {
 		File f = new File("C:/Users/YULH/file_test.txt");
 		
 		//인자로 true 하면 덮어쓰기가 아니고 이어쓰기가 된다.
+		//try (FileWriter fw = new FileWriter(f, true))
 		try (FileWriter fw = new FileWriter(f)){	// fw.close(); 를 쓰거나
 			
 			fw.write(65);	//아스키 코드

@@ -33,8 +33,11 @@ public class Sample01 {
 			sArr[i] = Integer.valueOf(iArr[i]).toString();		// 기본자료형 정수값을 문자열로 변형
 		}
 		
+		String s = "한글 문자열";
+		
 		try(FileWriter fw = new FileWriter(f)){
 			fw.write(String.join(" ", sArr));	
+			fw.write(String.format("\n%s", s));
 			fw.flush();
 		}  catch (FileNotFoundException e) {
 			System.out.println("해당 파일을 찾지 못하였습니다.");
@@ -60,14 +63,14 @@ public class Sample01 {
 				System.arraycopy(buff, 0, data, data.length - rSize, rSize);
 			}
 			
-			StringTokenizer st = new StringTokenizer(new String(data), " ");
-			int[] iArr2 = new int[st.countTokens()];
-			int i = 0;
-			while(st.hasMoreTokens()) {
-				iArr2[i++] = Integer.parseInt(st.nextToken());  // 기본자료형 정수값을 문자열로 변형
-			}
-			System.out.println(Arrays.toString(iArr2));
-//			System.out.println(data);
+//			StringTokenizer st = new StringTokenizer(new String(data), " ");
+//			int[] iArr2 = new int[st.countTokens()];
+//			int i = 0;
+//			while(st.hasMoreTokens()) {
+//				iArr2[i++] = Integer.parseInt(st.nextToken());  // 기본자료형 정수값을 문자열로 변형
+//			}
+//			System.out.println(Arrays.toString(iArr2));
+			System.out.println(data);
 			
 		}  catch (FileNotFoundException e) {
 			System.out.println("해당 파일을 찾지 못하였습니다.");

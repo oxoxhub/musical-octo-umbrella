@@ -20,29 +20,47 @@ public class Sample02 {
 			FileInputStream fis = new FileInputStream(f);	//FileNotFoundException
 			
 			/*
+			 * 기본
+			 * 
 			while(true) {
 				int i = fis.read();	//IOException
 				//스트림을 통해 읽은 데이터가 -1이 아니면 바이트 데이터이다.
-				if(i == -1) {	//the next byte of data, or -1 if the end of thefile is reached.
+				if(i == -1) {	//the next byte of data, or -1 if the end of the file is reached.
 					break;
 				}
-				System.out.print((char)i);
+				System.out.print((char)i);	// i의 값이 아스키코드로 출력된다. char로 형변환해주면 문자가 나온다.
 			}
 			*/
 			
-			byte[] buffer = new byte[4];		//괄호안에 지정한 숫자 크기만큼 바이트를 읽는다.
+			/*
+			 * 1바이트씩 읽고 저장하는 방식
+			 * 한글을 읽기위해서는 스트링에 담고 출력해야한다.
+			 * 
 			byte[] bytes = new byte[0];		// 한글 읽기위한 배열 활용
 			while(true) {
-				int i = fis.read(buffer);	//IOException
+				int i = fis.read();	//IOException
 				//스트림을 통해 읽은 데이터가 -1이 아니면 바이트 데이터이다.
-				if(i == -1) {	//the next byte of data, or -1 if the end of thefile is reached.
+				if(i == -1) {	//the next byte of data, or -1 if the end of the file is reached.
+					break;
+				}
+				bytes = Arrays.copyOf(bytes, bytes.length +1);	// 한글 읽기위한 배열 활용
+				bytes[bytes.length -1 ] = (byte)i;	// 한글 읽기위한 배열 활용
+			}
+			System.out.println(new String(bytes)); //스트링에 바이트배열로 받는 것이 존재한다.
+			*/
+			
+			
+			byte[] buffer = new byte[4];		//괄호안에 지정한 숫자 크기만큼 배열이 만들어지고 길이만큼 바이트를 읽는다.
+			byte[] bytes = new byte[0];		// 한글 읽기위한 배열 활용
+			while(true) {
+				int i = fis.read(buffer);	//괄호안에 지정한 숫자 크기만큼 바이트를 읽는다. i = 4;
+				//스트림을 통해 읽은 데이터가 -1이 아니면 바이트 데이터이다.
+				if(i == -1) {	//the next byte of data, or -1 if the end of the file is reached.
 					break;
 				}
 				bytes = Arrays.copyOf(bytes, bytes.length +i);
 				System.arraycopy(buffer, 0, bytes, bytes.length - i , i);
 				
-//				bytes = Arrays.copyOf(bytes, bytes.length +1);	// 한글 읽기위한 배열 활용
-//				bytes[bytes.length -1 ] = (byte)i;	// 한글 읽기위한 배열 활용
 			}
 			System.out.println(new String(bytes));
 			

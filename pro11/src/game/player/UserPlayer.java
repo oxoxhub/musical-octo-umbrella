@@ -11,10 +11,20 @@ import game.record.Record;
 public class UserPlayer implements Player {
 	
 	private Random rand = new Random();
+	private String name;
 	private Hand hand;
 	private Record record = new Record();
 	private int loseCont;
 	private int cheatCnt;
+	
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 
 	@Override
 	public void randomCardHand() {
@@ -80,6 +90,14 @@ public class UserPlayer implements Player {
 	
 	public int getCheatCnt() {
 		return cheatCnt;
+	}
+
+	public void setRecord(int[] record) {
+		this.record.setRecord(record);
+	}
+
+	public int[] getRecord() {
+		return this.record.getScore();
 	}
 
 }

@@ -8,6 +8,7 @@ public class SettingMenu {
 
 	private Scanner sc = new Scanner(System.in);
 	private PenaltyDatabase pDB = new PenaltyDatabase();
+	//PenaltyDatabase 인스턴스 생성과 동시에 데이터를 읽어온다
 	
 	public void show() {
 		String menu = "";
@@ -109,9 +110,12 @@ public class SettingMenu {
 	}
 	
 	private String penaltyListUp() {
+		//리턴받은 문자열을 data 변수에 할당
 		String data = pDB.load();
+		//그 후 다시 개행을 기준으로 나눠서 String배열에 담아준다.
 		String[] listUp = data.split("\n");
 		
+		//각 문자열에 넘버링을 부여해준다.
 		String res = "";
 		for(int i = 0; i < listUp.length; i++) {
 			res += String.format("%d. %s\n", i+1, listUp[i]);

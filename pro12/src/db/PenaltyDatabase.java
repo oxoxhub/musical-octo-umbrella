@@ -14,6 +14,7 @@ public class PenaltyDatabase {
 	private String[] datas;
 	
 	public PenaltyDatabase() {
+		//기본생성자로 _load()를 호출
 		this._load();
 	}
 	
@@ -44,6 +45,8 @@ public class PenaltyDatabase {
 
 	
 	public String load() {
+		//기본생성자로 _load()를 호출해 파일을 읽고 String[] datas에 데이터 입력
+		//String배열로 저장된 문자열을 한줄로 합쳐주고 리턴하기
 		return String.join("\n", datas);
 	}
 

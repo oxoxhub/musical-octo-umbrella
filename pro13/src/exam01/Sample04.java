@@ -24,6 +24,8 @@ public class Sample04 {
 			char[] chars = new char[0];
 			
 			while(true) {
+				//buffer에 buffer의 배열길이(4) 만큼 파일(f)의 char타입 데이터를 저장한다.
+				//i는 buffer의 길이인 4가 된다.
 				int i = fr.read(buffer);
 				if(i == -1) {
 					break;

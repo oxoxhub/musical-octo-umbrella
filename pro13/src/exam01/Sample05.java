@@ -12,14 +12,18 @@ public class Sample05 {
 		/*
 		 * FileWriter
 		 * 	- 문자 기반 스트림으로 문자 단위로 파일을 쓴다.
-		 * 	- 보통 텍스트 파일을 읽기 위해 사용
+		 * 	- 보통 텍스트 파일을 쓰기 위해 사용
 		 */
 		
-		File f = new File("C:/Users/YULH/file_test.txt");
+//		File f = new File("C:/Users/YULH/file_test.txt");
+		FileWriter fw = null;
 		
 		//인자로 true 하면 덮어쓰기가 아니고 이어쓰기가 된다.
 		//try (FileWriter fw = new FileWriter(f, true))
-		try (FileWriter fw = new FileWriter(f)){	// fw.close(); 를 쓰거나
+//		try (FileWriter fw = new FileWriter(f)){	// fw.close(); 를 쓰거나
+		
+		try {
+			fw = new FileWriter("C:/Users/YULH/file_test.txt", true);
 			
 			fw.write(65);	//아스키 코드
 			

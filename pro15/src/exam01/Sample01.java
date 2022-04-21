@@ -64,8 +64,9 @@ public class Sample01 {
 
 	public static void main(String[] args) {
 		/*
-		 * List 컬렉션 - ArrayList
-		 * 	:순서를 유지하고 저장, 중복 저장 가능
+		 * List 컬렉션
+		 *	- 순서를 유지하고 저장, 중복 저장 가능
+		 *	- 자손 ArrayList, LinkedList(성능이 제일 좋다), Vector(성능이 제일 나쁨) 클래스
 		 */
 		
 		List<Integer> aList = new ArrayList<Integer>();

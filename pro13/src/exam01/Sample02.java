@@ -1,4 +1,4 @@
-package exam01;
+	package exam01;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,6 +54,9 @@ public class Sample02 {
 			byte[] bytes = new byte[0];		// 한글 읽기위한 배열 활용
 			while(true) {
 				int i = fis.read(buffer);	//괄호안에 지정한 숫자 크기만큼 바이트를 읽는다. i = 4;
+				//	int read( byte[] b )
+				//	: byte[] b 만큼의 데이터를 읽어서 b에 저장하고 읽은 바이트 수를 반환한다.
+
 				//스트림을 통해 읽은 데이터가 -1이 아니면 바이트 데이터이다.
 				if(i == -1) {	//the next byte of data, or -1 if the end of the file is reached.
 					break;

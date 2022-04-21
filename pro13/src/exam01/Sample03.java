@@ -14,7 +14,7 @@ public class Sample03 {
 		 * 	- 미디어, 이미지, 텍스트 파일 등 모든 종류의 파일 쓰기 가능
 		 */
 		
-		File f = new File("C:/Users/YULH/file_test.txt");
+		File f = new File("C:/Users/YULH/bytefile_test.txt");
 		
 		//인자로 true 하면 덮어쓰기가 아니고 이어쓰기가 된다.
 		try (FileOutputStream fos = new FileOutputStream(f, true)){	// fos.close(); 를 쓰거나

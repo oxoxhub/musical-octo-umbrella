@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-class Person {
+class Person implements Comparable<Person> {
 	private String name;
 	private int age;
 	
@@ -36,6 +36,28 @@ class Person {
 		return "Person [name=" + name + ", age=" + age + "]";
 	}
 	
+
+	@Override
+	public int compareTo(Person o) {
+		//compareTo() : 두 문자열을 사전순으로 비교합니다. 비교는 문자열에 있는 각 문자의 유니코드 값을 기반으로 합니다. 
+		if(this.getName().compareTo(o.getName()) > 0) {		// >,< 반대로할시 내림차순
+			//이 String 객체가 사전식으로 인수 문자열을 따르는 경우 결과는 양의 정수입니다. 
+			return 1;
+		} else if(this.getName().compareTo(o.getName()) < 0) {		// >,< 반대로할시 내림차순
+			//이 String이 객체 사전순으로 인수 문자열보다 선행하는 경우 결과는 음의 정수입니다. 
+			return -1;
+		} else {
+			if(this.getAge() < o.getAge()) {	// >,< 반대로할시 내림차순
+				return -1;
+			} else if(this.getAge() > o.getAge()) {	// >,< 반대로할시 내림차순
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
+
+	
 }
 
 public class Sample01 {
@@ -45,17 +67,22 @@ public class Sample01 {
 		 * List 컬렉션 - ArrayList
 		 * 	:순서를 유지하고 저장, 중복 저장 가능
 		 */
-		List<Integer> aList = new ArrayList<Integer>();
 		
-		//add : 주어진 객체를 맨 끝에 추가
-		aList.add(100);
+		List<Integer> aList = new ArrayList<Integer>();
+		//List<Integer> aList = new Vector<Integer>();
+		//List<Integer> aList = new LinkedList<Integer>();
+		
+		//boolean add : 주어진 객체를 맨 끝에 추가
+		//추가에 성공하면 true 실패하면 false
+		boolean bol = aList.add(100);
+		System.out.println(bol);
 		System.out.println(aList);
 		aList.add(200);
 		System.out.println(aList);
 		aList.add(300);
 		System.out.println(aList);
 		
-		//add(인덱스, 값) :원하는 인덱스에 객체를 저장
+		//void add(인덱스, 값) :원하는 인덱스에 객체를 저장
 		aList.add(2, 400);
 		System.out.println(aList);
 		
@@ -63,7 +90,8 @@ public class Sample01 {
 		bList.add(500); bList.add(600); bList.add(700);
 		System.out.println(bList);
 		
-		//addAll : 주어진 Collection타입 객체를 리스트에 추가
+		//boolean addAll(Collection c) : 주어진 Collection타입 객체를 리스트에 추가
+		//boolean addAll(int index, Collection c) : 원하는 위치에 추가할수도있다.
 		aList.addAll(bList);
 		System.out.println(aList);
 		
@@ -74,21 +102,31 @@ public class Sample01 {
 		result1 = aList.set(3, 450);
 		System.out.println(result1 + " | " + aList);
 		
-		//contains : aList 객체에 중복이 있나 없나, 주어진 객체가 저장되어 있는지 여부
+		//contains : 배열에 중복이 있나 없나, 주어진 객체가 저장되어 있는지 여부
+		//없으면 false 있으면 true
 		//Integer객체 100이라고하는 값이 aList에 포함되어있냐 없냐
 		boolean result2 = aList.contains(Integer.valueOf(300));
 		System.out.println(result2);
 		
-		//indexOf: 주어진 값이 aList의 몇번 인덱스에 있는지 알아보는 메서드
+		//aList가 bList의 요소를 모두 포함하면 true 아니면 false
+		result2 = aList.containsAll(bList);
+		System.out.println("containsAll : " + result2);
+		
+		//indexOf: 지정된 객체의 위치(인덱스)를 알려준다.
 		//없으면 -1
 		int result3 = aList.indexOf(Integer.valueOf(500));
-		System.out.println(result3);
+		System.out.println("indexOf : " + result3);
+		
+		
+		//indexOf가 앞에서 순차적으로 검색한것과 달리 lastIndexOf는 뒤에서부터 검색한다. 그렇다고 인덱스 번호가 달라지는건 아님.
+		int result4 = aList.lastIndexOf(Integer.valueOf(500));
+		System.out.println("lastIndexOf : " + result4);
 		
 		//isEmpty: bList 컬렉션이 비어 있는지 조사. boolean리턴
 		result2 = bList.isEmpty();
 		System.out.println(result2);
 		
-		//isEmpty : 저장된 모든 객체를 삭제
+		//void clear : 저장된 모든 객체를 삭제
 		bList.clear();
 		result2 = bList.isEmpty();
 		System.out.println(result2);
@@ -98,29 +136,45 @@ public class Sample01 {
 		result3 = aList.size();
 		System.out.println(result3);
 		
-		//remove : 주어진 인덱스에 저장된 객체 삭제
+		//Object remove : 주어진 인덱스에 저장된 객체 삭제
 		//삭제된 객체 리턴 가능
 		System.out.println(aList);
-		result1 = aList.remove(0);
+		result1 = aList.remove(1);
+		System.out.println("<<<<<< remove >>>>>>");
 		System.out.println(result1 + " " + aList);
 		
-		//저장된 값으로도 객체 삭제가능
+		//boolean remove : 저장된 값으로도 객체 삭제가능
 		aList.remove(Integer.valueOf(600));
 		System.out.println(aList);
 		
 		//주어진 인덱스에 저장된 객체를 리턴
+		//Arraylist는 get()메서드가 있지만 Set은 없어서 for문 사용시 에러. 그래서 iterator를 써준다.
 		for(int i = 0; i < aList.size(); i++) {
 			System.out.println("aList [" + i + "] => " + aList.get(i));
 		}
 		
 		System.out.println("<<<<< Iterator 사용 >>>>>");
-		//Iterator : 저장된 객체를 한번씩 가져오는 반복자 리턴
+		//Iterator : 저장된 객체를 한번씩 가져오는 반복자 리턴. (Collection에 정의된 메서드)
+		//			 컬렉션에 저장된 요소들을 읽어오는 방법을 표준화한 것. (list,set,map모두 같이 쓴다)
+		//			 일회용이라서 while문으로 hasNext로 다 읽으면 false로 바뀐다. 다 쓰고나면 다시 얻어와야한다.
+		//			 Map에는 iterator가 없다. ketSet(), entrySet(), values()를 호출하고 iterator를 사용해야함. (Map은 Collection의 자손이 아니라서)
 		//length길이를 몰라도 반복을 시킬수있다.
 		Iterator<Integer> iter = aList.iterator();
-		while(iter.hasNext()) {	// hasNext() : 다음 값이 있나없나
-			Integer i1 = iter.next();	// next() : 있으면 가져온다
+		while(iter.hasNext()) {	// hasNext() : 읽어 올 요소가 남아있는지 확인한다. 있으면 true 없으면 false를 반환
+			Integer i1 = iter.next();	// next() : 다음 요소를 읽어온다.
 			System.out.println(i1);
 		}
+		
+		//아래 while문은 false상태라서 읽지 못한다.그래서 
+		iter = aList.iterator();	//새로운 iterator 객체를 얻는다.
+		
+		while(iter.hasNext()) {	// hasNext() : 읽어 올 요소가 남아있는지 확인한다. 있으면 true 없으면 false를 반환
+			Integer i1 = iter.next();	// next() : 다음 요소를 읽어온다.
+			System.out.println(i1);
+		}
+		
+		
+		//Listliterator 는 next()와 previous()도 같이 포함하여 양방향이 가능하다
 		
 		//배열을 순환할 시, 반복문 보다 편리하게 순환할 수 있도록 새로운 문법을 제공
 		System.out.println("<<<<< for each 문 >>>>>");
@@ -130,6 +184,7 @@ public class Sample01 {
 		
 		System.out.println(aList); // [200, 350, 450, 500, 700]
 		
+		//Collections는 클래스이다. 인터페이스 Collection과 다르다
 		//Collections.reverse : list의 요소의 순서를 반전시킨다
 		Collections.reverse(aList);
 		System.out.println(aList);	// [700, 500, 450, 350, 200]
@@ -175,6 +230,8 @@ public class Sample01 {
 		pList.add(new Person("김철수", 25));
 		
 		System.out.println(pList); //클래스내에 toString() 메서드가 꼭 필요하다.
+		Collections.sort(pList);
+		System.out.println("CompareTo 사용 : \n" + pList);
 		
 		Collections.sort(pList, new Comparator<Person>() {
 			@Override
@@ -197,7 +254,7 @@ public class Sample01 {
 			}
 			
 		});
-		System.out.println(pList);
+		System.out.println("Compare 사용 : \n" +pList);
 	}
 
 }

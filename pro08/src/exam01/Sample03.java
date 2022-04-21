@@ -1,5 +1,7 @@
 package exam01;
 
+import java.util.Arrays;
+
 public class Sample03 {
 
 	public static void main(String[] args) {
@@ -15,14 +17,29 @@ public class Sample03 {
 		 *       사용하도록 Lock 을 걸어 다른 쓰레드가 작업을 하지 못하게 막아주는 기능이다.
 		 */
 		
-		// StringBuilder sb = new StringBuilder();
-		StringBuffer sb = new StringBuffer();
+		 StringBuilder sb = new StringBuilder();
+//		StringBuffer sb = new StringBuffer();
 		
 		sb.append("문자열");
 		sb.append("을 뒤에");
 		sb.append(" 추가하는");
 		sb.append(" append 메서드\n");
 		System.out.println(sb);
+		System.out.println(sb.toString());
+		
+		String s = "문자열 클래스";
+		System.out.println(s);	//문자열 클래스
+//		System.out.println(Arrays.toString(s));
+		System.out.println(s.toString());	//문자열 클래스
+		//toString() 메서드는 자동으로 호출되는 것이라서 굳이 안써도 여태 우리가 쓸 수 있었던 것.
+		
+		String[] sArr = new String[] {"홍길동","1234"};
+		System.out.println(sArr);	//[Ljava.lang.String;@4926097b
+		System.out.println(Arrays.toString(sArr));	//[홍길동, 1234]
+		String str = sArr.toString();
+		System.out.println(str);	//[Ljava.lang.String;@4926097b
+		System.out.println(sArr.toString());	//[Ljava.lang.String;@4926097b
+		
 		
 		sb.insert(0, "원하는 ");
 		sb.insert(4, "위치에 ");
@@ -51,6 +68,17 @@ public class Sample03 {
 		
 		sb.deleteCharAt(sb.indexOf("을"));
 		System.out.println(sb);
+		
+		StringBuilder sb2 = new StringBuilder();
+		String[] datas = new String[]
+				{"김아무개","1111"};
+		sb2.append(datas[0] +"\n");
+		sb2.append(datas[1] +"\n");
+		datas = sb2.toString().split("\n");
+		System.out.println("--------------------");
+		System.out.println("split 테스트");
+		System.out.println(Arrays.toString(datas));
+		 
 	}
 
 }

@@ -69,6 +69,9 @@ public class Sample01 {
 		String[] sArr;
 		sArr = s5.split(" ");
 		System.out.println("s5.split(\" \") -> " + Arrays.toString(sArr));
+		System.out.println(sArr[0]);
+		System.out.println(sArr[1]);
+		System.out.println(sArr[2]);
 		
 		//나눠져있는 문자열을 합쳐준다.
 		s5 = String.join("_", sArr);

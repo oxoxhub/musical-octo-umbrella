@@ -29,23 +29,28 @@ public class Sample01 {
 		 */
 		Sample01 s = new Sample01();
 //		s.ex01();
-//		s.ex02();
+		s.ex02();
 //		s.ex03();
-		s.ex04();
+//		s.ex04();
 	}
 
 	
 	public void ex01() {
 		/*
 		 * 문자 변환 보조 스트림
+		 * 		:소스 스트림이 바이트 기반 스트림이지만 데이터가 문자일 경우 사용가능하다.
 		 * 		- 바이트 기반 스트림과 같이 사용하는 보조 스트림 -> InputStreamReader, OutputStreamWriter
 		 */
 		String userHome = System.getProperty("user.home");
 		File file = new File(userHome + "/보조스트림.테스트");
+		String str = "문자열 테스트";
+		//String[] sArr = new String[] {"가나", "다라"};
 		
 		//쓰기
-		try(OutputStreamWriter fos = new OutputStreamWriter  (new FileOutputStream(file))){
+		try(OutputStreamWriter fos = new OutputStreamWriter(new FileOutputStream(file))){
 			fos.write("바이트 기반 스트림 + 문자 변환 보조 스트림");
+			fos.write(str);
+			//fos.write(sArr);	문자열 배열은 입력 불가능하다.
 			fos.flush();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -94,10 +99,14 @@ public class Sample01 {
 		try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))){
 			StringBuilder sb = new StringBuilder();
 			
-			while(bis.available() > 0) {		//available() : 0 이상이면 진행하라.
+			while(bis.available() > 0) {	//available() : 0 이상이면 진행하라.
+				//int available() : 현재 읽을 수 있는 바이트수를 반환한다.
 				int size = bis.available();
 				byte[] bytes = new byte[size];
 				bis.read(bytes, 0, size);
+				// int read(byte[] b ,int off ,int len)
+				// : len만큼 읽어서 byte[] b의 off위치에 저장하고 읽은 바이트 수를 반환한다.
+
 				sb.append(new String(bytes));
 			}
 			
@@ -171,8 +180,6 @@ public class Sample01 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 	

@@ -1,11 +1,13 @@
 package exam02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 public class Sample01 {
@@ -99,10 +101,21 @@ public class Sample01 {
 		List<Integer> aList = new ArrayList<Integer>(aSet);
 		Collections.sort(aList);
 		System.out.println(aList);
+
+		ListIterator<Integer> iter1 = aList.listIterator(aList.size() - 1);
+		while(iter1.hasPrevious()) {
+			Integer data = iter1.previous();
+			System.out.println("Previous : " + data);
+		}
 		
 		// List를 Set으로 변경
 		Set<Integer> cSet = new HashSet<Integer>(aList);
 		System.out.println(cSet);
+		
+		// 배열로 변경
+		Integer[] iArr = aList.toArray(new Integer[aList.size()]);
+		System.out.println(Arrays.toString(iArr));
+		iArr = cSet.toArray(new Integer[cSet.size()]);
 
 	}
 

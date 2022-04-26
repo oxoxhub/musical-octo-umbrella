@@ -14,15 +14,16 @@ public class test01 {
 		map.put("asdf", 1234);
 		System.out.println(map);
 
-		Scanner s = new Scanner(System.in);	// 화면으로부터 라인단위로 입력받는다.
-
+		Scanner s1 = new Scanner(System.in);	// 화면으로부터 라인단위로 입력받는다.
+		Scanner s2 = new Scanner(System.in);
+		
 		while(true) {
 			System.out.println("id와 password를 입력해주세요.");
 			System.out.print("id :");
-			String id = s.nextLine().trim();	//trim() 공백제거해주는 메서드
+			String id = s1.nextLine().trim();	//trim() 공백제거해주는 메서드
 
 			System.out.print("password :");
-			Integer password = s.nextInt();
+			Integer password = s2.nextInt();
 //			String password = s.nextLine().trim();
 			System.out.println();
 

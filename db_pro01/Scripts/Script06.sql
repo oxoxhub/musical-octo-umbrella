@@ -8,7 +8,15 @@ SELECT NVL(COMMISSION_PCT, 0)
 -- SWITCH문과 비슷하다.
  
 SELECT DECODE(DEPARTMENT_ID, 90, 'A부서', 60, 'B부서', 100, 'C부서', '그 외')
+	 , DEPARTMENT_ID
   FROM EMPLOYEES;
+ 
+SELECT DECODE(DEPARTMENT_ID, 90, 'A부서', 60, 'B부서', 100, 'C부서', '그 외')
+	 , DEPARTMENT_ID
+	 , COUNT(*)
+  FROM EMPLOYEES
+ GROUP BY DEPARTMENT_ID
+ ORDER BY 1;
   
 SELECT DECODE(EXTRACT(YEAR FROM HIRE_DATE), 2000, '신규사원', '기존사원')
   FROM EMPLOYEES;
@@ -46,6 +54,13 @@ SELECT SUM(SALARY) AS 총합
   FROM EMPLOYEES 
  WHERE DEPARTMENT_ID = 100;
 
+--EMPLOYEE테이블에서 DEPARTMENT_ID가 80인 직원의 보너스 포함 연봉 조회, 연봉 합계, 보너스 평균값
+SELECT SUM(SALARY * 12) AS 연봉
+	 , SUM(SALARY + (SALARY * NVL(COMMISSION_PCT, 0))*12) AS "연봉(보너스포함)"
+	 , ROUND(AVG(NVL(COMMISSION_PCT, 0)), 2) AS "보너스 평균"
+  FROM EMPLOYEES
+ WHERE DEPARTMENT_ID = '80';
+
 SELECT *
   FROM EMPLOYEES 
  WHERE DEPARTMENT_ID = 100;
@@ -56,6 +71,7 @@ SELECT MAX(FIRST_NAME) --문자열 가장 뒤에서부터
  --문자열 사전순으로도 나열이 가능하다.
  
 SELECT COUNT(*) AS 행수
+--테이블 조건을 만족하는 행의 개수 반환
 --어떤 컬럼이 들어가도 상관없다. 대부분 *을 쓴다.
   FROM EMPLOYEES;
 

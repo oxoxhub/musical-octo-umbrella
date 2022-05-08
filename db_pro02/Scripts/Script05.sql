@@ -1,3 +1,52 @@
+/*
+ * 위치에 따른 서브쿼리 이름
+ * 
+ * SELECT(Sub Query) <- Scalar Sub Query
+ * FROM(Sub Query) <- Inline View
+ * WHERE(Sub Query) <- Sub Query
+ *
+ * 괄호 밖의 쿼리 = "Main Query"
+ * 괄호 안의 쿼리 = "Sub Query(Inner Query)"
+ * 
+ * -------------------------------------
+ * SELECT select_list
+ *   FROM TABLE[View]
+ *  WHERE 조건연산자 (SELECT select_list
+ *                  FROM TABLE
+ *                 WHERE 조건);
+ * -------------------------------------
+ * 
+ * 서브쿼리 작성시 주의사항
+ * - WHERE절  연산자 오른쪽에 위치 & 반드시 괄호묶기
+ * - ORDER  BY절 삽입 불가(특별한 경우 제외)
+ * - 단일행인지 다중행인지에 따라 연산자 선택 주의
+ * 
+ * 
+ * WHERE절에 오는 서브쿼리 종류
+ * 
+ * - 단일행 서브쿼리 (Single Row Sub Query) 서브쿼리 결과 : 1개의 행
+ * 		=, <>  같다/ 같지 않다 
+ * 		>, <   크다/ 작다
+ * 		>=, <= 크거나 같다/ 작거나 같다
+ * 
+ * - 다중행 서브쿼리 (Multi Row Sub Query) 서브쿼리 결과 : 2개 이상 행
+ * 		IN : 서브쿼리 결과와 같은값 있는 경우 메인쿼리 수행
+ * 			 → 내부적으로 중복값 제거(DISTINCT연산)
+ * 		EXISTS : 서브쿼리 값이 있을 경우 메인쿼리 수행
+ * 			 	 → 하나라도 존재하면 바로 빠져나옴(세미조인)
+ * 		>ANY <ALL : 서브쿼리 결과 중 최소값
+ * 			 		→ but 연산자방향에 따라 다른 식이 되므로 주의!
+ * 		<ANY >ALL : 서브쿼리 결과 중 최대값
+ * 			 		→ but 연산자방향에 따라 다른 식이 되므로 주의!
+ * 
+ * - 다중컬럼 서브쿼리 (Multi Column Sub Query) 서브쿼리 결과: 여러 컬럼
+ * 	 : 주로 Primary Key를 여러컬럼을 합쳐서 만든 경우 한꺼번에 비교하기 위해 사용
+ * - 상호연관 서브쿼리 (Multi Column Sub Query) 
+ * 	 : 메인쿼리 값을 서브쿼리에 준 후 서브쿼리 수행한 후
+ *     서브쿼리 결과값을 메인쿼리로 다시 반환하여 최종 수행 → 메인쿼리와 서브쿼리가 서로 데이터를 주고 받음
+ */
+
+
 SELECT ROWNUM
 	 , FIRST_NAME
 	 , LAST_NAME

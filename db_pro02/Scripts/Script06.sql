@@ -204,7 +204,7 @@ SELECT E1.EMPLOYEE_ID
     ON E1.DEPARTMENT_ID = E2.DEPARTMENT_ID
    AND (E1.HIRE_DATE = E2.MX OR E1.HIRE_DATE = E2.MN)
  ORDER BY 2;
-   
+
 
 /*
  * 국가별 최고액 급여자, 최저 급여자 구하기 (커미션이 있는 경우 커미션 포함)
@@ -235,7 +235,8 @@ SELECT E1.EMPLOYEE_ID
     OR E2.최저급여 = E1.SALARY * (1 + NVL(E1.COMMISSION_PCT, 0))
  ORDER BY 4;
 
-
+NVL(컬럼이름, null 대체값) : null 인 레코드만 대체값으로 변경
+NVL2(컬럼이름, null이 아닌 경우 출력할 값, null일 경우 대체할 값) : null 이 아닌 레코드도 특정한 값으로 대체하여 출력할 수 있음
 
 SELECT C.COUNTRY_NAME AS 국가
      , MAX(DECODE(E.COMMISSION_PCT, NULL, E.SALARY, E.SALARY * (1 + E.COMMISSION_PCT))) AS 최고급여자
@@ -249,5 +250,4 @@ SELECT C.COUNTRY_NAME AS 국가
     ON C.COUNTRY_ID = L.COUNTRY_ID  
  GROUP BY C.COUNTRY_NAME
  ORDER BY 2 DESC, 3;
-
 

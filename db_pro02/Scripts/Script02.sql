@@ -113,3 +113,7 @@ UPDATE 지출내역서
  WHERE ACCOUNT_ID = 8;
  
 COMMIT;
+  
+UPDATE 지출내역서
+   SET 출금액 = 출금액 * 1.1;
+

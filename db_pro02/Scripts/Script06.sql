@@ -94,7 +94,7 @@ SELECT *
            FROM DEPARTMENTS D
            JOIN LOCATIONS L
              ON D.LOCATION_ID = L.LOCATION_ID
-       )
+       );
 
 /*
  * LOCATION 테이블과 COUNTRIES, REGION 테이블을 사용하여 각 지역이 
@@ -205,7 +205,17 @@ SELECT E1.EMPLOYEE_ID
    AND (E1.HIRE_DATE = E2.MX OR E1.HIRE_DATE = E2.MN)
  ORDER BY 2;
 
-
+SELECT *
+  FROM EMPLOYEES E1
+  JOIN (SELECT DEPARTMENT_ID
+             , MAX(HIRE_DATE) AS MX
+             , MIN(HIRE_DATE) AS MN
+          FROM EMPLOYEES
+         GROUP BY DEPARTMENT_ID
+       ) E2
+    ON E1.DEPARTMENT_ID = E2.DEPARTMENT_ID
+   AND (E1.HIRE_DATE = E2.MX OR E1.HIRE_DATE = E2.MN)
+   
 /*
  * 국가별 최고액 급여자, 최저 급여자 구하기 (커미션이 있는 경우 커미션 포함)
  */

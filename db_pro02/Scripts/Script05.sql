@@ -47,6 +47,14 @@
  */
 
 
+select  first_name, job_id, salary
+from EMPLOYEES
+where job_id in (select JOB_ID
+				   from EMPLOYEES
+				  group by job_id
+				 having avg(salary) < 3000);
+
+
 SELECT ROWNUM
 	 , FIRST_NAME
 	 , LAST_NAME
@@ -185,8 +193,8 @@ SELECT *
 SELECT *
   FROM EMPLOYEES E1
   JOIN EMPLOYEES E2
-    ON E1.EMPLOYEE_ID = E2.MANAGER_ID
+    ON E1.EMPLOYEE_ID = E2.MANAGER_ID;
 -- SELF JOIN
 
-
+SELECT * FROM JOBS;
 

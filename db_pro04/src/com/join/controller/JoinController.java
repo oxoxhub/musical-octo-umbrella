@@ -41,6 +41,19 @@ public class JoinController {
 		return null;	// 회원 가입 된 아이디가 없다.
 		
 	}
+	
+	public boolean update(JoinVO data) {
+		return dao.modify(data);
+	}
+	
+	public boolean remove(JoinVO data, String password) {
+		
+		if(data.getUserpw().equals(password)) {
+			return dao.remove(data);
+		} else {
+			return false;
+		}
+	}
 
 
 }

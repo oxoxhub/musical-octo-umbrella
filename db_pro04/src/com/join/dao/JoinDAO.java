@@ -1,5 +1,7 @@
 package com.join.dao;
 
+import java.io.File;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
 
@@ -16,7 +18,7 @@ public class JoinDAO {
 	
 	public JoinDAO() {
 		try {
-			db = new DBConn("localhost", "1521", "XE", "puser1", "puser1");
+			db = new DBConn(new File(System.getProperty("user.home") + "/oracle_db.conf"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -25,16 +27,17 @@ public class JoinDAO {
 	public boolean add(JoinVO data) {
 		// 데이터 추가
 		
-		String query = String.format("INSERT INTO accounts VALUES('%s', '%s', '%s', '%c', %d, SYSDATE)"
-				, data.getUserid()
-				, data.getUserpw()
-				, data.getUsername()
-				, data.getGender()
-				, data.getAge()
-				);
-		
+		String query = "INSERT INTO accounts VALUES(?, ?, ?, ?, ?, SYSDATE)";
+
 		try {
-			int result = db.sendInsertQuery(query);
+			PreparedStatement pstat = db.getPstat(query);
+			pstat.setString(1, data.getUserid());
+			pstat.setString(2, data.getUserpw());
+			pstat.setString(3, data.getUsername());
+			pstat.setString(4, Character.toString(data.getGender()));
+			pstat.setInt(5, data.getAge());
+			
+			int result = db.sendInsertQuery();
 			
 			if(result == 1) {		// 1 반환시 성공적으로 데이터 추가된 것
 				return true;
@@ -45,12 +48,25 @@ public class JoinDAO {
 		return false;
 	}
 	
-	public boolean modify(String str, String userid) {
+	public boolean modify(JoinVO data) {
 		// 데이터 수정
-		String query = String.format("UPDATE accounts SET userpw = '%s' WHERE USERID = '%s'", str, userid);
+		String query = ""
+				+ "UPDATE accounts" 
+				+ "   SET USERPW = ?"
+				+ "     , USERNAME = ?"
+				+ "     , GENDER = ?"
+				+ "     , AGE = ?"
+				+ " WHERE USERID = ?";
 		
 		try {
-			int result = db.sendUpdateQuery(query);
+			PreparedStatement pstat = db.getPstat(query);
+			pstat.setString(1, data.getUserid());
+			pstat.setString(2, data.getUserpw());
+			pstat.setString(3, data.getUsername());
+			pstat.setString(4, Character.toString(data.getGender()));
+			pstat.setInt(5, data.getAge());
+			
+			int result = db.sendUpdateQuery();
 			
 			if(result == 1) {
 				return true;
@@ -62,11 +78,14 @@ public class JoinDAO {
 		
 	}
 	
-	public boolean remove(String userid) {
+	public boolean remove(JoinVO data) {
 		// 데이터 삭제
-		String query = String.format("DELETE FROM accounts WHERE USERID = '%s'", userid);
+		String query = "DELETE FROM accounts WHERE USERID = ?";
 		try {
-			int result = db.sendDeleteQuery(query);
+			PreparedStatement pstat = db.getPstat(query);
+			pstat.setString(1, data.getUserid());
+			
+			int result = db.sendDeleteQuery();
 			
 			if(result == 1) {
 				return true;
@@ -81,11 +100,14 @@ public class JoinDAO {
 	public JoinVO get(String userid) {
 		// 단일 데이터 조회
 		
-		String query = String.format("SELECT * FROM accounts WHERE USERID = '%s'", userid);
+		String query = "SELECT * FROM accounts WHERE USERID = ?";
 		
 		
 		try {
-			ResultSet rs = db.sendSelectQuery(query);
+			PreparedStatement pstat = db.getPstat(query);
+			pstat.setString(1, userid);
+
+			ResultSet rs = db.sendSelectQuery();
 			
 			if(rs.next()) {
 				JoinVO data = new JoinVO();

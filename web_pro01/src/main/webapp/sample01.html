@@ -10,13 +10,35 @@
 		<meta http-equiv="refresh" content="5;">
 		<meta name="image" content="http://localhost:8080/img/sample.jpeg">
 		<title>Hello HTML</title>
+		<link rel="stylesheet" type="text/css" href="/css/base.css">
+		<link rel="icon" type="image/png" href="/img/logo.png">
+		<!-- href="img/logo.png" 에서 ./ 생략이 됐을뿐 원래는 "./img/logo.png" 이고 
+			"css/base.css"> 는 "./css/base.css"이다. 
+			그래서 <base>로 상대경로가 설정되어있다면 여기에도 적용이 되는 일이 생긴다.
+			이럴때는 "/web01/css/base.css" 처럼 적어주면 된다. 
+		-->
+		<!-- 현재 파일의 루트명을 알아내는 방법: properties -> Web Project Settings의 Context root 를 보면된다. -->
+		<base href="http://localhost:8080/web01/page1/">
+		<!--target="_blank" 는 새로운 창이 열리고 "_self"는 창 열기  -->
+		<style>
+			body {
+				color: darkblue;
+			}
+		</style>
 	</head>
 	<body>
 		<!--
 			body 태그 영역
 				브라우저 화면에 출력하여 보여줄 모든 내용이 작성되는 영역
-				head 태그에서 사용하는 태그를 제외한 모든 태그를 쓴다.
+				head 태그에서 사용하는 태그를 제외한 모든 태그를 쓴다. 
 		-->
 		<h1>Hello!! 안녕하세요!!</h1>
+		<a href="./sample02.html">페이지 이동 1</a><br> 
+		<!--<a> 앵커/링크 태그 -->
+		<a href="./sample03.html">페이지 이동 2</a><br> 
+		<!-- ./ <-(상대경로)현재 위치(즉, 지금 이 sample01파일이 열린 현재 위치) = localhost:8080/web01 -->
+		<!-- ./page/sample02.html <- localhost:8080/web01/page/sample02.html을 의미한다 -->
+		<!-- 페이지 못찾을 땐 재시작 or 페이지 새로고침 -->
+		<!-- <head>의 <base>에 상대경로를 설정해 놓으면 굳이 <body>의 <a href="./page1/sample02.html">에서 page1 을 쓰지 않아도 된다. -->
 	</body>
-</html>
+</html> 

@@ -13,7 +13,6 @@ public class JoinDAO {
 	//데이터베이스의 데이터를 전문적으로 호출하고 제어하는 객체
 	//실무에서도 JAVA-DB 간 JDBC 연동 시 필요한 단계 중 반복 작업들은 DAO 객체 내 저장하여 관리한다.
 	
-	private Scanner sc = new Scanner(System.in);
 	private DBConn db;
 	
 	public JoinDAO() {
@@ -60,11 +59,11 @@ public class JoinDAO {
 		
 		try {
 			PreparedStatement pstat = db.getPstat(query);
-			pstat.setString(1, data.getUserid());
-			pstat.setString(2, data.getUserpw());
-			pstat.setString(3, data.getUsername());
-			pstat.setString(4, Character.toString(data.getGender()));
-			pstat.setInt(5, data.getAge());
+			pstat.setString(1, data.getUserpw());
+			pstat.setString(2, data.getUsername());
+			pstat.setString(3, Character.toString(data.getGender()));
+			pstat.setInt(4, data.getAge());
+			pstat.setString(5, data.getUserid());
 			
 			int result = db.sendUpdateQuery();
 			

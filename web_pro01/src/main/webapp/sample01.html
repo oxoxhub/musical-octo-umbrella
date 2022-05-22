@@ -8,23 +8,28 @@
 		-->
 		<meta charset="UTF-8">
 		<meta http-equiv="refresh" content="5;">
+		<!-- 5초마다 새로고침 -->
 		<meta name="image" content="http://localhost:8080/img/sample.jpeg">
 		<title>Hello HTML</title>
-		<link rel="stylesheet" type="text/css" href="/css/base.css">
-		<link rel="icon" type="image/png" href="/img/logo.png">
+		<link rel="stylesheet" type="text/css" href="/web01/css/base.css">
+		<!--css: Cascalding Style Sheets 의 약자로 웹문서의 스타일을 지정해 놓은 파일 즉,
+				웹사이트를 꾸미는 style의 정의를 모아 둔 파일이다. -->
+		<link rel="icon" type="image/png" href="/web01/img/logo.png">
 		<!-- href="img/logo.png" 에서 ./ 생략이 됐을뿐 원래는 "./img/logo.png" 이고 
 			"css/base.css"> 는 "./css/base.css"이다. 
 			그래서 <base>로 상대경로가 설정되어있다면 여기에도 적용이 되는 일이 생긴다.
 			이럴때는 "/web01/css/base.css" 처럼 적어주면 된다. 
 		-->
-		<!-- 현재 파일의 루트명을 알아내는 방법: properties -> Web Project Settings의 Context root 를 보면된다. -->
 		<base href="http://localhost:8080/web01/page1/">
+		<!--<base> 페이지의 링크가 상대 경로로 되었을 때 그 기준이 될 경로 지정 -->
 		<!--target="_blank" 는 새로운 창이 열리고 "_self"는 창 열기  -->
+		<!-- 현재 파일의 루트명을 알아내는 방법: properties -> Web Project Settings의 Context root 를 보면된다. -->
 		<style>
 			body {
-				color: darkblue;
+				color: #FFB600;
 			}
 		</style>
+			<!-- <style>CSS구문</style> 태그의 스타일을 지정해주는 태그로 CSS속성을 HTML내에 직접 쓸 때 사용 -->
 	</head>
 	<body>
 		<!--

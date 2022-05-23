@@ -6,13 +6,15 @@
 	</head>
 	<body>
 		<h1 id="h_tags">제목 태그 1</h1>
-		<h2>제목 태그 1</h2>
-		<h3>제목 태그 1</h3>
-		<h4>제목 태그 1</h4>
-		<h5>제목 태그 1</h5>
-		<h6>제목 태그 1</h6>
+		<h2>제목 태그 2</h2>
+		<h3>제목 태그 3</h3>
+		<h4>제목 태그 4</h4>
+		<h5>제목 태그 5</h5>
+		<h6>제목 태그 6</h6>
+		<!--<hn></hn> 제목을 입력할 때 사용하는 태그로 폰트의 크기가 태그마다 정해져 있음. h 뒤 숫자(n)으로 구분 -->
 		<hr>
-		글자를 <strong>강조</strong>하기위해 사용하는 태그<br>
+		<!--<hr> 페이지에 가로로 밑줄을 만들어 줄 때 사용 -->
+		글자를 <strong>강조</strong> 하기위해 사용하는 태그<br>
 		글자의 두께를 <b>두껍게</b> 하기위해 사용하는 태그<br>
 		<hr>
 		글자에 형관펜으로 긋 듯이<mark>하이라이팅</mark>을 주기위해 사용하는 태그<br>
@@ -25,14 +27,16 @@
 		<hr>
 		글자의 크기를 <small>작게</small> 표기하여 부가 정보를 표현하기 위한 태그<br>
 		<hr>
-		!!!!<blockquote>다른 사이트 또는 책의 문구를 인용한 경우 사용하는 태그</blockquote>!!!!
+		!!!!<blockquote>다른 사이트 또는 책의 문구를 인용한 경우 사용하는 태그</blockquote>!!!!<br>
+		<!-- <blockquote></blockquote> 자동 들여쓰기가 되어 다른 텍스트와 구별 가능하고 개행을 내포함 -->
 		<q>다른 사이트 또는 책의 문구를 인용한 경우 사용하는 태그</q><br>
+		<!-- <q></q> 인용 문구에 “ “표시가 되고 개행을 내포하고 있지 않음 -->
 		<hr>
 		<sup>위 첨자</sup> 와 <sub>아래 첨자</sub> 를 사용하기 위한 태그<br>
 		<hr>
 		<abbr title="abbreviation(약어)">약어</abbr>에 대한 설명을 나타내기 위한 태그<br>
 		<hr>
-		<cite>인용문에 대한 출처를 표기/의미 하는 태그</cite>
+		인용문에 대한 <cite>출처를 표기/의미</cite> 하는 태그<br>
 		<hr>
 		<code>컴퓨터 코드 조각을 나타내기 위한 태그</code><br>
 		<pre><code>
@@ -45,14 +49,19 @@
 		<hr>
 		<a href="https://naver.com">외부 연결 링크 </a><br>
 		<a href="#h_tags">현재 문서의 특정 위치로 연결 링크</a><br>
+		<!-- <a></a> 페이지에서 해당 부분을 클릭하면 지정된 페이지로 이동하는 태그로 
+					 외부 사이트 연결, 문서 내부에서 이동 가능 -->
+					 <!-- href : 링크한 페이지의 id값이나 사이트 주소 지정 -->
 		<hr>
 		<ul>
+		<!-- <ul></ul> Unordered List -->
 			<li>순서 없는 목록</li>
 			<li>순서 없는 목록</li>
 			<li>순서 없는 목록</li>
 		</ul>
 		<hr>
 		<ol>
+		<!-- <ol></ol> Ordered List  -->
 			<li>순서 있는 목록</li>
 			<li>순서 있는 목록</li>
 			<li>순서 있는 목록</li>
@@ -64,7 +73,7 @@
 			<li>순서 없는 목록</li>
 		</ul>
 		<hr>
-		<ul typr="square">
+		<ul type="square">
 			<li>순서 없는 목록</li>
 			<li>순서 없는 목록</li>
 			<li>순서 없는 목록</li>
@@ -119,8 +128,8 @@
 		</ol>
 		<hr>
 		<dl>
-			<dt>정의 목록</dt>
-			<dd>사전과 같이 특정 단어(용어)에 대한 정의를 설명하기 위한 용도로 사용</dd>
+			<dt>정의 제목</dt>
+			<dd>정의 내용, 사전과 같이 특정 단어(용어)에 대한 정의를 설명하기 위한 용도로 사용</dd>
 			<dt>dl</dt>
 			<dd>Description List의 약자이다.</dd>
 			<dd>정의 목록을 나타내기 위해 사용한다.</dd>
@@ -131,12 +140,17 @@
 			<dd>Description Detail</dd>
 			<dd>dt의 상세 내용을 작성하기 위해 사용한다.</dd>
 		</dl>
+		<!-- <dl></dl> 용어나 문장에 대한 정의(definition) 리스트로 자동으로 들여쓰기가 됨 -->
 		<hr>
 		<table border="1">
+		<!-- border : <table>태그의 속성으로 표의 테두리 두께 지정 -->
 			<tr>
+			<!-- <tr></tr> 한 개의 행(ROW)을 만드는 태그 -->
 				<th>1 행 1 열</th>
+				<!-- <th></th> 열에 대한 제목을 표시하는 태그 -->
 				<td>1 행 2 열</td>
 				<td>1 행 3 열</td>
+				<!-- <td></td> 한 개의 열을 만드는 태그 -->
 			</tr>
 			<tr>
 				<td>2 행 1 열</td>
@@ -151,7 +165,7 @@
 		</table>
 		<hr>
 		<table border="1">
-			<caption> 타이틀 제목</caption>
+			<caption> 테이블 제목</caption>
 			<tr>
 				<th>1 행 1 열</th>
 				<td>1 행 2 열</td>
@@ -195,6 +209,8 @@
 				<tr>
 					<th rowspan="3">1 행 1 열</th>
 					<td colspan="2">1 행 2 열, 3 열</td>
+					<!-- <td rowspan = “병합할 행 개수“></td>
+						 <td colspan = “병합할 열 개수“></td> -->
 				</tr>
 				<tr>
 					<td>2 행 2 열</td>
@@ -207,8 +223,9 @@
 			</table>
 		<hr>
 		<table border="1">
-		<!-- thead/tbody/tfoot 순서는 상관없으나 맞춰주는게 좋다 -->
+		<!-- thead/tbody/tfoot :테이블 구조를 나누는 태그 (순서는 상관없으나 맞춰주는게 좋다) -->
 			<thead>
+			<!-- <thead></thead> 테이블에 하나만 존재 가능 -->
 				<tr>
 					<th>1 행 1 열</th>
 					<td>1 행 2 열</td>
@@ -216,6 +233,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			<!-- <tbody></tbody> 몸체로 테이블에 여러 개 존재 가능 -->
 				<tr>
 					<th>2 행 1 열</th>
 					<td>2 행 2 열</td>
@@ -223,6 +241,7 @@
 				</tr>
 			</tbody>
 			<tfoot>
+			<!-- <tfoot></tfoot> : <thead>태그 뒤에 있어야 하며 하나만 존재 가능-->
 				<tr>
 					<th>3 행 1 열</th>
 					<td>3 행 2 열</td>
@@ -233,9 +252,14 @@
 		<hr>
 		<table border="1">
 			<colgroup>
-				<col style="background-color: #EAEAEA; width: 180px;">
+			<!-- <colgroup></colgroup> 열을 그룹으로 묶어서 스타일 적용할 때 사용
+									 - <caption>태그 뒤, <tr><td>태그 전에 위치 -->
+				<col style="background-color: #F8CEB1; width: 180px;">
 				<col>
-				<col style="background-color: #EAEAEA; width: 180px;">			
+				<col style="background-color: #F8ECB1; width: 180px;">
+				<!-- <col> 열에 대한 스타일을 적용할 때 사용
+							- <caption>태그 뒤, <tr><td>태그 전에 위치
+							- <span>태그를 사용하여 열을 묶을 수 있음 -->			
 			</colgroup>
 				<tr>
 					<th>1 행 1 열</th>
@@ -255,45 +279,58 @@
 		</table>
 		<hr>
 		<div style="height: 100px; background-color: lightsalmon;">block 영역 1</div>
-		<div style="height: 100px; background-color: lightskyblue;">block 영역 1</div>
+		<div style="height: 100px; background-color: lightskyblue;">block 영역 2</div>
+		<!-- [페이지 영역 분할] <div></div> block형식의 공간을 수직으로 분할 -->
 		<span style="padding: 0px 60px; background-color: lightblue;">inline 영역1</span>
 		<span style="padding: 0px 60px; background-color: lightcoral;">inline 영역2</span>
 		<span style="padding: 0px 60px; background-color: lightgreen;">inline 영역3</span>
+		<!-- <span></span> inline형식의 공간을 수평으로 분할 -->
 		<hr>
+		<!-- [HTML5 페이지 구조] - 시맨틱 태그(semantic) : 페이지 구조를 특정 기능에 맞는 태그를 사용하여 구분 -->
 		<header></header>
+		<!--<header></header> 특정 부분의 머리말로 주로 검색어(form), 메뉴(nav)를 넣음  -->
 		<section></section>
+		<!-- <section></section> 웹 문서에서 콘텐츠가 들어가는 영역으로 콘텐츠를 주제 별로 묶을 때 사용
+								, <section> 태그 안에 <section>태그를 넣을 수 있음 -->
 		<article></article>
+		<!-- <article></article> 웹 페이지 내용이 들어가는 영역으로 이 태그 영역은 다른 곳으로
+								 배포하거나 재 사용 가능, 검색 로봇은 이 태그가 사용된 콘텐츠는
+								 배포할 수 있는 콘텐츠로 인식-->
 		<aside></aside>
+		<!-- <aside></aside> 사이드 바라고 불리며 본문 외의 기타 내용을 담고 있는 영역 주로 광고를 달거나 링크 모음 등을 표현 -->
 		<footer></footer>
+		<!-- <footer></footer> 웹 페이지의 맨 아래쪽에 위치하며 회사 소개, 저작권, 연락처(<address>태그) 등의 정보 표시
+								, <footer>에 <header>, <section>, <article> 등 다른 레이아웃 사용 가능 -->
 		<nav></nav>
+		<!-- <nav></nav> 다른 사이트나 페이지로 이동하는 태그를 모아놓은 태그(네비게이션)
+						, 주로 메뉴, footer의 사이트 링크 모음에 많이 쓰임 -->
 		<hr>
 		<div>
 			<iframe width="100%" height="480px" src="https://www.iei.or.kr/login/login.kh"></iframe>
+			<!-- <iframe></iframe> 웹 문서 안에 다른 웹 페이지를 추가하는 태그 -->
 		</div>
 		<div>
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/Uktj2MYSsaU?start=60"></iframe>
 		</div>
 		<hr>
 		<img usemap="#imgmap" src="./Googlelogo.png" width="480px" alt="구글 이미지">
+		<!-- usemap : 사용할 map의 이름. 이 이미지에서 map을 사용할 것임을, 브라우저에게 알려준다.
+			 alt: 이미지를 불러올 수 없을 때 이미지를 대신할 문구 -->
 		<map name="imgmap">
+		<!-- name : map 태그에게 붙여줄 이름. 
+			 id : name 속성에서 정한 것과 동일한 이름을 넣는다.(권장) -->
+		<!-- <map></map> 이미지의 특정 부분을 지정하여 링크를 걸 때 사용하는 태그, img 태그와 함께 사용 
+						 , map 태그 안에는, 반드시 area 태그가 들어있어야 한다. ( 즉, <area>는 <map>의 자식 요소이다. ) -->
 			<area shape="rect" coords="0,0,120,120"  href="https://google.com">
+			<!-- shape : map의 모양. default는 이미지의 전체 영역. (default, rect, circle, poly) 
+				 coords : map의 좌표. 빈칸이 올 수 없다.
+				 title : 말풍선. 해당 영역으로 마우스를 가져갔을 때 나타나는 문구.
+				 target=“위치” : 링크페이지가 열릴 위치(새창, 현재창, 부모창, 최상위창) -->
 			<area shape="rect" coords="120,0,240,120"  href="https://naver.com">
 		</map>
 		<hr>
-		<!-- <video src="./GMT20220519-082001_Recording_1992x1120.mp4" controls>
-		</video> -->
+		<!-- <video src="./GMT20220519-082001_Recording_1992x1120.mp4" controls> </video> -->
+		<!-- <video></video> 웹 브라우저에서 플러그인의 도움 없이 미디어 재생을 할 수 있게 만들어주는 태그 -->
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>사용자 입력 폼1</title>
+</head>
+<body>
+	<h1>GET 전송</h1>
+	<form action="./run.jsp" method="GET">
+		<input type="text" name="v1"><br>
+		<input type="text" name="v2"><br>
+		<button type="submit">전송</button>
+	</form>
+	<!-- 1. Get 방식
+			- url주소 뒤에 패러미터를 붙여 데이터 전달
+			- 글자 수 제한(최대 2048), 비밀 보장 x
+			
+			ex) https://www.youtube.com/watch?v=Y9CClRuv3yM
+			→ https://www.youtube.com/watch : 검색을 처리하는 스크립트의 URL
+			→ v=Y9CClRuv3yM : 사용자가 입력한 단어를 URL에 붙여서 서버로 전송 -->
+	<h1>POST 전송</h1>
+	<form action="./run.jsp" method="POST">
+		<input type="text" name="v1"><br>
+		<input type="text" name="v2"><br>
+		<button type="submit">전송</button>
+	</form>
+	<!-- 2. Post방식
+			- HTTP Request 헤더에 포함시켜 전송
+			- 길이 제한 없으며 비밀 보장 가능
+			- 뒤로 가기 버튼 누르면 데이터 다시 보내야 한다는 브라우저 경고 뜸  -->
+</body>
+</html>

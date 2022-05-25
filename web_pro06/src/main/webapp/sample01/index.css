@@ -3,16 +3,19 @@
 /*
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 */
+/* import로 글꼴의 주소를 설정하고 font-family: 'Nanum Pen Script', cursive; 설정하는 방법*/
 
 @font-face {
 	font-family: "나눔펜";
 	src: url(./NanumPenScript-Regular.ttf);
 }
+/* 직접 글꼴 파일의 경로를 설정하여 이름을 정해서 쓰는 방법*/
 
 body {
 	/* font-family: 'Nanum Pen Script', cursive; */
 	font-family: "나눔펜";
 }
+/* font-family: 'Nanum Pen Script', cursive; 는 import와 html에서 link로 쓰는 두 가지 방법이 있다.*/
 
 .test1 > .ex1 {
 	font-size: 2em;	
@@ -46,39 +49,49 @@ body {
 	*/
 	font: italic small-caps bold 32px "맑은 고딕"
 }
-/* */
+/* font: font-style font-variant font-weight font-size/line-height font-family */
+/* font-size: 글자 크기, font-weight: 글자 굵기, font-variant : 영어를 작은 대문자로 */
+
 .test4 > .ex1 {
 	font-family: "맑은 고딕";
 	text-transform: uppercase;
 }
+/* capitalize :단어의 첫 앞글자만 대문자, uppercase : 대문자로, lowercase : 소문자로 */
 
 .test5 > .ex1 {
 	text-shadow: 0 0 0 red;
 }
+/* text-shadow : 그림자 효과 (x, y, 투명도, 색상) */
 
 .test6 > .ex1 {
 	white-space: nomal;
 }
+/* pre-wrap : 공백 유지하며 자동 개행, pre : 공백 유지, 뒷부분은 잘림*/
 
 .test7 > .ex1 {
 	letter-spacing:12px;
 }
+/* 낱개 글자의 간격을 조정하는 속성 */
 
 .test7 > .ex2 {
 	word-spacing:120px;
 }
+/* 단어와 단어 사이 간격을 조정하는 속성 */
 
 .test8 > .ex1 {
 	text-align: center;
 }
+/* 문자 위치 조정(정렬) 속성 left, right, center, justify(양쪽 정렬) */
 
 .test8 > .ex2 {
 	text-indent: 24px;
 }
+/* 문장을 들여쓰기 하는 속성 */
 
 .test8 > .ex3 {
 	line-height: 24px;
 }
+/* 문장끼리의 줄 간격을 조정하는 속성 */
 
 .test8 > .ex4 {
 	width: 100px;
@@ -86,7 +99,20 @@ body {
 	overflow: hidden;
 	text-overflow: clip;
 }
+/* text-overflow : 영역을 벗어나는 텍스트 표시 속성 
+text-overflow: clip 은 영역을 넘어가는 텍스트를 자르고
+text-overflow: ellipsis 는 말줄임표로 표현된다.
+
+이 때 꼭 두가지 속성이 같이 필요함.
+	white-space: nowrap; 는 텍스트가 자동개행 하지 않게 유지
+	overflow: hidden; 는 clip,ellipsis 할 때 영역을 벗어나는 부분을 숨겨준다.
+	hidden을 하지 않을 경우 말줄임표나 잘림 표현 불가능
+*/
 
 .test9 > .ex1 {
 	list-style-type: none;
+	list-style-image: url(./list-icon.png);
+	list-style-position: inside;
+	padding-inline-start: 40px;
 }
+/* list-style-image : 기호 대신 이미지 삽입*/

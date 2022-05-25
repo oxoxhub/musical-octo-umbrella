@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+/*
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+*/
+
+@font-face {
+	font-family: "나눔펜";
+	src: url(./NanumPenScript-Regular.ttf);
+}
+
+body {
+	/* font-family: 'Nanum Pen Script', cursive; */
+	font-family: "나눔펜";
+}
+
+.test1 > .ex1 {
+	font-size: 2em;	
+}
+/* 부모 요소의 크기가 기준. 배수를 의미, 1배=1em=100%, 1.5배= 1.5em=150%와 같음 */
+
+.test1 > .ex1 > .ex2 {
+	font-size: 2em;	
+}
+/* 부모 : 16px (디폴트가 16px 이다.)
+	.ex1 : 부모 크기 16px * 2em = 32px
+	.ex2 : 부모 크기 32px * 2em = 64px */
+
+.test2 > .ex1 {
+	font-size: 2rem;	
+}
+/* rem : 최상위의 부모 요소(16px)의 크기를 기준으로 배수 : 32px */
+
+.test2 > .ex1 > .ex2 {
+	font-size: 2rem;	
+}
+/* rem : 최상위의 부모 요소(16px)의 크기를 기준으로 배수 : 32px */
+
+.test3 > .ex1 {
+	/*
+	font-family: "맑은고딕";
+	font-size: 32px;
+	font-weight: bold;
+	font-variant: small-caps;
+	font-style: italic;
+	*/
+	font: italic small-caps bold 32px "맑은 고딕"
+}
+/* */
+.test4 > .ex1 {
+	font-family: "맑은 고딕";
+	text-transform: uppercase;
+}
+
+.test5 > .ex1 {
+	text-shadow: 0 0 0 red;
+}
+
+.test6 > .ex1 {
+	white-space: nomal;
+}
+
+.test7 > .ex1 {
+	letter-spacing:12px;
+}
+
+.test7 > .ex2 {
+	word-spacing:120px;
+}
+
+.test8 > .ex1 {
+	text-align: center;
+}
+
+.test8 > .ex2 {
+	text-indent: 24px;
+}
+
+.test8 > .ex3 {
+	line-height: 24px;
+}
+
+.test8 > .ex4 {
+	width: 100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: clip;
+}
+
+.test9 > .ex1 {
+	list-style-type: none;
+}

@@ -51,11 +51,11 @@
 		}
 		/* 일반 구조 선택자 - :last-child : 형제 관계 태그 중 마지막 태그 선택 */
 		.ex5 li:nth-child(2n) {
-			color: red;
+			color: rgb(0, 128, 0);
 		}
 		/* 일반 구조 선택자 - :nth-child(수열) : 형제 관계 태그 중 앞에서 수열 번째 태그 선택 */
 		.ex5 li:nth-child(2n-1) {
-			color: blue;
+			color: rgb(255, 128, 64);
 		}
 		/* 일반 구조 선택자 - n은 1부터 시작*/
 		.ex5 li:nth-last-child(2n) {
@@ -77,7 +77,7 @@
 		.ex6 h2:nth-child(2n) {
 			color: green;
 		}
-		/* 일반 구조 선택자  짝수중에 h2인 것만 */
+		/* 일반 구조 선택자  짝수중에 h2인 것만 ?형제 관계 태그를 기준으로 수열을 세기때문에*/
 		.ex6 h2:nth-of-type(2n) {
 			background-color: #B1E6F8;
 		}

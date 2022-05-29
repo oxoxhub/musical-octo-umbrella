@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+.test1 p {
+	border: 1px solid red;
+	padding: 1rem;
+}
+
+.test1 > .ex1 {
+	position: relative;
+	left: 50px;
+	top: 50px;
+}
+
+.test2 {
+	position: relative;
+}
+
+.test2 p {
+	border: 1px solid blue;
+	padding: 1rem;
+}
+
+.test2 .ex1 {
+	position: absolute;
+	left: 50px;
+	top: 50px;
+}
+
+.test3 p {
+	border: 1px solid green;
+	padding: 1rem;
+}
+
+.test3 .ex1 {
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+}
+
+/* position 페이지의 요소를 자유롭게 배치해주는 속성 
+	- static : 요소를 문서의 흐름에 맞춰 배치(default)
+	- relative : 이전 요소와 자연스럽게 연결해 배치, 위치 지정 가능
+	- absolute : 원하는 위치를 지정해 배치 (부모/조상 요소의 position속성이 반드시 relative)
+	- fixed : 지정한 위치에 고정 배치
+*/
+
+.test4 table,td {
+	border: 1px solid gray;
+}
+
+.test4 td {
+	padding: 1rem;
+}
+
+.test5 {
+	position: relative;
+}
+
+.test5 p {
+	position: absolute;
+	padding: 2rem;
+}
+
+.test5 .ex1 {
+	border: 1px solid black;
+	background-color: orange;
+	z-index: 2;
+	top: 25px;
+	left: 25px;
+}
+
+.test5 .ex2 {
+	border: 1px solid blue;
+	background-color: skyblue;
+	z-index: 1;
+	top: 50px;
+	left: 50px;
+}
+
+.test5 .ex3 {
+	border: 1px solid red;
+	background-color: pink;
+	z-index: 3;
+	top: 75px;
+	left: 75px;
+}
+/* z-index : 선택자{z-index: 속성 값;}
+   페이지의 요소들을 순서대로 위에 쌓는 속성. 
+   속성 값이 크면 가장 위에 있는 요소, 작으면 밑에 있는 요소
+   (요소가 항상 맨 위에 위치해야 하면 값을 999 또는 1000 등 큰 값으로 설정)
+*/
+
+.hidden {
+	visibility: hidden;
+}
+/* 숨겨지지만 영역은 남음*/
+
+.collapse {
+	visibility: collapse;
+}
+/* 숨겨지고 영역도 사라짐 */
+
+.none {
+	display: none;
+}
+/* collapse 와 기능은 비슷하나 visibility가 브라우저상 속도가 빠르다.*/
+/* visibility 페이지에 특정 속성을 보이거나 보이지 않게 하는 속성 
+	- visible : default, 요소가 화면에 보임
+	- hidden : 요소를 화면에 안 보이게 하지만 페이지 공간은 차지
+	- collapse : 표의 행, 열, 행 그룹, 열 그룹 등에서 지정하면 서로 
+				 겹치도록 조절, 이외 영역에서는 hidden으로 처리
+*/
+

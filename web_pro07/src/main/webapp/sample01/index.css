@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+nav.nav-menu ul {
+	list-style-type: none;
+	background-color: rgb(119,53,249);
+}
+
+nav.nav-menu li,a {
+	display: inline-block;
+}
+
+nav.nav-menu a {
+	text-decoration: none;
+	color:rgb(250,248,255);
+	padding: 2em;
+}
+
+nav.nav-menu a:hover {
+	font-weight: bold;
+	color: white;
+}
+
+nav.nav-menu a.active {
+	font-weight: bold;
+	color: white;
+}
+
+nav.side-menu {
+	width: 280px;
+}
+
+nav.side-menu ul {
+	list-style-type: none;
+	background-color: rgb(119,53,249);
+	padding: 0;
+}
+
+nav.side-menu li ~ li {
+	border-top: 2px solid white;
+}
+/* ~ 동위 연산자는 자기자신을 포함시키지 않고 바로 뒤의 요소부터 적용시킨다.*/
+
+nav.side-menu a {
+	display: block;
+	text-decoration: none;
+	color:rgb(250,248,255);
+	padding: 1em 2em;
+}
+
+nav.side-menu a:hover {
+	font-weight: bold;
+	color: white;
+}
+
+nav.side-menu a.active {
+	font-weight: bold;
+	color: white;
+}
+
+
+

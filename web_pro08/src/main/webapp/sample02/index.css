@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+* {
+	margin: 0; padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	width: 768px;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.content-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table {
+	width: 100%;
+}
+
+.table-normal {
+	border-collapse: collapse;
+}
+
+.table-normal > thead td,th {
+	border-top: 2px solid black;
+	border-bottom: 1px solid rgb(216, 216, 216);
+	padding: 0.8rem 0;
+}
+
+.table-normal > tbody td,th {
+	border-bottom: 1px solid rgb(216, 216, 216);
+	padding: 0.4rem 0;
+}
+
+.table-fix {
+	table-layout: fixed;
+}
+
+.cell-center {
+	text-align: center;
+}
+
+.cell-left {
+	text-align: left;
+}
+
+.col-1 {
+	width: calc(100% / 12 * 1);
+}
+
+.col-2 {
+	width: calc(100% / 12 * 2);
+}
+
+.col-4 {
+	width: calc(100% / 12 * 4);
+}
+
+
+input.check-hidden {
+	display: none;
+}
+
+input.check-hidden + .checkbox {
+	position: relative;
+	top: -2px;
+	display: inline-block;
+	width: 1rem; height: 1rem;
+	border: 1px solid black;
+	vertical-align: middle;
+}
+
+input.check-hidden + .checkbox > span {
+	display: none;
+	font-size: 14px;
+}
+
+input.check-hidden:checked + .checkbox > span {
+	position: relative;
+	top: -4px;
+	display: inline-block;
+}
+
+input.check-hidden:checked + .checkbox {
+	background-color: gray;
+}
+
+
+.paging-list {
+	list-style-type: none;
+}
+
+.paging-list .paging-item {
+	display: inline-block;
+}
+
+.paging-list .active {
+	border: 1px solid black;
+	background-color: white;
+}
+
+.paging-list .active a {
+	color: rgb(0, 216, 80);
+}
+
+.paging-list a {
+	display: inline-block;
+	text-decoration: none;
+	padding: 0.4rem 0.6rem;
+	color: black;
+}
+/* padding 으로 a 태그에서의 영역을 넓혀 숫자를 벗어나도 클릭 가능하게함*/
+/* inline-block 하지 않으면 겹쳐진다. */
+
+.paging-list a:hover {
+	text-decoration: underline;
+}
+
+.paging-list .next-item::after {
+	position: relative;
+	right: 12px;
+	content: ">";
+}
+/* content 가상의 요소*/
+
+.paging-list .prev-item::before {
+	position: relative;
+	left: -12px;
+	content: "<";
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}

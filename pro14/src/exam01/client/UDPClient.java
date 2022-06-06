@@ -15,13 +15,18 @@ public class UDPClient {
 			/*
 			 * 1.네트워크 통신을 위한 IP주소 정보 설정
 			 */
+			
+			//getByName :도메인명(host)을 통해 IP주소를 얻는다
 //			InetAddress ip = InetAddress.getByName("localhost");
 			
+			//getByAddress : byte배열을 통해 IP주소를 얻는다.
 //			byte[] addr = new byte[] {(byte)58,(byte)127,(byte)192,(byte)220};
 //			InetAddress ip = InetAddress.getByAddress(addr);
 			
+			//getHostAddress : 호스트의 IP주소를 반환한다.
 //			System.out.println(ip.getHostAddress());
 			
+			//getLocalHost : 지역 호스트의 IP주소를 반환한다.
 			InetAddress clientIp = InetAddress.getLocalHost();
 			int clientPort = 50000;
 			

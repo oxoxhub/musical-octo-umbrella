@@ -18,24 +18,24 @@
 	<hr>
 	<h2>document.getElementsByName(tag_name)</h2>
 	<p>HTML 태그의 속성중 name 속성의 값으로 태그를 선택/접근 하기 위한 방법<br>
-		동일한 name 속성 값에 해당하는 모든 요소를 HTMLCollection으로 반환한다.</p>
+		동일한 name 속성 값에 해당하는 모든 요소를 동적 NodeList로 반환한다.</p>
 	<hr>
 	<h2>document.getElementsByClassName(class_name)</h2>
 	<p>HTML 태그의 속성중 class 속성의 값으로 태그를 선택/접근 하기 위한 방법<br>
 		동일한 class 속성 값에 해당하는 모든 요소를 HTMLCollection으로 반환한다.</p>
 	<hr>
-	<h2>document.getSelector(css_selector)</h2>
+	<h2>document.querySelector(css_selector)</h2>
 	<p>HTML 태그의 속성중 class 속성의 값으로 태그를 선택/접근 하기 위한 방법<br>
-		css 선택자를 선택자를 사용하여 id, 태그명, class 등의 속성을 활용할 수 있다.<br>
+		css 선택자를 사용하여 id, 태그명, class 등의 속성을 활용할 수 있다.<br>
 		가장 먼저 선택한 요소 1개만 반환한다.</p>
 	<hr>
-	<h2>document.getSelectorAll(css_selector)</h2>
+	<h2>document.querySelectorAll(css_selector)</h2>
 	<p>HTML 태그의 속성중 class 속성의 값으로 태그를 선택/접근 하기 위한 방법<br>
-		css 선택자를 선택자를 사용하여 id, 태그명, class 등의 속성을 활용할 수 있다.<br>
-		동일한 css 선택자에 해당하는 모든 요소를 nodeCollection 으로 반환한다.</p>
+		css 선택자를 사용하여 id, 태그명, class 등의 속성을 활용할 수 있다.<br>
+		동일한 css 선택자에 해당하는 모든 요소를 정적 NodeList로 반환한다.</p>
 	<hr>
 	<h2>선택된 DOM 객체를 기준으로 다른 DOM 객체 선택/접근</h2>
-	<p>선택된 DOM 객체로 부터 상대적인 방법으로 다른 DOm 객체에 접근하는 방법</p>
+	<p>선택된 DOM 객체로 부터 상대적인 방법으로 다른 DOM 객체에 접근하는 방법</p>
 	<ul>
 		<li>HTMLElement.firstElementChild : 하위 요소 중 첫번째 요소</li>
 		<li>HTMLElement.lastElementChild : 하위 요소 중 마지막 요소</li>

@@ -22,12 +22,13 @@ function f1() {
 	res1.innerHTML += "    age: 23," + "<br>";
 	res1.innerHTML += "    gender: 'M'" + "<br>";
 	res1.innerHTML += "}" + "<br>";
+	console.log(res1);
 }
 
 function f2() {
 	var res2 = document.getElementById("res2");
 	res2.innerHTML += "std.name -> " + std.name + "<br>";
-	res2.innerHTML += "std['name'] -> " + std["name"] + "<br>";
+	res2.innerHTML += "std['name'] -> " + std['name'] + "<br>";
 }
 /* 
 - 객체의 속성(filed)에 접근 하는 방법은 두가지. 
@@ -52,14 +53,15 @@ function f4() {
 	var gender = document.getElementById("id_input1_gender");
 	var res4 = document.getElementById("res4");
 	var n, a, g;
-	
+
 	if(!name.value) {
 		res4.innerHTML = "이름을 입력하세요.";
 		name.focus();
 		return;
 	}
+
 	n = name.value;
-	
+
 	if(!age.value) {
 		res4.innerHTML = "나이를 입력하세요.";
 		age.focus();
@@ -206,5 +208,89 @@ function genSquare(width=1, height=1, color="#000000") {
 		}
 	};
 	return square;
+}
+
+function f7() {
+	var name = document.getElementById("student_name");
+	var korean = document.getElementById("student_korean");
+	var math = document.getElementById("student_math");
+	var eng = document.getElementById("student_eng");
+	var science = document.getElementById("student_science");
+	var res7 = document.getElementById("res7");
+	
+	if(!name.value) {
+		name.focus();
+		return;
+	}
+	
+	n = name.value;
+	
+	if(!korean.value) {
+		korean.focus();
+		return;
+	}
+
+	k = parseInt(korean.value);
+	
+	if(!math.value) {
+		math.focus();
+		return;
+	}
+
+	m = parseInt(math.value);
+	
+	if(!eng.value) {
+		eng.focus();
+		return;
+	}
+
+	e = parseInt(eng.value);
+
+	if(!science.value) {
+		science.focus();
+		return;
+	}
+
+	s = parseInt(science.value);
+	
+	var students = new Array();
+	students.push(new Student(n, k, m, e, s));
+	
+	for(let i in students) {
+		res7.innerHTML += students[i] + '<br>';
+	}
+}
+
+function Student(name, korean, math, english, science) {
+	//생성자 함수
+	//this = {}; 빈 객체가 암시적으로 만들어진다.
+	
+	//this가 꼭 필요하다. 빈 객체를 만들어 this에 할당하고
+	//함수 본문 실행한 뒤 this에 새로운 프로퍼티를 추가해 this를 수정한다.
+	//this를 반환한다.
+	
+	this.name = name;
+	this.korean = korean;
+	this.math = math;
+	this.english = english;
+	this.science = science;
+	//새로운 프로퍼티를 this에 추가함.
+	//return이 없다면 this.name 등이 반환되지만 return이 있다면 리턴문이 반환된다.
+	
+	this.getsum = function() {
+		return this.korean + this.math + this.english + this.science;
+	}
+	
+	
+	this.getaverage = function() {
+		return this.getsum() / 4;
+	}
+	
+	this.toString = function() {
+		//return name + ',' + this.getsum() + ',' + this.getaverage();
+		return `이름 : ${name} / 총점 : ${this.getsum()} / 평균 : ${this.getaverage()}`;
+	}
+	//toString 함수
+	
 }
 

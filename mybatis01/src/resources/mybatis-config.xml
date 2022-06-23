@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 
+ 	mybatis-config.xml 최상단에 위와 같이 xml형식을 지정하여
+	이하의 설정 내용이 mybatis config 설정임을 선언
+-->
+ 
+ <!-- 
+	 mybatis-config.xml 생성 위치 : 
+	‘resources’라는 Source Folder를 생성하고 mybatis-config.xml 파일 등록 
+-->
+
+<!-- <configuration>최상위 태그를 작성하고 내부에 필요한 설정 작성 -->
+<configuration>
+
+	<!-- <properties>태그 : 외부 properties파일의 내용을 불러 올 때 사용 -->
+	<!-- oracle_db.conf는 DB정보를 담은 properties 파일이다. -->
+	<properties resource="resources/oracle_db.conf">
+		<!-- properties resource="경로 + 파일명.properties" -->
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+	</properties>
+	
+	<!-- <settings>태그 : MyBatis구동 시 선언할 설정 작성 -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!-- Null 값이 발생할 경우 빈칸이 아닌 null로 인식해라 -->
+	</settings>
+	
+	<!-- <typeAliases> 태그 : MyBatis에서 사용할 자료형의 별칭 선언 -->
+	<typeAliases>
+		<typeAlias type="com.emp.vo.EmpVO" alias="empVo"/>
+		<typeAlias type="com.emp.vo.DataVO" alias="dataVo"/>
+		<typeAlias type="com.emp.vo.EmpWhereVO" alias="empWhereVo"/>
+		<!-- type에는 패키지 명까지 전부 기술해줘야 된다. -->
+		<!-- alias는 별칭이고 -mapper.xml의 <resultMap>태그에서 typeAlias로 사용  -->
+	</typeAliases>
+	
+	<!-- <environments>태그 : MyBatis에서 연동할 DataBase 정보 등록 -->
+	<environments default="development">
+		<!-- environment id를 구분하여 연결할 DB를 여러 개 구성할 수도 있다. 
+			build()메소드 구현 시 매개변수에 environment의 id를 설정하면 됨
+		-->
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+			<!-- POOLED : 시간단축, Connection객체를 재사용 / UNPOOLED : 느림, Connection객체를 매번 생성해서 사용 -->
+				<property name="driver" value="${driver}"/>
+				<!-- value = "${ properties에 설정된 key명 }" -->
+				<!-- property name="driver" value="oracle.jdbc.driver.OracleDriver"/ -->
+				
+				<property name="url" value="${url}"/>
+				<!-- property name="url" value="jdbc:oracle:thin:@localhost:1521/XE"/ -->
+				<!-- 이 방법은 5줄의 resource에 value 부분을 파일로 따로 만들어서 사용한 것 -->
+				<property name="username" value="puser1"/>
+				<property name="password" value="puser1"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- <mappers>태그 : 사용하고자 하는 쿼리문이 정의된 mapper파일 등록 -->
+	<mappers>
+		<mapper resource="resources/mapper/mybatis-mapper.xml"/>
+	</mappers>
+</configuration>
+<!-- properties > settings > typeAliases > environments > mappers 순서대로 적용해야한다. -->
+
+

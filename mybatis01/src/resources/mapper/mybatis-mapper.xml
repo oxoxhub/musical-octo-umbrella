@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- 
+	xml 최상단에 위와 같이 xml형식을 지정하여 이하의 설정 내용이 MyBatis mapper 설정임을 선언
+-->
+ 
+<!-- 
+	*-mapper.xml 생성 위치 :
+	‘resources’ 폴더 안에 ‘mappers’폴더 생성 후 그 안에 식별하기 쉬운 이름을 지어 파일 등록 
+-->
+ 
+<!-- 
+	<mapper>태그를 작성하고 외부에서 접근할 수 있는 이름인 namespace 속성 기입, 
+	이후 작성될 태그들은 <mapper>태그 안에 기록 
+-->
+<mapper namespace="empMapper">
+	
+	<!-- <resultMap>태그 : 조회한 결과를 객체와 Row간의 1:1 매칭이 아닌 
+		원하는 객체의 필드에 담아 반환하고자 할 때 사용 -->
+	<!-- <resultMap>의 type속성은 실제로 구현해 놓은 자바 POJO객체를 사용해야 하며,
+		mybatis-config.xml에서 typeAlias를 지정하지 않은 경우 패키지 명부터 클래스 명까지 모두 기술해야 함 -->
+	<resultMap type="empVo" id="empVoMap">
+		<!-- id="empVoMap"에서 id 값이 select문의 resultMap의 값과 같아야한다. -->
+		<!-- result는 일반 컬럼 / id는 primary key -->
+		<result property="empId" column="employee_id"/>
+		<result property="firstName" column="first_name"/>
+		<result property="lastName" column="last_name"/>
+		<!-- property = 자바의 필드변수 이름 / column = DB의 해당 컬럼 -->
+	</resultMap>
+
+	<!-- <select>태그 : SQL의 조회구문을 작성 할 때 사용되는 태그, 
+		 해당 쿼리를 외부에서 접근하고자 할 때 namespace.id명을 적어 접근가능 -->
+	<!-- 
+		id : 구문을 찾기 위해 사용될 수 있는 네임스페이스 내 유일한 구분자
+		parameterType : 구문에 전달될 파라미터의 클래스 명(패키지 경로 포함)이나 별칭
+		resultType : 리턴되는 타입의 패키지 경로를 포함한 전체 클래스 명이나 별칭, 
+					 collection인 경우 list, arraylist로 설정 가능
+		resultMap : 리턴되는 타입의 필드 명이 다를 때 사용하며 직접 이름을 지정하여 매칭
+		* resultMap과 resultType은 둘 모두를 사용할 수 없으며 둘 중 하나만 선언해야 함
+	 -->
+	<select id="empCount" resultType="_int">
+	<!-- resultType : 반환할 타입 -->
+		SELECT COUNT(*) FROM EMPLOYEES
+	</select>
+	
+	<select id="empNames" resultType="string">
+		SELECT CONCAT(FIRST_NAME, LAST_NAME) FROM EMPLOYEES
+	</select>
+	
+	<select id="empDatas" resultType="map">
+		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES
+	</select>
+	
+	<select id="empObjects" resultType="empVo">
+	<!-- empVo는 empVO객체이고 config.xml에서 typeAliases로 별칭을 부여한 별칭명이다. -->
+	<!-- 컬럼명과 멤버변수명과 동일하게 해주는게 좋다. (대소문자는 상관없음)
+		 만약 다르게 쓰고 싶다면 컬럼명에 AS로 별칭(멤버변수명)을 부여해준다. -->
+		SELECT EMPLOYEE_ID AS empid
+			 , FIRST_NAME AS firstname
+			 , LAST_NAME AS lastname
+		  FROM EMPLOYEES
+	</select>
+	
+	<!-- #{field}는 pstmt의 '?'의 역할이며, 전달된 값을 뜻한다.
+		또한 여러줄로 줄바꿈 문자를 섞어 사용도 가능하다.
+		단, 쿼리의 마지막에 세미콜론을 붙이면 에러가 나므로 작성하지 않는다. -->
+	<select id="empSelect" resultType="empVo">
+		SELECT EMPLOYEE_ID AS empid
+			 , FIRST_NAME AS firstname
+			 , LAST_NAME AS lastname
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{id}
+	</select>
+	
+	<select id="empRange" parameterType="map" resultMap="empVoMap">
+	<!-- resultMap을 쓸경우 mapper안에 <resultMap>태그를 사용해야한다. -->
+		SELECT EMPLOYEE_ID
+			 , FIRST_NAME
+			 , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID BETWEEN #{first} AND #{last}
+	</select>
+	
+	<!-- #{}안에는 멤버변수의 이름과 같아야한다. -->
+	<insert id="dataInsert1" parameterType="dataVo">
+		INSERT INTO T_MYBATIS VALUES(SEQ_MYBATIS.NEXTVAL, #{name}, #{today})
+	</insert>
+	
+	<!-- <update id="dataUpdate1" parameterType="map"> -->
+	<update id="dataUpdate1" parameterType="dataVo">
+		UPDATE T_MYBATIS
+		   SET NAME = #{name}
+		 WHERE ID = #{id}
+	</update>
+	
+	<!-- parameterType의 기본이 int라서 명시할 필요 없다. -->
+	<delete id="dataDelete1">
+		DELETE FROM T_MYBATIS
+		 WHERE ID = #{id}
+	</delete>
+	
+	<select id="insertCheck" resultType="dataVo">
+		SELECT * FROM T_MYBATIS
+		 WHERE ID = #{id}
+	</select>
+	
+	<!-- &lt; 는 < 등호를 표시한다. -->
+	<select id="dynamicQuery" parameterType="empWhereVo" resultType="empVo">
+		SELECT EMPLOYEE_ID
+	 		 , FIRST_NAME
+	 		 , LAST_NAME
+	 		 , SALARY
+		  FROM EMPLOYEES
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="salary > 0">
+				AND SALARY >= #{salary}
+			</if>
+			<choose>
+				<when test="deptId > 0">
+		  			AND DEPARTMENT_ID = #{deptId}
+		  		</when>
+		  		<when test="deptIdList != null">
+			  		<foreach collection="deptIdList" item="v" index="index" 
+			  			open="AND DEPARTMENT_ID IN (" close=")" separator=", ">
+			  			#{v}
+		  			</foreach>
+				</when>
+			</choose>
+			<choose>
+				<when test="startDate !=null and endDate != null">
+		  			AND HIRE_DATE BETWEEN #{startDate} AND #{endDate}
+		  		</when>
+		  		<when test="startDate != null and endDate == null">
+		  			AND HIRE_DATE >= #{startDate}
+		  		</when>
+		  		<when test="startDate == null and endDate != null">
+		  			AND HIRE_DATE %lt;= #{endDate}
+		  		</when>
+		  		<otherwise></otherwise>
+			</choose>
+		</trim>
+	</select>
+	
+<!-- 	<select id="empJobId" resultType="empVo">
+	  SELECT JOB_ID
+		FROM EMPLOYEES
+	   WHERE JOB_ID = #{jobId}
+	</select> 
+-->
+	
+	<select id="empJobIdQuery" parameterType="empVo" resultType="empVo">
+	  SELECT JOB_ID
+		FROM EMPLOYEES
+	  <trim prefix="WHERE" prefixOverrides="AND">
+			<choose>
+				<when test="jobId != null">
+					AND JOB_ID = #{jobId}
+				</when>
+				<when test="jobIdList != null">
+			  		<foreach collection="jobIdList" item="v" index="index" 
+			  			open="AND JOB_ID IN (" close=")" separator=", ">
+			  			#{v}
+		  			</foreach>
+				</when>
+			</choose>
+		</trim>
+	</select>
+	
+	<select id="selectSearchList" resultMap="boardResultSet">
+		SELECT BOARD_NO, BOARD_TITLE, USER_ID, COUNT, CREATE_DATE
+		  FROM BOARD B
+		  JOIN MEMBER ON(BOARD_WRITER=USER_NO)
+		  <trim prefix="WHERE" prefixOverrides="AND|OR">
+		  	<choose>
+		  		<when test="writer != null">
+				  	AND USER_ID LIKE '%' || #{writer} || '%'
+		  		</when>
+		  		<when test="title != null">
+				  	AND BOARD_TITLE LIKE '%' || #{title} || '%'	  		
+		  		</when>
+		  		<when test="content != null">
+				  	AND BOARD_CONTENT LIKE '%' || #{content} ||'%'
+		  		</when>
+		  		<otherwise>
+		  			AND B.STATUS &lt;> 'N'
+		  			ORDER BY BOARD_NO DESC
+		  		</otherwise>
+		  	</choose>
+		  </trim>
+	</select>
+</mapper>
+
+
+

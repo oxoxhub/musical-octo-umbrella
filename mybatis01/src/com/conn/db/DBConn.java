@@ -160,22 +160,59 @@ public class DBConn {
 		
 		List<Integer> deptList = new ArrayList<Integer>();
 		deptList.add(80); deptList.add(90); deptList.add(100);
-		
-		dynamicData.setDeptIdList(deptList);
+		//dynamicData.setDeptIdList(deptList);
 		
 		List<EmpVO> result10 = session.selectList("empMapper.dynamicQuery", dynamicData);
 		System.out.println(result10.size() + " 개 행 데이터가 조회 되었습니다.");
 		
-		
 		//연습문제
-		EmpVO jobData = new EmpVO();
-		List<String> jobList = new ArrayList<String>();
-		jobList.add("IT_PROG"); jobList.add("AD_VP");
+		// Map<String, Integer> paramData = new HashMap<String, Integer>();
+		// paramData.put("deptId", 10);
+		// paramData.put("stDeptId", 10);
+		// paramData.put("edDeptId", 40);
+		Map<String, List<Integer>> paramData = new HashMap<String, List<Integer>>();
+		List<Integer> deptList2 = new ArrayList<Integer>();
+		deptList2.add(10); deptList2.add(20); deptList2.add(40); deptList2.add(70);
+		paramData.put("deptList", deptList2);
 		
-		jobData.setJobIdList(jobList);
+		List<Map<String, Object>> result11 = session.selectList("empMapper.empOfDeptCount", paramData);
 		
-		List<EmpVO> result11 = session.selectList("empMapper.empJobIdQuery", jobData);
-		System.out.println(result11.size() + " 명 입니다.");
+		for(Map<String, Object> d: result11) {
+			System.out.println(d);
+		}
+		
+		
+		// 새로운 데이터를 추가 했을 때 추가한 데이터의 ID 를 알 수 없는 문제를 해결해보도록 한다. 		
+		Map<String, Object> paramData2 = new HashMap<String, Object>();
+		paramData2.put("name", "newSeq");
+		paramData2.put("date", new Date(new java.util.Date().getTime()));
+		int id = insertSeqData(paramData2);
+		if(id != -1) {
+			System.out.println("ID 가 " + id + " 인 데이터가 추가 되었습니다.");
+		}
+		
+		DataVO dataVo2 = new DataVO();
+		dataVo2.setName("mybatis_seqquence");
+		dataVo2.setToday(new Date(new java.util.Date().getTime()));
+		int result12 = session.insert("empMapper.insertGetSeq", dataVo2);
+		if(result12 == 1) {
+			System.out.println("ID 가 " + dataVo2.getId() + " 인 데이터가 추가 되었습니다.");
+			session.commit();
+		}
+	}
+		
+	public static int insertSeqData(Map<String, Object> param) {
+		SqlSession session = DBConn.getSqlSession();
+		int seq = session.selectOne("empMapper.getSeq");
+		param.put("seq", seq);
+		int result = session.insert("empMapper.insertSeq", param);
+		
+		if(result == 1) {
+			session.commit();
+			return seq;
+		}
+		session.rollback();
+		return -1;
 	}
 
 }

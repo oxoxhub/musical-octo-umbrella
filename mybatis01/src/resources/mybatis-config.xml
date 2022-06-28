@@ -46,7 +46,7 @@
 			<dataSource type="POOLED">
 			<!-- POOLED : 시간단축, Connection객체를 재사용 / UNPOOLED : 느림, Connection객체를 매번 생성해서 사용 -->
 				<property name="driver" value="${driver}"/>
-				<!-- value = "${ properties에 설정된 key명 }" -->
+				<!-- value = "${ properties에 설정된 key값 }" -->
 				<!-- property name="driver" value="oracle.jdbc.driver.OracleDriver"/ -->
 				
 				<property name="url" value="${url}"/>

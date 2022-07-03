@@ -21,12 +21,14 @@ import com.emp.vo.EmpWhereVO;
 
 public class DBConn {
 
+	// mybatis 에서는 DB에 연동하는 Connection객체를 SqlSession이라 부른다.
+	// SqlSession 은 데이터베이스에 대해 SQL명령어를 실행하기 위해 필요한 모든 메소드를 가지고 있다. 
+	// 그래서 SqlSession 인스턴스를 통해 직접 SQL 구문을 실행할 수 있다.
 	public static SqlSession getSqlSession() {
+		// getSqlSession의 역할
+		// XML 파일을 연결하여 XML 파일 정보를 바탕으로 DB와 연결하고, 해당 Connection(SqlSession)을 리턴하는 역할
 		
-		//SqlSession 은 데이터베이스에 대해 SQL명령어를 실행하기 위해 필요한 모든 메소드를 가지고 있다. 
-		//그래서 SqlSession 인스턴스를 통해 직접 SQL 구문을 실행할 수 있다.
 		SqlSession sess = null;
-		
 		String config = "resources/mybatis-config.xml";
 		InputStream is;
 		
@@ -34,11 +36,15 @@ public class DBConn {
 			// getResourceAsStream 는 inputStream 역할. mybatis 설정 파일을 읽어들인다.
 			is = Resources.getResourceAsStream(config);
 			
-			// SqlSessionFactory 객체 취득
+			// SqlSession을 생성하려면 Mybatis에서는 팩토리 패턴이라는 것을 사용해서 객체를 만듭니다.
+			// 팩토리 패턴이라는 것은 바로 생성하는게 아니라 특정 객체를 셍성하기 위한 팩토리를 먼저 만들고,
+			// 그 뒤에 해당 특정 객체를 생성하는 방법
+			//SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+			//SqlSessionFactory factory = builder.build(is);
 			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is, "development");
 			
 			// tomcat의 session과 DB의 session은 서로 다르다
-			// SqlSession 객체를 취득 <-- 실질적으로 데이터를
+			// openSession 이라는메소드는 세션을 가져오는 메소드
 			sess = sqlSessionFactory.openSession(false);
 			//false=자동커밋안함(session.commit()으로 수동커밋해줘야한다) true=자동커밋
 		} catch (IOException e) {

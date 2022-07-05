@@ -26,7 +26,7 @@ public class DeptController extends HttpServlet {
 		String search = request.getParameter("search");
 		//mvc.jsp에서 부서 조회 버튼을 누른순간 name="search"의 value는 null이 된다.
 		String page = request.getParameter("page");
-		int count =3;
+		int count =10;
 		
 		if(page == null) {
 			page = "1";

@@ -17,9 +17,7 @@ public class DeptModController extends HttpServlet {
 
 	DeptService service = new DeptService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("토르");
 		String id = request.getParameter("id");
-		System.out.println(id);
 		DeptDTO data = service.getDeptId(id);
 		
 		request.setAttribute("data", data);
@@ -29,7 +27,6 @@ public class DeptModController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost 테스트");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		

@@ -6,8 +6,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>부서 조회 결과</title>
-	<link rel="stylesheet" type="text/css" href="/jsp01/static/css/deptDefault.css">
-	<script src="jsp01/static/js/deptDefault.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/deptDefault.css">
+	<script src="<%=request.getContextPath() %>/static/js/deptDefault.js"></script>
 </head>
 <script type="text/javascript">
 	window.onload = function() {
@@ -43,12 +43,12 @@
 			</ul>
 		</nav>
 	</header>
-	<section>
+	<section class="container content-center">
 		<h1>부서 조회 결과</h1>
-		<div>
+		<div class="btn-iblock">
 			<button type="button" onclick="location.href='./depts/add'">추가</button>
 		</div>
-		<div>
+		<div class="btn-iblock">
 			<form action="./depts" method="get">
 			<!-- action은 폼의 데이터를 서버로 보낼때 해당 데이터가 도착할 URL을 명시한다.
 				처음에 조회 버튼을 눌렀을 때 전체 부서조회 결과가 나오는 이유는 mvc.jsp의 부서조회 버튼을 눌렀고
@@ -63,7 +63,7 @@
 				</div>
 			</form>
 		</div>
-		<table>
+		<table class="table">
 			<tr>
 				<th>DeptId</th>
 				<th>DeptName</th>

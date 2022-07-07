@@ -28,6 +28,8 @@ public class DeptController extends HttpServlet {
 		String page = request.getParameter("page");
 		int count =10;
 		
+		request.setAttribute("menuLocation", "depts");
+		
 		if(page == null) {
 			page = "1";
 		}

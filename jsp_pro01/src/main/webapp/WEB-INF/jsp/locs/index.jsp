@@ -1,30 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, locs.model.LocsDTO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>지역 조회 결과</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/default.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/form.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/navigation.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/paging.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/required.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/table.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/required.js"></script>
 </head>
-<script type="text/javascript">
-window.onload = function() {
-	var form = document.forms[0];
-	form.addEventListner("submit",formCheck);
-}
-
-function formCheck(e) {
-	var f = e.target;
-	e.preventDefault();
-	
-	if(f.search.value.trim() === "") {
-		f.search.value = f.search.value.trim();
-		return;
-	}
-	f.submit();
-}
-</script>
 <body>
+	<%@ include file="/WEB-INF/jsp/module/navigation.jsp" %>
 	<h1>지역 조회 결과</h1>
 	<div>
 		<button type="button" onclick="location.href='./locs/add'">추가</button>
@@ -39,36 +33,25 @@ function formCheck(e) {
 	</div>
 	<table>
 		<tr>
-			<th>locsId</th>
-			<th>address</th>
+			<th>Location Id</th>
+			<th>street address</th>
 			<th>postalCode</th>
 			<th>city</th>
-			<th>province</th>
-			<th>conId</th>
+			<th>state province</th>
+			<th>country Id</th>
 		</tr>
-		<%
-			if(request.getAttribute("datas") != null) {
-				List<LocsDTO> datas = (List<LocsDTO>)request.getAttribute("datas");
-				for(LocsDTO data: datas) {
-		%>
+		<c:if test="${not empty datas}">
+			<c:forEach items="${datas}" var="data">
 				<tr>
-					<td><%=data.getLocId() %></td>
-					<td><%=data.getStAddr() %></td>
-					<td><%=data.getPostal() %></td>
-					<td><%=data.getCity() %></td>
-					<td><%=data.getState() %></td>
-					<td><%=data.getCtyId() %></td>
+					<td>${data.locId}</td>
+					<td>${data.stAddr}</td>
+					<td>${data.postal}</td>
+					<td>${data.city}</td>
+					<td>${data.state}</td>
+					<td>${data.ctyId}</td>
 				</tr>
-		<%
-				}
-			} else {
-		%>
-			<tr>
-				<td colspan="4">검색 결과가 없습니다.</td>
-			</tr>
-		<%
-			}
-		%>
+			</c:forEach>
+		</c:if>
 	</table>
 </body>
 </html>

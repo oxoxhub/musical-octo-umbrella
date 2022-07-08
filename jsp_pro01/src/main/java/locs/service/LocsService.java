@@ -35,4 +35,37 @@ public class LocsService {
 		LocsDTO data = dao.searchLocsId(id);
 		return data;
 	}
+
+	public LOCS_SERVICE_STATUS addLocs(LocsDTO data) {
+		dao = new LocsDAO();
+		LOCS_SERVICE_STATUS status = LOCS_SERVICE_STATUS.SUCCESS;
+		
+		if(getLocsId(data.getLocId()) != null) {
+			status = LOCS_SERVICE_STATUS.LOC_ID_DUPLICATED;
+		}
+		
+		if(!_existCountry(data.getCtyId())) {
+			status = LOCS_SERVICE_STATUS.CTY_ID_NOT_EXISTS;
+		}
+		
+		switch (status) {
+		case SUCCESS:
+			if(dao.insertlocs(data)) {
+				dao.commit();
+			} else {
+				status = LOCS_SERVICE_STATUS.FAILED;
+				dao.rollback();
+			}
+			break;
+		default:
+			dao.close();
+		}
+				
+		return status;
+	}
+	
+	private boolean _existCountry(String id) {
+		boolean result = dao.existCountry(id);
+		return result;
+	}
 }

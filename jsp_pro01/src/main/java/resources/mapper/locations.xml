@@ -23,7 +23,17 @@
 		  FROM LOCATIONS
 		 WHERE LOCATION_ID = #{id}
 	</select>
+	
+	<select id="existCountry" resultType="_int">
+		SELECT COUNT(*)
+		  FROM COUNTRIES
+		 WHERE COUNTRY_ID = #{id}
+	</select>
 
+	<insert id="locsInsert" parameterType="locsDto">
+		INSERT INTO LOCATIONS 
+			VALUES (#{locId}, #{stAddr}, #{postal}, #{city}, #{state}, #{ctyId}) 
+	</insert>
 </mapper>
 
 

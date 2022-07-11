@@ -23,45 +23,43 @@
 	<h1>Welcome JSP/Servlet</h1>
 	<div>
 		<h2>JSTL Core 기능 테스트</h2>
-		<c:if test="${not empty data}">
-			if 제어문  : test 에 작성한 조건식이 참이면 실행된다.<br>
-			${data }
-		</c:if>
+		<fmt:formatNumber value="1000"/><br>
+		<fmt:formatNumber value="0.1" type="percent"/><br>
+		<fmt:formatNumber value="1000" type="currency"/><br>
+		<fmt:formatNumber value="1000" type="currency" currencySymbol="$"/><br>
 		<hr>
-		<c:choose>
-			<c:when test="${param.x == 'a' }">
-				파라메터 x의 값이 a 입니다.
-			</c:when>
-			<c:when test="${param.x == 'b' }">
-				파라메터 x의 값이 b 입니다.
-			</c:when>
-			<c:when test="${param.x == 'c' }">
-				파라메터 x의 값이 c 입니다.
-			</c:when>
-			<c:otherwise>
-				파라메터 x의 값이 a,b,c 가 아닙니다.
-			</c:otherwise>
-		</c:choose>
+		<c:set var="date" value="<%=new Date() %>" />
+		<fmt:formatDate value="${date}" type="date" /><br>
+		<fmt:formatDate value="${date}" type="date" dateStyle="full"/><br>
+		<fmt:formatDate value="${date}" type="date" dateStyle="long"/><br>
+		<fmt:formatDate value="${date}" type="date" dateStyle="medium"/><br>
+		<fmt:formatDate value="${date}" type="date" dateStyle="short"/><br>
+		<fmt:formatDate value="${date}" type="date" pattern="YYYY-MM-dd E EEEE"/><br>
 		<hr>
-		<c:forEach begin="5" end="10" step="2" var="v">
-			${v}<br>
-		</c:forEach>
-		<%
-			List<String> lst = new ArrayList<String>();
-			lst.add("a"); lst.add("b"); lst.add("c"); lst.add("d");
-			request.setAttribute("lst", lst);
-		%>
-		<c:forEach items="${lst}" var="v">
-			${v}<br>
-		</c:forEach>
-		<%
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("a", "가"); map.put("b", "나"); map.put("c", "다");
-			request.setAttribute("map", map);
-		%>
-		<c:forEach items="${map}" var="v">
-			${v.key} - ${v.value}<br>
-		</c:forEach>
+		<fmt:formatDate value="${date}" type="time" /><br>
+		<fmt:formatDate value="${date}" type="time" timeStyle="full"/><br>
+		<fmt:formatDate value="${date}" type="time" timeStyle="long"/><br>
+		<fmt:formatDate value="${date}" type="time" timeStyle="medium"/><br>
+		<fmt:formatDate value="${date}" type="time" timeStyle="short"/><br>
+		<fmt:formatDate value="${date}" type="time" pattern="a hh:mm:ss | HH:mm:ss.sss z"/><br>
+		<hr>
+		<fmt:formatDate value="${date}" type="both" /><br>
+		<fmt:formatDate value="${date}" type="both"  dateStyle="full" timeStyle="medium"/><br>
+		<hr>
+		${fn:contains('Hello', 'e')}<br>
+		${fn:containsIgnoreCase('Hello', 'e')}<br>
+		${fn:startsWith('Hello', 'e')}<br>
+		${fn:endsWith('Hello', 'e')}<br>
+		${fn:indexOf('Hello', 'e')}<br>
+		${fn:length('Hello')}<br>
+		${fn:replace('Hello', 'e', 'a')}<br>
+		${fn:substring('Hello', 1, 3)}<br>
+		${fn:split('Hello, Hi', ', ')}<br>
+		${fn:join(fn:split('Hello, Hi', ', '), '-')}<br>
+		<% String s[] = {"Hello", "hi"}; request.setAttribute("txt", s); %>
+		${fn:join(txt, '-')}<br>
+		${fn:trim('   Hello   ')}<br>
 	</div>
 </body>
 </html>
+

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, dept.model.DeptDTO" %>
+<%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -35,29 +35,47 @@
 				<div class="input-form form-right">
 					<input class="input-text"  type="text" name="search">
 					<button class="btn btn-outline" type="submit">조회</button>
+					<select class="select-form" onchange="location.href='./depts?pgc=' + this.value">
+						<option value="5" ${pgc == 5 ? 'selected' : ''}>5개</option>
+						<option value="10" ${pgc == 10 ? 'selected' : ''}>10개</option>
+						<option value="15" ${pgc == 15 ? 'selected' : ''}>15개</option>
+						<option value="20" ${pgc == 20 ? 'selected' : ''}>20개</option>
+					</select>
+					<% 
+					System.out.println("jsp");
+					System.out.println("jsp pgc : " + session.getAttribute("pgc")); 
+					%>
 				</div>
 			</form>
 		</div>
 		
 		<table class="table wide vertical-hidden hover">
 			<colgroup>
-				<col class="col-60">
+				<col class="col-120">
 				<col class="col-auto">
-				<col class="col-60">
-				<col class="col-60">
+				<col class="col-120">
+				<col class="col-120">
 				<col class="col-120">
 			</colgroup>
 			<thead>
 				<tr>
-					<th>DeptId</th>
-					<th>DeptName</th>
-					<th>MngId</th>
-					<th>LocId</th>
+					<th class="${sort == 'deptId' ? 'sort-desc' : ''}"
+					onclick="location.href='./depts?page=${page}&sort=deptId'">DeptId
+					</th>
+					<th class="${sort == 'deptName' ? 'sort-desc' : ''}"
+					onclick="location.href='./depts?page=${page}&sort=deptName'">DeptName
+					</th>
+					<th class="${sort == 'mngId' ? 'sort-desc' : ''}"
+					onclick="location.href='./depts?page=${page}&sort=mngId'">MngId
+					</th>
+					<th class="${sort == 'locId' ? 'sort-desc' : ''}"
+					onclick="location.href='./depts?page=${page}&sort=locId'">LocId
+					</th>
 					<th class="border-hidden-right"></th>
-				</tr>			
+				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${not empty datas }">
+				<c:if test="${not empty datas}">
 					<c:forEach items="${datas}" var="data">
 						<tr>
 							<td>${data.deptId}</td>
@@ -77,45 +95,31 @@
 				</c:if>
 			</tbody>
 		</table>
-		<%
-			if(request.getAttribute("pageList") != null) {
-				List<Integer> pageList = (List<Integer>) request.getAttribute("pageList");
-				int currentPage = (int)(request.getAttribute("page"));
-		%>
+		<c:if test="${not empty pageList}">
+			<c:set var="currentPage" value="${page}" />
 			<div class="paging">
-				<ul class="page center"> 
-		<%
-				if(currentPage - 1 > 0) {
-		%>
-					<li class="page-item">
-						<a class="page-link" href="./depts?page=<%=currentPage - 1 %>">Prev</a>
-					</li>
-		<%
-				}
-				int i = currentPage - 1;
-				int maxPage = i + 5 > pageList.size() ? pageList.size() : i + 5;
-				for(; i < maxPage; i++) {
-		%>
-					<li class="page-item">
-						<a class="page-link" href="./depts?page=<%=pageList.get(i) %>"><%=pageList.get(i) %></a>
-					</li>
-		<%			
-				}
-				if(currentPage + 1 <= pageList.size()) {
-		%>
-					<li class="page-item">
-						<a class="page-link" href="./depts?page=<%=currentPage + 1 %>">Next</a>
-					</li>
-		<%
-				} 
-		%>
+				<ul class="page center">
+					<c:if test="${currentPage - 1 > 0}">
+						<li class="page-item">
+							<a class="page-link" href="./depts?page=${currentPage - 1}">Prev</a>
+						</li>
+					</c:if>
+					<c:set var="i" value="${currentPage - 1}" />
+					<c:set var="maxPage" value="${i + 5 > pageList.size() ? pageList.size() : i + 5}" />
+					<c:forEach begin="${i}" end="${maxPage - 1}" var="num">
+						<li class="page-item">
+							<a class="page-link" href="./depts?page=${pageList.get(num)}">${pageList.get(num)}</a>
+						</li>
+					</c:forEach>
+					<c:if test="${currentPage + 1 <= pageList.size()}">
+						<li class="page-item">
+							<a class="page-link" href="./depts?page=${currentPage + 1}">Next</a>
+						</li>
+					</c:if>
 				</ul>
 			</div>
-		<% 
-			}
-		%>
+		</c:if>
 	</section>
 </body>
 </html>
-
 

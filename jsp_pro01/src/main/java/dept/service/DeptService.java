@@ -36,6 +36,18 @@ public class DeptService {
 		dao.close();
 		return datas;
 	}
+	
+	public List<DeptDTO> getPage(int pageNumber, int count, String sort) {
+		// 한 페이지에 보여질 갯수의 데이터만 가져오기
+		// pageNumber=현재 페이지, count=한페이지에 보여질 게시물 갯수
+		int start = (pageNumber - 1) * count + 1;
+		int end = start + count - 1;
+		
+		dao = new DeptDAO();
+		List<DeptDTO> datas = dao.searchPage(start, end, sort);
+		dao.close();
+		return datas;
+	}
 
 	public List<Integer> getPageNumberList() {
 		dao = new DeptDAO();
@@ -52,6 +64,7 @@ public class DeptService {
 	public List<Integer> getPageNumberList(int count) {
 		dao = new DeptDAO();
 		int rowCount = dao.rowCount();
+
 		dao.close();
 		List<Integer> pageList = new ArrayList<Integer>();
 		int pageNum = (rowCount - 1) / count;

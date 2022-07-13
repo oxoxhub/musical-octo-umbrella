@@ -19,39 +19,49 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/module/navigation.jsp" %>
-	<h1>지역 조회 결과</h1>
-	<div>
-		<button type="button" onclick="location.href='./locs/add'">추가</button>
-	</div>
-	<div>
-		<form action="./locs" method="get">
-			<div>
-				<input type="text" name="search">
-				<button type="submit">조회</button>
-			</div>
-		</form>
-	</div>
-	<table>
-		<tr>
-			<th>Location Id</th>
-			<th>street address</th>
-			<th>postalCode</th>
-			<th>city</th>
-			<th>state province</th>
-			<th>country Id</th>
-		</tr>
-		<c:if test="${not empty datas}">
-			<c:forEach items="${datas}" var="data">
+	<section class="container">
+		<div>
+			<form action="./locs" method="get">
+				<div class="input-form form-right">
+					<input class="input-text" type="text" name="search">
+					<button class="btn btn-outline" type="submit">조회</button>
+				</div>
+			</form>
+		</div>
+		<table class="table wide vertical-hidden hover">
+			<colgroup>
+				<col class="col-120">
+				<col class="col-auto">
+				<col class="col-120">
+				<col class="col-120">
+				<col class="col-180">
+				<col class="col-120">
+			</colgroup>
+			<thead>
 				<tr>
-					<td>${data.locId}</td>
-					<td>${data.stAddr}</td>
-					<td>${data.postal}</td>
-					<td>${data.city}</td>
-					<td>${data.state}</td>
-					<td>${data.ctyId}</td>
+					<th>Location ID</th>
+					<th>Street Address</th>
+					<th>Postal Code</th>
+					<th>City</th>
+					<th>State Province</th>
+					<th>Country Id</th>
 				</tr>
-			</c:forEach>
-		</c:if>
-	</table>
+			</thead>
+			<tbody>
+				<c:if test="${not empty datas}">
+					<c:forEach items="${datas}" var="data">
+						<tr>
+							<td>${data.locId}</td>
+							<td>${data.stAddr}</td>
+							<td>${data.postal}</td>
+							<td>${data.city}</td>
+							<td>${data.state}</td>
+							<td>${data.ctyId}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</tbody>
+		</table>
+	</section>
 </body>
 </html>

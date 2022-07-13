@@ -34,6 +34,31 @@ public class EmpsDAO {
 		return result;
 	}
 	
+	public EmpsDetailDTO selectEmpDetail(int empId) {
+		String mapId = String.format(mapper, "selectEmpDetail");
+		EmpsDetailDTO data = session.selectOne(mapId, empId);
+		return data;
+	}
+	
+	
+	public boolean updateEmp(EmpsDTO empsData) {
+		String mapId = String.format(mapper, "updateEmp");
+		int result = session.update(mapId, empsData);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateEmpDetail(EmpsDetailDTO empsDetailData) {
+		String mapId = String.format(mapper, "updateEmpDetail");
+		int result = session.update(mapId, empsDetailData);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void commit() {
 		session.commit();
 	}

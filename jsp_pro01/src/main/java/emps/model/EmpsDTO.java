@@ -5,7 +5,7 @@ public class EmpsDTO {
 	private String empName;
 	private String email;
 	private String jobName;
-	private String jodId;
+	private String jobId;
 	private String deptName;
 	private int deptId;
 	
@@ -15,6 +15,10 @@ public class EmpsDTO {
 	
 	public void setEmpId(int empId) {
 		this.empId = empId;
+	}
+	
+	public void setEmpId(String empId) {
+		this.empId = Integer.parseInt(empId);
 	}
 	
 	public String getEmpName() {
@@ -41,12 +45,12 @@ public class EmpsDTO {
 		this.jobName = jobName;
 	}
 	
-	public String getJodId() {
-		return jodId;
+	public String getJobId() {
+		return jobId;
 	}
 	
-	public void setJodId(String jodId) {
-		this.jodId = jodId;
+	public void setJobId(String jobId) {
+		this.jobId = jobId;
 	}
 	
 	public String getDeptName() {
@@ -64,5 +68,11 @@ public class EmpsDTO {
 	public void setDeptId(int deptId) {
 		this.deptId = deptId;
 	}
+	
+	@Override
+	public String toString() {
+		return "EmpsDTO [empId=" + empId + ", empName=" + empName + ", email=" + email + ", jobName=" + jobName
+				+ ", jobId=" + jobId + ", deptName=" + deptName + ", deptId=" + deptId + "]";
+	}
+	
 }
-

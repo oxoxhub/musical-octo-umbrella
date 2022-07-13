@@ -2,9 +2,11 @@ package emps.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import emps.model.EmpsDAO;
 import emps.model.EmpsDTO;
+import emps.model.EmpsDetailDTO;
 
 public class EmpsService {
 
@@ -42,6 +44,31 @@ public class EmpsService {
 	
 	public List<Integer> getPageNumberList() {
 		return getPageNumberList(10);
+	}
+
+	public EmpsDetailDTO getEmpDetail(int empId) {
+		EmpsDAO dao = new EmpsDAO();
+		EmpsDetailDTO data = dao.selectEmpDetail(empId);
+		dao.close();
+		return data;
+	}
+
+	public boolean setEmp(EmpsDTO empsData, EmpsDetailDTO empsDetailData) {
+		EmpsDAO dao = new EmpsDAO();
+		
+		boolean res1 = dao.updateEmp(empsData);
+		boolean res2 = dao.updateEmpDetail(empsDetailData);
+		
+		if(res1 && res2) {
+			dao.commit();
+			dao.close();
+			return true;
+		} else {
+			dao.rollback();
+			dao.close();
+			return false;
+		}
+		
 	}
 
 }

@@ -1,4 +1,4 @@
-package main.controller;
+package login.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,27 +13,52 @@ import javax.servlet.http.HttpSession;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import login.service.LoginService;
 
-@WebServlet("")
-public class MainController extends HttpServlet {
+@WebServlet("/login")
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DeptService deptService = new DeptService();
 	private String view = "/WEB-INF/jsp/index.jsp";
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
 		RequestDispatcher rd = null;
 		if(session.getAttribute("loginData") == null) {
-			//로그인 실패시
 			List<DeptDTO> deptDatas = deptService.getAll();
 			request.setAttribute("deptDatas", deptDatas);
 			rd = request.getRequestDispatcher(view);
 		} else {
-			//로그인 성공시
 			rd = request.getRequestDispatcher("/WEB-INF/jsp/index2.jsp");
 		}
 		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String empId = request.getParameter("empId");
+		String deptId = request.getParameter("deptId");
+		String empName = request.getParameter("empName");
+		
+		HttpSession session = request.getSession();
+			
+		LoginService loginService = new LoginService();
+		boolean result = loginService.getLogin(session, empId, deptId, empName);
+		
+		if(result) {
+			//로그인 성공
+			System.out.println("로그인 성공");
+			response.sendRedirect(request.getContextPath() + "/");
+		} else {
+			//로그인 실패
+			System.out.println("로그인 실패");
+			List<DeptDTO> deptDatas = deptService.getAll();
+			request.setAttribute("deptDatas", deptDatas);
+			
+			RequestDispatcher rd = request.getRequestDispatcher(view);
+			rd.forward(request, response);
+		}
+				
 	}
 
 }

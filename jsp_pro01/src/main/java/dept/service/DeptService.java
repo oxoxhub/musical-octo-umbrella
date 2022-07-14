@@ -98,6 +98,7 @@ public class DeptService {
 		DeptDTO data = dao.searchDeptId(id);
 		return data;
 	}
+	
 
 //	public int addDpet(DeptDTO data) {
 //		dao = new DeptDAO();
@@ -143,15 +144,28 @@ public class DeptService {
 
 		return status;
 	}
-
-	private boolean _existManager(int id) {
-		boolean result = dao.existManager(id);
+	
+	public boolean existsManager(String id) {
+		dao = new DeptDAO();
+		boolean result = _existManager(Integer.parseInt(id));
+		dao.close();
 		return result;
+	}
+	
+	public boolean existsLocation(String id) {
+		dao = new DeptDAO();
+		boolean result = _existLocation(Integer.parseInt(id));
+		dao.close();
+		return result;
+	}
+	
+	private boolean _existManager(int id) {
+		return dao.existManager(id);
+		
 	}
 
 	private boolean _existLocation(int id) {
-		boolean result = dao.existLocation(id);
-		return result;
+		return dao.existLocation(id);
 	}
 
 	public DEPT_SERVICE_STATUS modifyDept(DeptDTO data) {
@@ -202,4 +216,5 @@ public class DeptService {
 		dao.close();
 		return status;
 	}
+
 }

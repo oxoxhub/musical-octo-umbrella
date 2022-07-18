@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dept.service.DeptService;
+import emps.service.EmpsService;
 
 @WebServlet("/ajax/existsCheck")
 public class AjaxExistsCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DeptService deptService = new DeptService();
+	private EmpsService empsService = new EmpsService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
@@ -32,6 +34,17 @@ public class AjaxExistsCheckController extends HttpServlet {
 				case "locId":
 					data = deptService.existsLocation(value);
 					errMessage = "	\"errMessage\": \"해당 지역 ID는 존재하지 않습니다.\"";
+					break;
+				case "jobId":
+					data = empsService.existJobId(value);
+					errMessage = "	\"errMessage\": \"해당 직급 ID는 존재하지 않습니다.\"";
+					break;
+				case "deptId":
+					data = true;
+					if(deptService.getDeptId(value) == null) {
+						data = false;
+						errMessage = "	\"errMessage\": \"해당 부서 ID는 존재하지 않습니다.\"";
+					}
 					break;
 			}
 			

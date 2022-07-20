@@ -6,6 +6,17 @@
   	<session-timeout>43200</session-timeout>
   	<!-- 세션 유지하는 기간(분 단위) -->
   </session-config>
+   
+  <!--
+  <servlet>
+  	<servlet-name>식별할수있는 이름 mainServlet</servlet-name>
+  	<servlet-class>main.controller.MainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>식별할수있는 이름 mainServlet</servlet-name>
+  	<url-pattern>/mc</url-pattern>
+  </servlet-mapping>
+    -->
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

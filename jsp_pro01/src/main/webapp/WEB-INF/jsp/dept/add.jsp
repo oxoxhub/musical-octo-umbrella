@@ -11,28 +11,36 @@
 	<%@ include file="../module/head.jsp" %>
 </head>
 <script type="text/javascript">
-
-function dupCheck1(value) {
+function dupCheck(name, value) {
 	$.ajax({
 		type: "get",
 		url: "/ajax/dupCheck",
 		data: {
-			deptId: value
+			name: name,
+			value: value
 		},
 		dataType: "json",
 		success: function(data, status) {
 			var form = document.forms[0];
 			if(data.errCode === "duplicate") {
-				var label = document.createElement("label");
-				label.setAttribute("class", "input-label-error")
-				label.innerText = data.errMessage;
-				
-				if(from.deptId.nextElementSibling === null) {
-					form.deptId.after(label);					
+				if(form[name].nextElementSibling === null) {
+					var label = document.createElement("label");
+					label.setAttribute("class", "input-label-error");
+					label.innerText = data.errMessage;
+					form[name].after(label);					
+				} else {
+					form[name].nextElementSibling.setAttribute("class", "input-label-error");
+					form[name].nextElementSibling.innerText = data.errMessage;
 				}
-			} else {
-				if(from.deptId.nextElementSibling !== null) {
-					from.deptId.nextElementSibling.remove();				
+			} else if(data.errCode == "notDuplicate") {
+				if(form[name].nextElementSibling === null) {
+					var label = document.createElement("label");
+					label.setAttribute("class", "input-label-ok");
+					label.innerText = data.errMessage;
+					form[name].after(label);			
+				} else {
+					form[name].nextElementSibling.setAttribute("class", "input-label-ok");
+					form[name].nextElementSibling.innerText = data.errMessage;
 				}
 			}
 		}
@@ -59,7 +67,6 @@ function existsCheck(name, value) {
 				} else {
 					form[name].nextElementSibling.setAttribute("class", "input-label-error");
 					form[name].nextElementSibling.innerText = data.errMessage;
-					//라벨은 이미 존재하므로 에러메세지만 바꿔주면 된다.
 				}
 			} else if(data.errCode == "exists") {
 				if(form[name].nextElementSibling === null) {	
@@ -75,17 +82,16 @@ function existsCheck(name, value) {
 		}
 	});
 }
-
 </script>
 <body>
 	<section class="container">
 		<form class="small-form" action="./add" method="post">
 			<div class="input-form wide">
 				<label class="input-label">부서ID</label>
-				<input class="input-text" type="text" name="deptId" onchange="dupCheck1(this.value);" value="${data.deptId}">
+				<input class="input-text" type="text" name="deptId" onchange="dupCheck(this.name, this.value);" value="${data.deptId}">
 			</div>
 			<div class="input-form wide">
-			<label class="input-label">부서명</label>
+				<label class="input-label">부서명</label>
 				<input class="input-text" type="text" name="deptName" value="${data.deptName}">
 			</div>
 			<div class="input-form wide">
@@ -93,7 +99,7 @@ function existsCheck(name, value) {
 				<input class="input-text" type="text" name="mngId" onchange="existsCheck(this.name, this.value);" value="${data.mngId}">
 			</div>
 			<div class="input-form wide">
-			<label class="input-label">지역코드</label>
+				<label class="input-label">지역코드</label>
 				<input class="input-text" type="text" name="locId" onchange="existsCheck(this.name, this.value);" value="${data.locId}">
 			</div>
 			<div class="input-form wide form-right">
@@ -104,5 +110,3 @@ function existsCheck(name, value) {
 	</section>
 </body>
 </html>
-
-

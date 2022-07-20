@@ -34,9 +34,9 @@ public class DeptController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("pgc") != null) {
-			System.out.println("1.session pgc : " + session.getAttribute("pgc"));
+			//System.out.println("1.session pgc : " + session.getAttribute("pgc"));
 			count = Integer.parseInt(session.getAttribute("pgc").toString());
-			System.out.println("1.count : " + count);
+			//System.out.println("1.count : " + count);
 		}
 		
 		if(session.getAttribute("sort") != null) {
@@ -44,7 +44,7 @@ public class DeptController extends HttpServlet {
 		}
 		
 		if(request.getParameter("pgc") != null) {
-			System.out.println("2.request pgc : " + request.getParameter("pgc"));
+			//System.out.println("2.request pgc : " + request.getParameter("pgc"));
 			count = Integer.parseInt(request.getParameter("pgc"));
 		}
 		
@@ -54,9 +54,10 @@ public class DeptController extends HttpServlet {
 		
 		session.setAttribute("pgc", count);
 		session.setAttribute("sort", sort);
+		request.setAttribute("pgc", count);
 		
-		System.out.println("3.session pgc : " + session.getAttribute("pgc"));
-		System.out.println("3.request pgc : " + request.getParameter("pgc"));
+		//System.out.println("3.session pgc : " + session.getAttribute("pgc"));
+		//System.out.println("3.request pgc : " + request.getParameter("pgc"));
 		
 
 		//session.setMaxInactiveInterval(30);
@@ -96,7 +97,6 @@ public class DeptController extends HttpServlet {
 		response.addCookie(cookie);
 		*/
 		
-		//request.setAttribute("pgc", count);
 		request.setAttribute("menuLocation", "depts"); //네비게이션
 		List<DeptDTO> datas = null;
 		if(search == null) {	// 검색한 값이 있는지 없는지

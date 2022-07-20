@@ -48,7 +48,7 @@ public class DeptModController extends HttpServlet {
 		String view = "/WEB-INF/jsp/dept/mod.jsp";
 		switch(status) {
 			case SUCCESS:
-				response.sendRedirect("/jsp01/depts?search=" + data.getDeptId());
+				response.sendRedirect("/depts?search=" + data.getDeptId());
 				return;
 			case MNG_ID_NOT_EXISTS:
 				request.setAttribute("errorMsg", "관리자 ID가 존재하지 않습니다.");

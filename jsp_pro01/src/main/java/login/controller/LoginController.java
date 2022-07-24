@@ -36,24 +36,26 @@ public class LoginController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String empId = request.getParameter("empId");
-		String deptId = request.getParameter("deptId");
-		String empName = request.getParameter("empName");
+		//index.jsp
+		String empId = request.getParameter("empId");		//직원ID
+		String deptId = request.getParameter("deptId");		//부서명
+		String empName = request.getParameter("empName");	//이름
 		
 		HttpSession session = request.getSession();
 			
 		LoginService loginService = new LoginService();
 		boolean result = loginService.getLogin(session, empId, deptId, empName);
+		//로그인 성공시 사용자의 정보와 권한을 조회하여 세션에 저장한다.
 		
 		if(result) {
 			//로그인 성공
 			System.out.println("로그인 성공");
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/"); //메인
 		} else {
 			//로그인 실패
 			System.out.println("로그인 실패");
 			List<DeptDTO> deptDatas = deptService.getAll();
-			request.setAttribute("deptDatas", deptDatas);
+			request.setAttribute("deptDatas", deptDatas);	//로그인창으로 다시 부서정보를 넘겨준다
 			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);

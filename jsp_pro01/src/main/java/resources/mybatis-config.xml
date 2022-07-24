@@ -13,6 +13,9 @@
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto" />
 		<typeAlias type="emps.model.EmpsDTO" alias="empsDto" />
 		<typeAlias type="emps.model.EmpsDetailDTO" alias="empsDetailDto" />
+		<typeAlias type="emps.model.EmpsAllDTO" alias="empsAllDto" />
+		<typeAlias type="job.model.JobDTO" alias="jobDto" />
+		<typeAlias type="login.model.PermDTO" alias="permDto" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -30,5 +33,6 @@
 		<mapper resource="resources/mapper/locations.xml"/>
 		<mapper resource="resources/mapper/employees.xml"/>
 		<mapper resource="resources/mapper/login.xml"/>
+		<mapper resource="resources/mapper/jobs.xml"/>
 	</mappers>
 </configuration>

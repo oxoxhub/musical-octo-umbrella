@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>직원 추가</title>
+	<title>직원 상세</title>
 	<%@ include file="../module/head.jsp" %>
 </head>
 <script type="text/javascript">
@@ -42,92 +42,97 @@ function ajaxImageUpload(e) {
 		}
 	});
 }
+
+function ajaxEmpDelete(id) {
+	if(confirm("해당 데이터를 삭제하겠습니까?")) {
+		$.ajax({
+			type: "post",
+			url: "/ajax/delete",
+			data: {
+				id: id
+			},
+			dataType: "json",
+			success: function(data) {
+				if(data.type === "success") {
+					alert(data.message);
+					location.href="/emps";
+				} else if(data.type === "fail") {
+					alert(data.message);
+				}
+			}
+		});
+	}
+}
 </script>
 <body>
 	<%@ include file="../module/navigation.jsp" %>
 	<section class="container">
-		<c:url var="empsAddUrl" value="/emps/add" />
-		<form class="large-form" action="${empsAddUrl}" method="post" enctype="multipart/form-data">
+		<div class="large-form">
 			<div class="image-form left">
 				<img id="previewImg" class="image-360" alt="여기에는 증명 사진이 배치됩니다." src="${imagePath}">
 				<br>
-				<input id="imgSelect" type="file" name="uploadImg" value="이미지 선택" accept="image/png">
-				<c:if test="${not empty imageError}">
-					<label class="input-label-error">${imageError}</label>
-				</c:if>
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
 					<label class="input-label w-100">ID</label>
-					<input class="input-text w-auto" type="text" name="empId" value="">
+					<input class="input-text w-auto" type="text" name="empId" value="${empsData.empId}" disabled>
 				</div>
 				<div class="input-form">
 					<label class="input-label w-100">이름</label>
-					<input class="input-text w-auto" type="text" name="empName" value="${param.empName}">
+					<input class="input-text w-auto" type="text" name="empName" value="${empsData.empName}" disabled>
 				</div>
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
 					<label class="input-label w-100">직급</label>
-					<select class="select-form w-auto" name="jobId">
-						<c:forEach items="${jobDatas}" var="item">
-							<c:choose>
-								<c:when test="${item.jobId eq param.jobId}">
-									<option value="${item.jobId}" selected>${item.jobName}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${item.jobId}">${item.jobName}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
+					<select class="select-form w-auto" name="jobId" disabled>
+						<option value="${empsData.jobId}">${empsData.jobName}</option>
 					</select>
 				</div>
 				<div class="input-form">
 					<label class="input-label w-100">부서</label>
-					<select class="select-form w-auto" name="deptId">
-						<c:forEach items="${deptDatas}" var="item">
-							<c:choose>
-								<c:when test="${item.deptId eq param.deptId}">
-									<option value="${item.deptId}" selected>${item.deptName}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${item.deptId}">${item.deptName}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
+					<select class="select-form w-auto" name="deptId" disabled>
+						<option value="${empsData.deptId}">${empsData.deptName}</option>
 					</select>
 				</div>
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
 					<label class="input-label w-100">이메일</label>
-					<input class="input-text w-auto" type="text" name="email" value="${param.email}">
+					<input class="input-text w-auto" type="text" name="email" value="${empsData.email}" disabled>
 				</div>
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
 					<label class="input-label w-100">입사일</label>
-					<input class="input-text w-auto" type="text" name="hireDate" value="${param.hireDate}" >
+					<input class="input-text w-auto" type="text" name="hireDate" value="${empsDetailData.hireDate}" disabled>
 				</div>
 				<div class="input-form">
 					<label class="input-label w-100">전화번호</label>
-					<input class="input-text w-auto" type="text" name="phone" value="${param.phone}">
+					<input class="input-text w-auto" type="text" name="phone" value="${empsDetailData.phone}" disabled>
 				</div>
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
 					<label class="input-label w-100">급여액</label>
-					<input class="input-text w-auto" type="text" name="salary" value="${param.salary}">
+					<input class="input-text w-auto" type="text" name="salary" value="${empsDetailData.salary}" disabled>
 				</div>
 				<div class="input-form">
 					<label class="input-label w-100">커미션</label>
-					<input class="input-text w-auto" type="text" name="commission" value="${param.commission}">
+					<input class="input-text w-auto" type="text" name="commission" value="${empsDetailData.commission}" disabled>
 				</div>
 			</div>
 			<div class="input-form form-right">
-				<button class="btn btn-outline btn-ok" type="submit">저장</button>
+				<c:url var="empModUrl" value="/emps/modify">
+					<c:param name="id" value="${empsData.empId}" />
+				</c:url>
+				<button class="btn btn-outline btn-ok" type="button" onclick="location.href='${empModUrl}'">수정</button>
+				<c:url var="empDelUrl" value="/emps/delete">
+					<c:param name="id" value="${empsData.empId}" />
+				</c:url>
+				<button class="btn btn-outline btn-cancel" type="button" onclick="ajaxEmpDelete(${empsData.empId});">삭제</button>
 			</div>
-		</form>
+		</div>
 	</section>
 </body>
 </html>

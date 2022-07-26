@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import login.model.PermDTO;
 
 @WebServlet("/depts")
 public class DeptController extends HttpServlet {
@@ -24,6 +25,21 @@ public class DeptController extends HttpServlet {
 	private DeptService service = new DeptService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		boolean isPerm = false;
+		List<PermDTO> perms = (List<PermDTO>)session.getAttribute("permData");
+		for(PermDTO perm: perms) {
+			if(perm.getTableName().equals("departments")) {
+				isPerm = perm.ispRead();
+			}
+		}
+		
+		if(!isPerm) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return;
+		}
+		
 		//System.out.println("depts조회테스트");
 		String search = request.getParameter("search");
 		//mvc.jsp에서 부서 조회 버튼을 누른순간 name="search"의 value는 null이 된다.
@@ -31,8 +47,6 @@ public class DeptController extends HttpServlet {
 		String sort = "deptId";
 		int count = 5;
 		
-		
-		HttpSession session = request.getSession();
 		if(session.getAttribute("pgc") != null) {
 			//System.out.println("1.session pgc : " + session.getAttribute("pgc"));
 			count = Integer.parseInt(session.getAttribute("pgc").toString());

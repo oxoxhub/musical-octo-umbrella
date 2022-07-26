@@ -38,6 +38,10 @@ public class MyInfoController extends HttpServlet {
 		
 		request.setAttribute("empsDetailData", empsDetailData);
 		
+		String imagePath = empsService.getProfileImagePath(request, "/static/img/emp/", empsData);
+		request.setAttribute("imagePath", imagePath);
+		
+		/*
 		File file = new File (
 		request.getServletContext().getRealPath(request.getContextPath() + "/static/img/emp/" + empsData.getEmpId() + ".png")
 		);
@@ -48,6 +52,7 @@ public class MyInfoController extends HttpServlet {
 		if(file.exists()) {
 			request.setAttribute("imagePath", request.getContextPath() + "/static/img/emp/" + empsData.getEmpId() + ".png");
 		}
+		*/
 		
 		rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);

@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dept.model.DeptDTO;
 import dept.service.DeptService;
-import emps.service.EmpsService;
 
 @WebServlet("/ajax/existsCheck")
 public class AjaxExistsCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private DeptService deptService = new DeptService();
-	private EmpsService empsService = new EmpsService();
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String value = request.getParameter("value");
@@ -29,36 +29,25 @@ public class AjaxExistsCheckController extends HttpServlet {
 			switch(name) {
 				case "mngId":
 					data = deptService.existsManager(value);
-					errMessage = "	\"errMessage\": \"해당 관리자 ID는 존재하지 않습니다.\"";
+					errMessage = "    \"errMessage\": \"해당 관리자 ID는 존재하지 않습니다.\"";
 					break;
 				case "locId":
 					data = deptService.existsLocation(value);
-					errMessage = "	\"errMessage\": \"해당 지역 ID는 존재하지 않습니다.\"";
-					break;
-				case "jobId":
-					data = empsService.existJobId(value);
-					errMessage = "	\"errMessage\": \"해당 직급 ID는 존재하지 않습니다.\"";
-					break;
-				case "deptId":
-					data = true;
-					if(deptService.getDeptId(value) == null) {
-						data = false;
-						errMessage = "	\"errMessage\": \"해당 부서 ID는 존재하지 않습니다.\"";
-					}
+					errMessage = "    \"errMessage\": \"해당 지역 ID는 존재하지 않습니다.\"";
 					break;
 			}
 			
 			PrintWriter out = response.getWriter();
 			if(!data) {
 				out.println("{");
-				out.println("	\"errCode\": \"notExists\",");
+				out.println("    \"errCode\": \"notExists\",");
 				out.println(errMessage);
 				out.println("}");
 				out.flush();
 			} else {
 				out.println("{");
-				out.println("	\"errCode\": \"exists\",");
-				out.println("	\"errMessage\": \"정상.\" ");
+				out.println("    \"errCode\": \"exists\",");
+				out.println("    \"errMessage\": \"정상.\"");
 				out.println("}");
 				out.flush();
 			}

@@ -1,13 +1,18 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.EmpBoardDTO;
 import board.service.EmpBoardService;
@@ -21,15 +26,17 @@ public class EmpBoardDetailController extends HttpServlet {
 	private EmpBoardService service = new EmpBoardService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
 		String view = "/WEB-INF/jsp/board/detail.jsp";
-		String id = request.getParameter("id");
+		String id = request.getParameter("id");		// 글번호
 		
 		EmpsService empsService = new EmpsService();
 		
 		EmpBoardDTO data = service.getData(Integer.parseInt(id));
 		
 		if(data != null) {
-			service.incViewCnt(data);
+			service.incViewCnt(session, data);
 			EmpsDTO empData = empsService.getId("" + data.getEmpId());
 			
 			request.setAttribute("data", data);

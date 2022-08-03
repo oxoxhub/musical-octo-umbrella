@@ -26,18 +26,19 @@ public class EmpBoardDetailController extends HttpServlet {
 	private EmpBoardService service = new EmpBoardService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		
 		String view = "/WEB-INF/jsp/board/detail.jsp";
 		String id = request.getParameter("id");		// 글번호
 		
 		EmpsService empsService = new EmpsService();
 		
 		EmpBoardDTO data = service.getData(Integer.parseInt(id));
-		
+		// 게시물 정보 조회
 		if(data != null) {
+			HttpSession session = request.getSession();
 			service.incViewCnt(session, data);
+			//incViewCnt 메서드에서 data에 조회수가 +1 되면 반영되어 request를 통해 view로 넘어간다.
 			EmpsDTO empData = empsService.getId("" + data.getEmpId());
+			//작성자의 아이디가 아닌 이름이 필요하므로
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);

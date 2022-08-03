@@ -1,5 +1,6 @@
 package board.model;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -58,9 +59,33 @@ public class EmpBoardDAO {
 		return res == 1 ? true : false;
 	}
 	
-	public boolean updateStatics(EmpBoardStaticsDTO staticsData) {
+	public boolean updateStatics(EmpBoardStaticsDTO data) {
 		String mapperId = String.format(mapper, "updateStatics");
-		int res = session.update(mapperId, staticsData);
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
+	
+	public boolean updateStaticsLike(EmpBoardStaticsDTO data) {
+		String mapperId = String.format(mapper, "updateStaticsLike");
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
+	
+	public List<EmpBoardDTO> selectAll() {
+		String mapperId = String.format(mapper, "selectAll");
+		List<EmpBoardDTO> res = session.selectList(mapperId);
+		return res;
+	}
+	
+	public boolean deleteStaticsData(EmpBoardStaticsDTO data) {
+		String mapperId = String.format(mapper, "deleteStaticsData");
+		int res = session.delete(mapperId, data);
+		return res >= 0 ? true : false;
+	}
+	
+	public boolean deleteData(EmpBoardDTO data) {
+		String mapperId = String.format(mapper, "deleteData");
+		int res = session.delete(mapperId, data);
 		return res == 1 ? true : false;
 	}
 	
@@ -75,4 +100,5 @@ public class EmpBoardDAO {
 	public void close() {
 		this.session.close();
 	}
+
 }

@@ -13,18 +13,20 @@ public class Paging {
 	private List<Integer> pageNumberList;	//페이지 리스트
 	private List<Object> pageData;	//현재 페이지의 데이터
 	
-	public Paging(List<Object> datas, int currentPageNumber, int limit, int totalRow) {
-		this.offset = limit * (currentPageNumber - 1) + 1 ;
+	public Paging(List<Object> datas, int currentPageNumber, int limit) {
+		this.offset = limit * (currentPageNumber - 1);
 		this.currentPageNumber = currentPageNumber;
 		this.limit = limit;
 		this.nextPageNumber = currentPageNumber + 1;
 		this.prevPageNumber = currentPageNumber - 1;
 		int pageNum = 1;
 		this.pageNumberList = new ArrayList<Integer>();
-		for(int i = 0; i < totalRow; i += limit) {
+		for(int i = 0; i < datas.size(); i += limit) {
 			this.pageNumberList.add(pageNum++);
 		}
-		this.pageData = datas.subList(this.offset, this.offset + this.limit - 1);
+		int max = this.offset + this.limit;
+		max = max < datas.size() ? max : datas.size();
+ 		this.pageData = datas.subList(this.offset, max);
 	}
 	
 	public int getOffset() {
@@ -52,6 +54,8 @@ public class Paging {
 	}
 	
 	public List<Integer> getPageNumberList(int start, int end) {
+		start = start > 0 ? start : 1;
+		end = end < this.pageNumberList.size() ? end : this.pageNumberList.size();
 		return pageNumberList.subList(start - 1, end);
 	}
 	

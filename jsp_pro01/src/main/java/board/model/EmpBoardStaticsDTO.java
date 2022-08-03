@@ -3,12 +3,21 @@ package board.model;
 import java.sql.Date;
 
 public class EmpBoardStaticsDTO {
-	private int id;
-	private int empId;
-	private int bId;
+	private int id;		// PK 번호
+	private int empId;	// 사용자 아이디
+	private int bId;	// 글번호
 	private boolean viewed;
-	private Date latesViewDate;
+	private Date latestViewDate;
+	private boolean liked;
 	
+	public boolean isLiked() {
+		return liked;
+	}
+
+	public void setLiked(boolean liked) {
+		this.liked = liked;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -25,14 +34,14 @@ public class EmpBoardStaticsDTO {
 		this.empId = empId;
 	}
 	
-	public int getBId() {
+	public int getbId() {
 		return bId;
 	}
-	
-	public void setBId(int bId) {
+
+	public void setbId(int bId) {
 		this.bId = bId;
 	}
-	
+
 	public boolean isViewed() {
 		return viewed;
 	}
@@ -41,19 +50,18 @@ public class EmpBoardStaticsDTO {
 		this.viewed = viewed;
 	}
 	
-	public Date getLatesViewDate() {
-		return latesViewDate;
+	public Date getLatestViewDate() {
+		return latestViewDate;
 	}
 	
-	public void setLatesViewDate(Date latesViewDate) {
-		this.latesViewDate = latesViewDate;
+	public void setLatestViewDate(Date latestViewDate) {
+		this.latestViewDate = latestViewDate;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "EmpBoardStaticsDTO [id=" + id + ", empId=" + empId + ", bId=" + bId + ", viewed=" + viewed
-				+ ", latesViewDate=" + latesViewDate + "]";
+				+ ", latestViewDate=" + latestViewDate + ", liked=" + liked + "]";
 	}
-	
-	
+
 }

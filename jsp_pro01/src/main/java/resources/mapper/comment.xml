@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="commentMapper">
+	<insert id="insertData" parameterType="commentDto">
+		INSERT INTO COMMENTS(ID, BID, EMPID, CONTENT, HIDDEN, DELETED)
+			VALUES(COMMENTS_SEQ.NEXTVAL
+				  , #{bId}, #{empId}, #{content}
+				  , 'N', 'N')
+	</insert>
+	
+	<select id="selectDatas" resultType="commentDto">
+		SELECT C.ID	AS id
+			 , C.BID	AS bId
+			 , C.EMPID	AS empId
+			 , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME)	AS empName
+			 , C.CONTENT	AS content
+			 , C.CREATEDATE	AS createDate
+			 , C.DELETED	AS deleted
+			 , C.HIDDEN	AS hidden
+			 , C.LIKECNT	AS likeCnt
+		  FROM COMMENTS C
+		  JOIN EMPLOYEES E
+		    ON C.EMPID = E.EMPLOYEE_ID
+		 WHERE C.BID = #{id}
+	</select>
+	
+	<select id="selectData" resultType="commentDto">
+		SELECT C.ID	AS id
+			 , C.BID	AS bId
+			 , C.EMPID	AS empId
+			 , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME)	AS empName
+			 , C.CONTENT	AS content
+			 , C.CREATEDATE	AS createDate
+			 , C.DELETED	AS deleted
+			 , C.HIDDEN	AS hidden
+			 , C.LIKECNT	AS likeCnt
+		  FROM COMMENTS C
+		  JOIN EMPLOYEES E
+		    ON C.EMPID = E.EMPLOYEE_ID
+		 WHERE C.ID = #{id}
+	</select>
+	
+	<delete id="deleteData">
+		DELETE FROM COMMENTS
+		 WHERE ID = #{id}
+	</delete>
+</mapper>
+
+
+

@@ -18,20 +18,18 @@ public class EmpBoardDAO {
 	public int getNextSeq() {
 		String mapperId = String.format(mapper, "getNextSeq");
 		int seq = session.selectOne(mapperId);
-		System.out.println(seq);
 		return seq;
 	}
 	
 	public boolean insertData(EmpBoardDTO data) {
 		String mapperId = String.format(mapper, "insertData");
 		int res = session.insert(mapperId, data);
-		return res == 1 ? true : false; 
+		return res == 1 ? true : false;
 	}
 	
 	public EmpBoardDTO selectData(int id) {
 		String mapperId = String.format(mapper, "selectData");
 		EmpBoardDTO res = session.selectOne(mapperId, id);
-		System.out.println(res);
 		return res;
 	}
 	
@@ -89,6 +87,12 @@ public class EmpBoardDAO {
 		return res == 1 ? true : false;
 	}
 	
+	public boolean updateData(EmpBoardDTO data) {
+		String mapperId = String.format(mapper, "updateData");
+		int res = session.update(mapperId, data);
+		return res == 1 ? true : false;
+	}
+	
 	public void commit() {
 		this.session.commit();
 	}
@@ -100,5 +104,4 @@ public class EmpBoardDAO {
 	public void close() {
 		this.session.close();
 	}
-
 }

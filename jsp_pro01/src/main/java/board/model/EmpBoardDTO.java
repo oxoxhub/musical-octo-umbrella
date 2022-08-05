@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class EmpBoardDTO {
 
-	private int id;
-	private String title;
-	private String content;
-	private int empId;
-	private String empName;
-	private Date createDate;
-	private int viewCnt;
-	private int like;
+	private int id;				//게시글 번호
+	private String title;		//게시글 제목
+	private String content;		//게시글 내용
+	private int empId;			//게시글 작성자 id
+	private String empName;		//게시글 작성자 name
+	private Date createDate;	//게시글 작성일
+	private int viewCnt;		//게시글 조회수
+	private int like;			//게시글 추천수
 	
 	public int getId() {
 		return id;

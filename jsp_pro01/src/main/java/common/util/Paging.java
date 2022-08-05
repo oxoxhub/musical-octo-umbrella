@@ -57,6 +57,7 @@ public class Paging {
 		start = start > 0 ? start : 1;
 		end = end < this.pageNumberList.size() ? end : this.pageNumberList.size();
 		return pageNumberList.subList(start - 1, end);
+		//start - 1을 하는 이유는 list의 인덱스는 0부터 시작하기때문이다.
 	}
 	
 	public List<Object> getPageData() {

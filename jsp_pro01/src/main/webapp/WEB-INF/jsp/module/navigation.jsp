@@ -33,7 +33,7 @@
 				<%-- <c:if test="${perm.tableName eq 'employees'}">
 					<c:if test="${perm.pRead}">  --%>
 						<li class="nav-item <%=menuLocation.equals("board") ? "active" : "" %>">
-							<a class="nav-link" href="./board">직원</a>
+							<a class="nav-link" href="./board">게시판</a>
 						</li>
 				<%-- </c:if>
 				</c:if>  --%>

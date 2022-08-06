@@ -12,9 +12,8 @@ import comment.model.CommentDTO;
 import comment.service.CommentService;
 import emps.model.EmpsDTO;
 
-
-@WebServlet("/comment/delete")
-public class CommentDeleteController extends HttpServlet {
+@WebServlet("/comment/modify")
+public class CommentModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private CommentService service = new CommentService();
@@ -23,22 +22,23 @@ public class CommentDeleteController extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		HttpSession session = request.getSession();
 		
-		String id = request.getParameter("id");
+		String id = request.getParameter("id");		// 댓글 고유넘버
+		String content = request.getParameter("content");	//textarea에 담긴 수정할 내용
 		
-		CommentDTO commentData = service.getData(Integer.parseInt(id));
+		CommentDTO commentData = service.getData(Integer.parseInt(id));	// 댓글 데이터
 		EmpsDTO empData = (EmpsDTO)session.getAttribute("loginData");
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		if(commentData.getEmpId() == empData.getEmpId()) {
-			boolean result = service.remove(commentData);
+			//댓글 작성자 아이디와 로그인 사용자 아이디가 같을 때 수정가능
+			commentData.setContent(content);
+			boolean result = service.modify(commentData);
 			if(result) {
-				sb.append(String.format("\"%s\": \"%s\"", "code", "success"));
-			} else {
-				sb.append(String.format("\"%s\": \"%s\"", "code", "error"));
+				sb.append(String.format("\"%s\": \"%s\", ", "code", "success"));
+				sb.append(String.format("\"%s\": \"%s\"  ", "value", commentData.getContent()
+						.replace("\r", "\\r").replace("\n", "\\n") ));
 			}
-		} else {
-			sb.append(String.format("\"%s\": \"%s\"", "code", "error"));
 		}
 		sb.append("}");
 		

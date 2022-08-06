@@ -108,7 +108,7 @@
 							<c:if test="${sessionScope.loginData.empId eq comment.empId}">
 								<c:if test="${not comment.isDeleted()}">
 									<div class="text-end">
-										<button class="btn btn-sm btn-outline-dark" type="button" onclick="changeEdit(this);">수정</button>
+										<button id="bt" class="btn btn-sm btn-outline-dark" type="button" onclick="changeEdit(this);">수정</button>
 										<button class="btn btn-sm btn-outline-dark" type="button" onclick="commentDelete(this, ${comment.id})">삭제</button>
 									</div>
 								</c:if>
@@ -162,22 +162,6 @@
 			element.setAttribute("onclick", "commentUpdate(this);");
 		}
 		
-		function changeText(element) {
-			element.innerText = "수정";
-			var cid = element.parentElement.parentElement.children[0].value;
-			var value = element.parentElement.previousElementSibling.children[0].value;
-			element.parentElement.previousElementSibling.children[0].remove();
-			element.parentElement.previousElementSibling.innerText = value;
-			
-			var btnDelete = document.createElement("button");
-			btnDelete.innerText = "삭제";
-			btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark");
-			btnDelete.setAttribute("onclick", "commentDelete(this, " + cid + ");");
-			
-			element.parentElement.append(btnDelete);
-			element.setAttribute("onclick", "changeEdit(this);");
-		}
-		
 		function commentUpdate(element) {
 			var cid = element.parentElement.parentElement.children[0].value;
 			var value = element.parentElement.previousElementSibling.children[0].value;
@@ -194,6 +178,22 @@
 					changeText(element);
 				}
 			});
+		}
+		
+		function changeText(element) {
+			element.innerText = "수정";
+			var cid = element.parentElement.parentElement.children[0].value;
+			var value = element.parentElement.previousElementSibling.children[0].value;
+			element.parentElement.previousElementSibling.children[0].remove();
+			element.parentElement.previousElementSibling.innerText = value;
+			
+			var btnDelete = document.createElement("button");
+			btnDelete.innerText = "삭제";
+			btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark");
+			btnDelete.setAttribute("onclick", "commentDelete(this, " + cid + ");");
+			
+			element.parentElement.append(btnDelete);
+			element.setAttribute("onclick", "changeEdit(this);");
 		}
 		
 		function commentDelete(element, id) {

@@ -15,22 +15,35 @@ public class CommentDAO {
 		int res = session.insert(mapId, data);
 		return res == 1 ? true : false;
 	}
-	
-	public List<CommentDTO> selectDatas(int id) {
-		String mapId = String.format("commentMapper.%s", "selectDatas");
-		List<CommentDTO> result = session.selectList(mapId, id);
-		return result;
-	}
-	
+
 	public CommentDTO selectData(int id) {
 		String mapId = String.format("commentMapper.%s", "selectData");
-		CommentDTO result = session.selectOne(mapId, id);
-		return result;
+		CommentDTO res = session.selectOne(mapId, id);
+		return res;
+	}
+
+	public List<CommentDTO> selectDatas(int id) {
+		String mapId = String.format("commentMapper.%s", "selectDatas");
+		List<CommentDTO> res = session.selectList(mapId, id);
+		return res;
 	}
 	
 	public boolean deleteData(CommentDTO data) {
 		String mapId = String.format("commentMapper.%s", "deleteData");
+		int res = session.update(mapId, data);
+		return res == 1 ? true : false;
+	}
+	/*
+	public boolean deleteData(CommentDTO data) {
+		String mapId = String.format("commentMapper.%s", "deleteData");
 		int res = session.delete(mapId, data);
+		return res == 1 ? true : false;
+	}
+	*/
+	
+	public boolean updateData(CommentDTO data) {
+		String mapId = String.format("commentMapper.%s", "updateData");
+		int res = session.update(mapId, data);
 		return res == 1 ? true : false;
 	}
 	

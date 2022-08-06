@@ -3,15 +3,17 @@ package comment.model;
 import java.sql.Date;
 
 public class CommentDTO {
-	private int id;
-	private int bId;
-	private int empId;
-	private String empName;
-	private String content;
-	private Date createDate;
-	private boolean deleted;
-	private boolean hidden;
-	private int likeCnt;
+	// 모든 게시물의 댓글을 모아놓은 COMMENTS 테이블
+	
+	private int id;				//고유번호
+	private int bId;			//게시물 번호
+	private int empId;			//댓글을 작성한 사용자의 ID
+	private String empName;		//댓글 작성자의 이름
+	private String content;		//댓글 내용
+	private Date createDate;	//댓글 작성일
+	private boolean deleted;	//댓글 삭제 여부
+	private boolean hidden;		//댓글 비/공개 여부
+	private int likeCnt;		//이 댓글의 추천수
 	
 	public int getId() {
 		return id;

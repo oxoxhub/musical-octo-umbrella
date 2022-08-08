@@ -12,12 +12,15 @@ import board.model.EmpBoardDTO;
 import board.service.EmpBoardService;
 import emps.model.EmpsDTO;
 
+/**
+ * Servlet implementation class EmpBoardDeleteController
+ */
 @WebServlet("/board/delete")
 public class EmpBoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private EmpBoardService service = new EmpBoardService();
-       
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		
@@ -33,12 +36,12 @@ public class EmpBoardDeleteController extends HttpServlet {
 		if(data != null) {
 			if(data.getEmpId() == empData.getEmpId()) {
 				service.remove(data);
-				sb.append(String.format(" \"s\": \"%s\"", "code", "success"));
+				sb.append(String.format("\"%s\": \"%s\"", "code", "success"));
 			} else {
-				sb.append(String.format(" \"s\": \"%s\"", "code", "permissionError"));
+				sb.append(String.format("\"%s\": \"%s\"", "code", "permissionError"));
 			}
 		} else {
-			sb.append(String.format(" \"s\": \"%s\"", "code", "notExists"));
+			sb.append(String.format("\"%s\": \"%s\"", "code", "notExists"));
 		}
 		sb.append("}");
 		

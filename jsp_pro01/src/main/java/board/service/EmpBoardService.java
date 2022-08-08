@@ -46,24 +46,24 @@ public class EmpBoardService {
 		EmpBoardDAO dao = new EmpBoardDAO();
 		
 		EmpBoardStaticsDTO staticsData = new EmpBoardStaticsDTO();
-		staticsData.setbId(data.getId());
-		staticsData.setEmpId(((EmpsDTO)session.getAttribute("loginData")).getEmpId());
+		staticsData.setbId(data.getId());	// 게시글 번호
+		staticsData.setEmpId(((EmpsDTO)session.getAttribute("loginData")).getEmpId());	// 로그인한 사람의 아이디
 		
 		staticsData = dao.selectStatics(staticsData);
-		//사용자 아이디 + 글번호로 조회수 통계가 담긴 테이블 검색
+		//사용자 아이디 + 글번호로 EMP_BOARDS_STATICS 테이블에 정보가 있는지 조회
 		
 		boolean result = false;
 		if(staticsData == null) {
-			//조회한 기록이 없다면
+			//게시글을 조회한 기록이 없다면
 			
 			result = dao.updateViewCnt(data);
-			//특정 글번호 조회수 +1 추가한다
+			//EMP_BOARDS 테이블에 게시글의 조회수 +1 추가한다
 			
 			staticsData = new EmpBoardStaticsDTO();
 			staticsData.setbId(data.getId());
 			staticsData.setEmpId(((EmpsDTO)session.getAttribute("loginData")).getEmpId());
 			dao.insertStatics(staticsData);
-			//조회한 기록도 추가한다.
+			//EMP_BOARDS_STATICS 테이블에 조회한 기록도 추가한다.
 			
 		} else {
 			//조회한 기록이 있다면 7일이 지났는지 확인한다
@@ -140,4 +140,19 @@ public class EmpBoardService {
 		dao.close();
 		return result;
 	}
+
+	public boolean modify(EmpBoardDTO data) {
+		EmpBoardDAO dao = new EmpBoardDAO();
+		boolean result = dao.updateData(data);
+		
+		if(result) {
+			dao.commit();
+		} else {
+			dao.rollback();
+		}
+		dao.close();
+		
+		return result;
+	}
+
 }

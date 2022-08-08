@@ -14,8 +14,7 @@
 	<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<header class="mb-3">
-	</header>
+	<header class="mb-3"></header>
 	<section class="container">
 		<div class="mb-1">
 			<c:url var="boardUrl" value="/board" />
@@ -80,20 +79,20 @@
 		</table>
 		<nav>
 			<div>
-				<ul class="pagination justfiy-content-center">
+				<ul class="pagination justify-content-center">
 					<c:if test="${datas.hasPrevPage()}">
 						<li class="page-item">
 							<a class="page-link" href="${boardUrl}?page=${datas.prevPageNumber}">Prev</a>
 						</li>
 					</c:if>
-					<c:forEach items="${datas.getPageNumberList(datas.currentPageNumber -2 , datas.currentPageNumber + 2)}" var="num">
+					<c:forEach items="${datas.getPageNumberList(datas.currentPageNumber - 2, datas.currentPageNumber + 2)}" var="num">
 						<li class="page-item ${datas.currentPageNumber eq num ? 'active' : ''}">
 							<a class="page-link" href="${boardUrl}?page=${num}">${num}</a>
 						</li>
 					</c:forEach>
 					<c:if test="${datas.hasNextPage()}">
 						<li class="page-item">
-							<a class="page-link" href="${boardUrl}?page=${datas.nextPageNumber()}">Next</a>
+							<a class="page-link" href="${boardUrl}?page=${datas.nextPageNumber}">Next</a>
 						</li>
 					</c:if>
 				</ul>

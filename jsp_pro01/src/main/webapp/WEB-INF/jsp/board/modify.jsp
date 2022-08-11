@@ -8,8 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시글 수정</title>
-	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
-	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
+	<%@ include file="../module/head.jsp" %>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {

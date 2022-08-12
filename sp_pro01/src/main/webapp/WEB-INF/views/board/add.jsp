@@ -9,6 +9,8 @@
 	<meta charset="UTF-8">
 	<title>게시글 등록</title>
 	<%@ include file="../module/head.jsp" %>
+	<c:url var="ckeditor" value="/static/ckeditor" />
+	<script type="text/javascript" src="${ckeditor}/ckeditor.js"></script>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -34,6 +36,9 @@
 				<div class="mb-3">
 					<textarea class="form-control" name="content" rows="8" 
 					placeholder="내용을 입력하세요."></textarea>
+				</div>
+				<div class="mb-3">
+					<input class="form-control" type="file" name="fileUpload">
 				</div>
 				<div class="mb-3 text-end" >
 					<button class="btn btn-primary" type="button" onclick="formCheck(this.form);">저장</button>
@@ -61,5 +66,11 @@
 		</div>
 	</section>
 	<footer></footer>
+	<c:url var="upload" value="/upload/image" />
+	<script type="text/javascript">
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl: "${upload}?type=image"
+		})
+	</script>
 </body>
 </html>

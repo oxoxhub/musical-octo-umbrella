@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="commentMapper">
+	<insert id="insertData" parameterType="commentDto">
+		INSERT INTO COMMENTS(ID, BID, EMPID, CONTENT, HIDDEN, DELETED)
+			VALUES(COMMENTS_SEQ.NEXTVAL
+				  , #{bId}, #{empId}, #{content}
+				  , 'N', 'N')
+	</insert>
+	
+	<select id="selectDatas" resultType="commentDto">
+		SELECT C.ID	AS id
+			 , C.BID	AS bId
+			 , C.EMPID	AS empId
+			 , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME)	AS empName
+			 , C.CONTENT	AS content
+			 , C.CREATEDATE	AS createDate
+			 , C.DELETED	AS deleted
+			 , C.HIDDEN	AS hidden
+			 , C.LIKECNT	AS likeCnt
+		  FROM COMMENTS C
+		  JOIN EMPLOYEES E
+		    ON C.EMPID = E.EMPLOYEE_ID
+		 WHERE C.BID = #{bId}
+		 ORDER BY C.ID
+	</select>
+	
+	<select id="selectData" resultType="commentDto">
+		SELECT C.ID	AS id
+			 , C.BID	AS bId
+			 , C.EMPID	AS empId
+			 , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME)	AS empName
+			 , C.CONTENT	AS content
+			 , C.CREATEDATE	AS createDate
+			 , C.DELETED	AS deleted
+			 , C.HIDDEN	AS hidden
+			 , C.LIKECNT	AS likeCnt
+		  FROM COMMENTS C
+		  JOIN EMPLOYEES E
+		    ON C.EMPID = E.EMPLOYEE_ID
+		 WHERE C.ID = #{id}
+	</select>
+	
+	<update id="deleteData" parameterType="commentDto">
+		UPDATE COMMENTS
+		   SET DELETED = 'Y'
+		 WHERE ID = #{id}
+	</update>
+	<!-- 삭제하지 않고 Y로 업데이트 하는 경우 댓글에서 보이지않게하려면
+	 데이터 조회(selectDatas)를 할 때 조회 조건으로 where c.deleted = n 으로 설정해야한다. -->
+	
+	<!--
+	<delete id="deleteData">
+		DELETE FROM COMMENTS
+		 WHERE ID = #{id}
+	</delete>
+	 -->
+	 
+	<update id="updateData" parameterType="commentDto">
+		UPDATE COMMENTS
+		   SET CONTENT = #{content}
+		 WHERE ID = #{id}
+	</update>
+</mapper>
+
+
+

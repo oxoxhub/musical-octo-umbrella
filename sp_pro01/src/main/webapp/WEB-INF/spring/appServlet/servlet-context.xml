@@ -4,16 +4,21 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 7,10 xmlns:tx="http://www.springframework.org/schema/tx 는 트랜잭션 관리 -->
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
+	<!-- static 파일들에대한 경로들을 구성하는 내용
+	mapping은 url 주소, location은 실제 위치 -->
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/static/**" location="/resources/" />
 
@@ -39,16 +44,42 @@
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 		<beans:property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></beans:property>
 		<beans:property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml"></beans:property>
+		<!-- classpath 는 resources를 가르킨다. -->
 	</beans:bean>
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
 	
+	<!-- 트랜잭션 -->
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 	</beans:bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
+	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="15728640"></beans:property>
+		<beans:property name="maxUploadSizePerFile" value="5242880"></beans:property>
+		<beans:property name="maxInMemorySize" value="15728640"></beans:property>
 	</beans:bean>
+	
+	<!-- 인터셉트 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean class="com.myhome.web.interceptor.LoggingInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/myinfo" />
+			<mapping path="/board" />
+			<mapping path="/board/*" />
+			<beans:bean class="com.myhome.web.interceptor.LoginInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean class="com.myhome.web.interceptor.AdminInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
+	
+	<aop:aspectj-autoproxy />
 </beans:beans>

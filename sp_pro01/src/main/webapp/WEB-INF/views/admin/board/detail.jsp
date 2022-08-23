@@ -32,16 +32,6 @@
 					<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
 				</div>
 			</div>
-			<div class="row mb-1">
-				<ul class="col-4 ms-auto list-group">
-				<c:forEach items="${fileDatas}" var="file">
-					<c:url var="downUrl" value="${file.url}/${file.uuidName}" />
-					<li class="list-group-item text-truncate">
-						<a class="text-info text-decoration-none" href="${downUrl}" download="${file.fileName}">${file.fileName}</a><br>
-					</li>
-				</c:forEach>
-				</ul>
-			</div>
 			<div class="mb-1 text-end">
 				<c:url var="boardUrl" value="/board" />
 				<button class="btn btn-primary" type="button" onclick="location.href='${boardUrl}'">목록</button>
@@ -101,7 +91,7 @@
 							<c:if test="${sessionScope.loginData.empId eq comment.empId}">
 								<c:if test="${not comment.isDeleted()}">
 									<div class="text-end">
-										<button class="btn btn-sm btn-outline-dark" type="button" onclick="changeEdit(this);">수정</button>
+										<button id="bt" class="btn btn-sm btn-outline-dark" type="button" onclick="changeEdit(this);">수정</button>
 										<button class="btn btn-sm btn-outline-dark" type="button" onclick="commentDelete(this, ${comment.id})">삭제</button>
 									</div>
 								</c:if>
@@ -155,6 +145,24 @@
 			element.setAttribute("onclick", "commentUpdate(this);");
 		}
 		
+		function commentUpdate(element) {
+			var cid = element.parentElement.parentElement.children[0].value;
+			var value = element.parentElement.previousElementSibling.children[0].value;
+			
+			$.ajax({
+				url: "${boardUrl}/comment/modify",
+				type: "post",
+				data: {
+					id: cid,
+					content: value
+				},
+				success: function(data) {
+					element.parentElement.previousElementSibling.children[0].value = data.value
+					changeText(element);
+				}
+			});
+		}
+		
 		function changeText(element) {
 			element.innerText = "수정";
 			var cid = element.parentElement.parentElement.children[0].value;
@@ -171,27 +179,9 @@
 			element.setAttribute("onclick", "changeEdit(this);");
 		}
 		
-		function commentUpdate(element) {
-			var cid = element.parentElement.parentElement.children[0].value;
-			var value = element.parentElement.previousElementSibling.children[0].value;
-			
-			$.ajax({
-				url: "/comment/modify",
-				type: "post",
-				data: {
-					id: cid,
-					content: value
-				},
-				success: function(data) {
-					element.parentElement.previousElementSibling.children[0].value = data.value
-					changeText(element);
-				}
-			});
-		}
-		
 		function commentDelete(element, id) {
 			$.ajax({
-				url: "/comment/delete",
+				url: "${boardUrl}/comment/delete",
 				type: "post",
 				data: {
 					id: id
@@ -203,6 +193,7 @@
 				}
 			});
 		}
+		
 		function formCheck(form) {
 			if(form.content.value.trim() === "") {
 				alert("댓글 내용을 입력하세요.");
@@ -210,6 +201,7 @@
 				form.submit();
 			}
 		}
+		
 		function deleteBoard(boardId) {
 			$.ajax({
 				url: "${boardUrl}/delete",
@@ -230,10 +222,11 @@
 				}
 			});
 		}
+		
 		function ajaxLike(element, id) {
 			$.ajax({
-				type: "post",
 				url: "${boardUrl}/like",
+				type: "post",
 				data: {
 					id: id
 				},

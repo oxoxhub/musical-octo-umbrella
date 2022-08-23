@@ -17,19 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value="/upload")
 public class FileUploadController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
 	@PostMapping(value="/image", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String image(HttpServletRequest request
 			, @RequestParam("upload") MultipartFile[] files) throws Exception {
-		logger.info("image(files[]={}", files);
 		
 		String realPath = request.getServletContext().getRealPath("/resources");
-		//realpath : C:\Users\YULH\eclipse\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\sp_pro01\resources
-		//request.getServletContext() : org.apache.catalina.core.ApplicationContextFacade@29479338
-		
 		JSONObject json = new JSONObject();
 		
 		for(MultipartFile file: files) {
@@ -44,9 +38,7 @@ public class FileUploadController {
 			
 			file.transferTo(new File(realPath + "/img/board/" + file.getOriginalFilename()));
 		}
-		//request.getContextPath() : /web
 		
 		return json.toJSONString();
 	}
-	
 }

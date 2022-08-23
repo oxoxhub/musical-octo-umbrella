@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>게시글 등록</title>
@@ -23,57 +23,30 @@
 		}
 		form.submit();
 	}
-	
-	function uploadCheck(element) {
-		var files = element.files;
-		
-		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-			keyboard: false
-		});
-		var title = modal._element.querySelector(".modal-title");
-		var body = modal._element.querySelector(".modal-body");
-		
-		if(files.length > 3) {
-			title.innerText = "파일 업로드 오류";
-			body.innerText = "파일 업로드는 최대 3개로 제한되어 있습니다.";
-			modal.show();
-			element.value = "";
-			return;
-		}
-		
-		for(file of files) {
-			if(file.size / 1000 / 1000 > 5.0) {
-				title.innerText = "파일 업로드 오류";
-				body.innerText = "파일당 최대 5MB 까지만 업로드 할 수 있습니다. 5MB 초과 용량에 대해서는 관리자에게 문의하세요.";
-				modal.show();
-				element.value = "";
-				return;
-			}
-		}
-	}
 </script>
 <body>
 	<header></header>
 	<section class="container">
 		<div class="mt-3">
-			<c:url var="boardAddUrl" value="/board/add" />
-			<form action="${boardAddUrl}" method="post" enctype="multipart/form-data">
+		<c:url var="boardAddUrl" value="/board/add"/>
+			<form action="${boardAddUrl}" method="post">
 				<div class="mb-3">
 					<input class="form-control" type="text" name="title" placeholder="제목을 입력하세요.">
 				</div>
 				<div class="mb-3">
-					<textarea class="form-control" name="content" rows="8"
-						placeholder="내용을 입력하세요."></textarea>
+					<textarea class="form-control" name="content" rows="8" 
+					placeholder="내용을 입력하세요."></textarea>
 				</div>
 				<div class="mb-3">
-					<input class="form-control" type="file" onchange="uploadCheck(this);" name="fileUpload" multiple>
+					<input class="form-control" type="file" name="fileUpload">
 				</div>
-				<div class="mb-3 text-end">
+				<div class="mb-3 text-end" >
 					<button class="btn btn-primary" type="button" onclick="formCheck(this.form);">저장</button>
 				</div>
 			</form>
 		</div>
 		
+		<!-- Modal -->
 		<div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -86,10 +59,10 @@
 						반드시 제목을 입력하세요.
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">확인</button>
+						<button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Close</button>
 					</div>
 				</div>
-			</div>
+		  	</div>
 		</div>
 	</section>
 	<footer></footer>
@@ -99,10 +72,5 @@
 			filebrowserUploadUrl: "${upload}?type=image"
 		})
 	</script>
-	<c:if test="${not empty error}">
-		<script type="text/javascript">
-			alert("${error}");
-		</script>
-	</c:if>
 </body>
 </html>

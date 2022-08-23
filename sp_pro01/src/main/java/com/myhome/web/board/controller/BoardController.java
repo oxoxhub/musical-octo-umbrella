@@ -2,6 +2,8 @@ package com.myhome.web.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.web.board.model.BoardDTO;
 import com.myhome.web.board.service.BoardService;
@@ -27,15 +30,18 @@ import com.myhome.web.comment.service.CommentService;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
 import com.myhome.web.emp.service.EmpService;
+import com.myhome.web.upload.model.FileUploadDTO;
+import com.myhome.web.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/board")
 public class BoardController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-	
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 	
 	@Autowired
 	private CommentService commentService;
@@ -44,7 +50,6 @@ public class BoardController {
 	public String getList(Model model, HttpSession session
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) {
-		logger.info("getList(page={}, pageCount={})", page, pageCount);
 		
 		List datas = service.getAll();
 		
@@ -71,10 +76,10 @@ public class BoardController {
 			, @RequestParam int id
 			, @SessionAttribute("loginData") EmpDTO empDto
 			, @RequestParam(defaultValue="1", required=false) int page) {
-		logger.info("getDetail(id={}, page={})", id, page);
 		
 		BoardDTO data = service.getData(id);
 		// 게시물 번호로 게시글 데이터 가져오기
+		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data != null) {
 			service.incViewCnt(empDto, data); //조회수
@@ -86,6 +91,7 @@ public class BoardController {
 			
 			model.addAttribute("data", data);
 			model.addAttribute("commentPage", commentPage);
+			model.addAttribute("fileDatas", fileDatas);
 			
 			return "board/detail";
 		} else {
@@ -96,14 +102,14 @@ public class BoardController {
 	
 	@GetMapping(value="/add")
 	public String add() {
-		logger.info("add()");
 		return "board/add";
 	}
 	
 	@PostMapping(value="/add")
-	public String add(@SessionAttribute("loginData") EmpDTO empDto
-			, @ModelAttribute BoardVO boardVo) {
-		logger.info("add(boardVo={})", boardVo);
+	public String add(HttpServletRequest request
+			, @SessionAttribute("loginData") EmpDTO empDto
+			, @ModelAttribute BoardVO boardVo
+			, @RequestParam("fileUpload") MultipartFile[] files) {
 		
 		BoardDTO data = new BoardDTO();
 		data.setTitle(boardVo.getTitle());
@@ -111,9 +117,31 @@ public class BoardController {
 		data.setEmpId(empDto.getEmpId());
 		
 		int id = service.add(data);
+		
+		if(!files[0].getOriginalFilename().isEmpty()) {
+			for(MultipartFile file: files) {
+				String location = request.getServletContext().getRealPath("/resources/board/upload");
+				String url = "/static/board/upload";
+				FileUploadDTO fileData = new FileUploadDTO(id, location, url);
+				
+				try {
+					int fileResult = fileUploadService.upload(file, fileData);
+					if(fileResult == -1) {
+						request.setAttribute("error", "파일 업로드 수량을 초과하였습니다.");
+						return "board/add";
+					}
+				} catch(Exception e) {
+					request.setAttribute("error", "파일 업로드 작업중 예상치 못한 에러가 발생하였습니다.");
+					return "board/add";
+				}
+				
+			}
+		}
+		
 		if(id != -1) {
-			return "redirect:/board/detail?id=" + id;
+			return "redirect:/board/detail?id=" + id;			
 		} else {
+			request.setAttribute("error", "게시글 저장 실패!");
 			return "board/add";
 		}
 	}
@@ -122,12 +150,14 @@ public class BoardController {
 	public String modify(Model model
 			, @RequestParam int id
 			, @SessionAttribute("loginData") EmpDTO empDto) {
-		logger.info("modify(empDto={}, id={})", empDto, id);
 		
 		BoardDTO data = service.getData(id);
+		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+		
 		if(data != null) {
 			if(data.getEmpId() == empDto.getEmpId()) {
 				model.addAttribute("data", data);
+				model.addAttribute("fileDatas", fileDatas);
 				return "board/modify";
 			} else {
 				model.addAttribute("error", "해당 작업을 수행할 권한이 없습니다.");
@@ -143,7 +173,6 @@ public class BoardController {
 	public String modify(Model model
 			, @ModelAttribute BoardVO boardVo
 			, @SessionAttribute("loginData") EmpDTO empDto) {
-		logger.info("modify(empDto={}, boardVo={})", empDto, boardVo);
 		
 		BoardDTO data = service.getData(boardVo.getId());
 		
@@ -173,7 +202,6 @@ public class BoardController {
 	@ResponseBody
 	public String delete(@SessionAttribute("loginData") EmpDTO empDto
 			, @RequestParam int id) {
-		logger.info("delete(empDto={}, id={})", empDto, id);
 		
 		BoardDTO data = service.getData(id);
 		
@@ -186,12 +214,12 @@ public class BoardController {
 		} else {
 			if(data.getEmpId() == empDto.getEmpId()) {
 				//작성자, 수정자 동일인
-				boolean result = service.remove(data);
-				if(result) {
+				try {
 					//삭제 완료
+					boolean result = service.remove(data);
 					json.put("code", "success");
 					json.put("message", "삭제가 완료되었습니다.");
-				} else {
+				} catch(Exception e) {
 					//삭제 실패
 					json.put("code", "fail");
 					json.put("message", "삭제 작업 중 문제가 발생하였습니다.");
@@ -210,7 +238,6 @@ public class BoardController {
 	@ResponseBody
 	public String like(@SessionAttribute("loginData") EmpDTO empDto
 			, @RequestParam int id) {
-		logger.info("like(empDto={}, id={})", empDto, id);
 		
 		BoardDTO data = service.getData(id);
 		
@@ -232,7 +259,6 @@ public class BoardController {
 	public String commentAdd(@SessionAttribute("loginData") EmpDTO empDto
 			, @RequestParam int bid
 			, @RequestParam String content) {
-		logger.info("commentAdd(empDto={}, bid={}, content={})", empDto, bid, content);
 		
 		CommentDTO data = new CommentDTO();
 		data.setbId(bid);
@@ -252,7 +278,6 @@ public class BoardController {
 	@ResponseBody
 	public String commentDelete(HttpSession session
 			, @RequestParam int id) {
-		logger.info("commentDelete(id={})",id);
 		
 		CommentDTO data = commentService.getData(id);	// 댓글 데이터
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
@@ -278,7 +303,6 @@ public class BoardController {
 	public String commentModify(@RequestParam int id
 			, @RequestParam String content
 			, @SessionAttribute("loginData") EmpDTO empDto) {
-		logger.info("commentModify(id={}, content={})", id, content);
 		//cid == comment.id 코멘트 고유번호
 		
 		JSONObject json = new JSONObject();
@@ -297,6 +321,22 @@ public class BoardController {
 		
 		return json.toJSONString();
 	}
+	
+//	@GetMapping(value="/bdetail.do")
+//	public String selectBoard(Model model
+//			, @RequestParam int bId) {
+//		
+//		Board data = service.getData(bId);
+//		
+//		if(data != null) {
+//			model.addAttribute("data", data);
+//			return "boardDetail";
+//		} else {
+//			model.addAttribute("error", "해당 데이터가 존재하지 않습니다.");
+//			return "redirect:error.do";
+//		}
+//	}
+	
 
 }
 

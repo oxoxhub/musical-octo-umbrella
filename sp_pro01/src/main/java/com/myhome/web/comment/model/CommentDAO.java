@@ -11,13 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommentDAO {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CommentDAO.class);
 	
 	@Autowired
 	private SqlSession session;
 	
 	public boolean insertData(CommentDTO data) {
-		logger.info("insertData(data={})", data);
 		String mapId = String.format("commentMapper.%s", "insertData");
 		int res = session.insert(mapId, data);
 		return res == 1 ? true : false;
@@ -30,7 +28,6 @@ public class CommentDAO {
 	}
 
 	public List<CommentDTO> selectDatas(int id) {
-		logger.info("selectDatas(id={})", id);
 		String mapId = String.format("commentMapper.%s", "selectDatas");
 		List<CommentDTO> res = session.selectList(mapId, id);
 		return res;

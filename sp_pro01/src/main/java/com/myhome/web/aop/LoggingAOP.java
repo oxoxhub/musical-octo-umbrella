@@ -46,8 +46,8 @@ public class LoggingAOP {
 	private void _logging(JoinPoint joinPoint, String adviceType) throws Exception {
 		Date date = new Date();
 		
-		String fullyClassName = joinPoint.getSignature().getDeclaringTypeName();
-		String methodName = joinPoint.getSignature().getName();
+		String fullyClassName = joinPoint.getSignature().getDeclaringTypeName();	//클래스 이름
+		String methodName = joinPoint.getSignature().getName();		//메서드 이름
 		
 		logger.info("[{}] - <<{}>>  - {}.{} ", dateFormat.format(date), adviceType.toUpperCase(), fullyClassName, methodName );
 

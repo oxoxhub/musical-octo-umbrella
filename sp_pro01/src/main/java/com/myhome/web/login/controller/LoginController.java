@@ -2,6 +2,7 @@ package com.myhome.web.login.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,7 +22,6 @@ import com.myhome.web.login.vo.LoginVO;
 @Controller
 public class LoginController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private LoginService service;
@@ -30,21 +30,30 @@ public class LoginController {
 	
 	@GetMapping(value="/login")
 	public String login(Model model) {
-		logger.info("login()");
 		List<DeptDTO> deptDatas = deptService.getAll();
 		model.addAttribute("deptDatas", deptDatas);
 		return "login/login";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(LoginVO loginVo, HttpSession session, Model model) {
-		logger.info("login({},{},{})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName());
+	public String login(LoginVO loginVo, String url
+			, HttpServletRequest request
+			, HttpSession session, Model model) {
 		
 		boolean result = service.getLogin(session, loginVo);
 		
 		if(result) {
 			//로그인 성공
-			return "redirect:/";
+			if(!url.isEmpty()) {
+				if(url.startsWith(request.getContextPath())) {
+					//맨 앞에 /web 이 자동으로 붙어있기때문에 삭제를 해준다.
+					url = url.replace(request.getContextPath(), "");
+				}
+				return "redirect:" + url;
+			} else {
+				//메인화면으로 보내기
+				return "redirect:/";
+			}
 		} else {
 			//로그인 실패
 			return login(model);

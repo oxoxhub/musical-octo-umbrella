@@ -14,25 +14,14 @@ import com.myhome.web.login.service.LoginService;
 
 @Repository
 public class LoginDAO {
-
-	private static final Logger logger = LoggerFactory.getLogger(LoginDAO.class);
 	
 	@Autowired
 	private SqlSession session;
 	
 	public EmpDTO selectLogin(EmpDTO data) {
 		//직원 정보 조회 후  가져오기
-		logger.info("selectLogin({})", data);
 		EmpDTO result = session.selectOne("loginMapper.selectLogin", data);
 		return result;
-	}
-
-	public void commit() {
-		session.commit();
-	}
-	
-	public void rollback() {
-		session.rollback();
 	}
 	
 	public List<PermDTO> selectPerm(int id) {

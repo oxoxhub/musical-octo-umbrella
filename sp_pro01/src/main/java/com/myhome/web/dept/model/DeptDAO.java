@@ -99,13 +99,5 @@ public class DeptDAO {
 		}
 		return false;
 	}
-	
-	public void commit() {
-		session.commit();
-	}
-	
-	public void rollback() {
-		session.rollback();
-	}
 
 }

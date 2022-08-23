@@ -19,25 +19,21 @@ import com.myhome.web.emp.model.EmpDTO;
 @Service
 public class BoardService {
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardService.class);
 	
 	@Autowired
 	private BoardDAO dao;
 	
 	public List<BoardDTO> getAll() {
-		logger.info("getAll()");
 		List<BoardDTO> datas = dao.selectAll();
 		return datas;
 	}
 	
 	public BoardDTO getData(int id) {
-		logger.info("getData(id={})", id);
 		BoardDTO data = dao.selectData(id);
 		return data;
 	}
 	
 	public int add(BoardDTO data) {
-		logger.info("add(data={})", data);
 		int seq = dao.getNextSeq();
 		data.setId(seq);
 		
@@ -50,13 +46,11 @@ public class BoardService {
 	}
 
 	public boolean modify(BoardDTO data) {
-		logger.info("modify(data={})", data);
 		boolean result = dao.updateData(data);
 		return result;
 	}
 
 	public boolean remove(BoardDTO data) {
-		logger.info("remove(data={})", data);
 		BoardStaticsDTO staticsData = new BoardStaticsDTO();
 		staticsData.setbId(data.getId());
 		
@@ -68,7 +62,6 @@ public class BoardService {
 
 	@Transactional
 	public void incViewCnt(EmpDTO empDto, BoardDTO data) {
-		logger.info("incViewCnt(empDto={}, data={})", empDto, data);
 		BoardStaticsDTO staticsData = new BoardStaticsDTO();
 		staticsData.setbId(data.getId());	// 게시글 번호
 		staticsData.setEmpId(empDto.getEmpId());	// 로그인한 사람의 아이디

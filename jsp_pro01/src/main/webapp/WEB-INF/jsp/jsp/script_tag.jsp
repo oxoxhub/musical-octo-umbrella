@@ -37,8 +37,29 @@
 	<br>
 	<input type="text" value="<%=name %>"><br>
 	<input type="text" value="<%=hello() %>">
+	<hr>
+	<form action="./script_tag" method="get">
+		<input type="checkbox" id="music" name="interest" value="music"> <label for="music">음악</label>
+		<input type="checkbox" id="book" name="interest" value="book"> <label for="book">도서</label>
+		<input type="checkbox" id="movie" name="interest" value="movie"> <label for="movie">영화</label>
+		<button type="submit">보내기</button>
+	</form>
+	<form action="./script_tag" method="get">
+		<input type="tel" id="phone" name="phone" >
+		<input type="text" id="address1" name="address">
+		<input type="text" id="address2" name="address">
+		<button type="submit">보내기</button>
+	</form>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
